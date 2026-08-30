@@ -1,0 +1,34 @@
+#include <windows.h> // include for version info constants
+
+#include "winver.h"
+
+A ICON MOVEABLE PURE LOADONCALL DISCARDABLE "../data/icons/manaplus.ico"
+tmw ICON MOVEABLE PURE LOADONCALL DISCARDABLE "../data/tmw/icons/tmw-client.ico"
+
+// https://learn.microsoft.com/en-us/windows/win32/menurc/versioninfo-resource
+1 VERSIONINFO
+FILEVERSION VER_MAJOR,VER_MINOR,VER_RELEASE,VER_BUILD
+PRODUCTVERSION VER_MAJOR,VER_MINOR,VER_RELEASE,VER_BUILD
+// TODO: how to add VS_FF_DEBUG to FILEFLAGS but only to build that hasn't been
+//       stripped?
+FILEFLAGS 0x0L
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_APP
+{
+    BLOCK "StringFileInfo" {
+        BLOCK "040904b0" {
+            VALUE "CompanyName", "The ManaVerse Development Team"
+            VALUE "FileVersion", PACKAGE_VERSION
+            VALUE "FileDescription", "ManaVerse"
+            VALUE "LegalCopyright", "(C) 2020-2025 The ManaVerse Development Team"
+            VALUE "OriginalFilename", "manaplus.exe"
+            VALUE "ProductName", "ManaVerse MMORPG Client"
+            VALUE "ProductVersion", PACKAGE_VERSION
+        }
+    }
+
+    BLOCK "VarFileInfo" {
+        // 1200 = unicode.
+        VALUE "Translation", 0x409, 0x4b0
+    }
+}

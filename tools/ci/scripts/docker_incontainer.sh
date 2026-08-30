@@ -1,0 +1,9 @@
+#!/bin/bash -x
+
+mkdir logs
+echo ${PACKAGES}
+./tools/ci/scripts/retry.sh apt-get update
+./tools/ci/scripts/retry.sh apt-get install --assume-yes -qq --no-install-recommends ${PACKAGES}
+./tools/ci/scripts/patchsdl1.sh || true
+echo ${COMMAND}
+${COMMAND}

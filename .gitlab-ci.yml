@@ -1,0 +1,701 @@
+stages:
+  - lint
+  - build
+  - deploy
+
+# with :; prevent from run it on windows
+before_script:
+  - ":; uname -a"
+  - ":; cat /etc/os-release"
+  - ":; pwd"
+  - ":; cat /proc/sys/kernel/core_pattern"
+  - ":; mkdir logs || true"
+  - ":; ${UPDATEREPOS}"
+  - ":; ${DOCKERRETRY} ${PMUPDATE} >logs/apt.log"
+  - ":; ${DOCKERRETRY} ${PMINSTALL} ${PACKAGES} >>logs/apt.log"
+
+image: debian:unstable
+variables:
+  GET_SOURCES_ATTEMPTS: "5"
+  ARTIFACT_DOWNLOAD_ATTEMPTS: "5"
+  UPDATEREPOS: "tools/ci/scripts/updaterepos.sh"
+  PMUPDATE: "apt-get update"
+  PMINSTALL: "apt-get install --assume-yes -qq --no-install-recommends ca-certificates"
+  DOCKERRETRY: "./tools/ci/scripts/dockerretry.sh"
+  GIT_DEPTH: "1"
+
+.job-push: &job-push
+  artifacts:
+    paths:
+    - logs
+    - src/dyecmd
+    - src/manaplus
+    when: always
+    expire_in: 3 week
+  except:
+    - triggers
+  dependencies: []
+
+.job-always: &job-always
+  artifacts:
+    paths:
+    - logs
+    - src/dyecmd
+    - src/manaplus
+    when: always
+    expire_in: 3 week
+  dependencies: []
+
+.job-pages: &job-pages
+  artifacts:
+    paths:
+    - logs
+    - public
+    when: always
+    expire_in: 1 day
+  dependencies:
+  - doxygen
+#  - gcov_gcc7
+
+# Disabled: drop 1386 support
+.gcc-5_c++11_i386:
+  stage: build
+  image: i386/ubuntu:xenial
+  script:
+  - ./tools/ci/scripts/patchsdl1.sh
+  - ./tools/ci/jobs/gcc5_c++11.sh
+  - ./tools/ci/scripts/runtests.sh
+  <<: *job-push
+  variables:
+    PACKAGES: gcc-5 g++-5 
+              make autoconf automake autopoint gettext 
+              libxml2-dev libcurl4-gnutls-dev libpng-dev 
+              libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-net1.2-dev libsdl-ttf2.0-dev 
+              gdb valgrind netcat-openbsd procps
+
+# Disabled: drop 1386 support
+.gcc-8-i386:
+  stage: build
+  image: i386/debian:buster
+  script:
+  - ./tools/ci/scripts/patchsdl1.sh
+  - ./tools/ci/jobs/gcc8.sh
+  - ./tools/ci/scripts/runtests.sh
+  <<: *job-push
+  variables:
+    PACKAGES: gcc-8 g++-8 
+              make autoconf automake autopoint gettext 
+              libxml2-dev libcurl4-gnutls-dev libpng-dev 
+              libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-net1.2-dev libsdl-ttf2.0-dev
+              gdb valgrind netcat-openbsd procps
+
+# Do we really need to test such bleeding edge?
+# It's mostly a waste of CI time and it should be made allow-fail, perhaps?
+.gcc-snapshot_sdl2:
+  stage: build
+  script:
+  - export PATH="/usr/lib/gcc-snapshot/bin:/usr/lib/gcc-snapshot/lib:$PATH"
+  - export LD_LIBRARY_PATH="/usr/lib/gcc-snapshot/lib:$LD_LIBRARY_PATH"
+  - ./tools/ci/jobs/gccsnapshot_sdl2.sh
+  - ./tools/ci/scripts/runtests.sh
+  <<: *job-push
+  variables:
+    ABOUTYOFFSET: 380
+    PACKAGES: gcc-snapshot 
+              make autoconf automake autopoint gettext 
+              libxml2-dev libcurl4-gnutls-dev libpng-dev 
+              libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev
+              git gdb valgrind netcat-openbsd procps
+
+
+# Disabled: drop 1386 support
+.gcc-10-i386:
+  stage: build
+  image: i386/debian:unstable
+  script:
+  - ./tools/ci/scripts/patchsdl1.sh
+  - ./tools/ci/jobs/gcc10.sh
+  - ./tools/ci/scripts/runtests.sh
+  - ./tools/ci/scripts/rundyecmd.sh
+  <<: *job-push
+  variables:
+    PACKAGES: gcc-10 g++-10 
+              make autoconf automake autopoint gettext 
+              libxml2-dev libcurl4-gnutls-dev libpng-dev 
+              libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-net1.2-dev libsdl-ttf2.0-dev
+              gdb valgrind netcat-openbsd procps
+
+# TODO: Clang 3.9 is down but we don't have a newer Clang to test?
+.clang-3.9:
+  stage: build
+  image: debian:stretch
+  script:
+  - ./tools/ci/scripts/patchsdl1.sh
+  - ./tools/ci/jobs/clang39.sh
+  - ./tools/ci/scripts/runtests.sh
+  - ./tools/ci/scripts/rundyecmd.sh
+  <<: *job-push
+  variables:
+    PACKAGES: clang-3.9 libc++-dev libc++abi-dev 
+              make autoconf automake autopoint gettext 
+              libxml2-dev libcurl4-gnutls-dev libpng-dev 
+              libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-net1.2-dev libsdl-ttf2.0-dev
+              gdb valgrind netcat-openbsd procps
+
+.gcc-7:
+  stage: build
+  image: debian:buster
+  script:
+  - ./tools/ci/scripts/patchsdl1.sh
+  - ./tools/ci/jobs/gcc7.sh
+  - ./tools/ci/scripts/runtests.sh
+  - ./tools/ci/scripts/rundyecmd.sh
+  <<: *job-push
+  variables:
+    PACKAGES: gcc-7 g++-7 
+              make autoconf automake autopoint gettext 
+              libxml2-dev libcurl4-gnutls-dev libpng-dev 
+              libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-net1.2-dev libsdl-ttf2.0-dev
+              gdb valgrind netcat-openbsd procps
+
+gcc-9:
+  stage: build
+  only:
+  - master
+  image: debian:bullseye
+  script:
+  - ./tools/ci/scripts/patchsdl1.sh
+  - ./tools/ci/jobs/gcc9.sh
+  - ./tools/ci/scripts/runtests.sh
+  - ./tools/ci/scripts/rundyecmd.sh
+  <<: *job-push
+  variables:
+    PACKAGES: gcc-9 g++-9
+              make autoconf automake autopoint gettext 
+              libxml2-dev libcurl4-gnutls-dev libpng-dev 
+              libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-net1.2-dev libsdl-ttf2.0-dev
+              gdb valgrind netcat-openbsd procps
+
+.gcc-7_default:
+  stage: build
+  image: debian:buster
+  script:
+  - ./tools/ci/scripts/patchsdl1.sh
+  - ./tools/ci/jobs/any_compiler.sh --enable-werror
+  - ./tools/ci/scripts/runtests.sh
+  - ./tools/ci/scripts/rundyecmd.sh
+  <<: *job-push
+  variables:
+    LOGFILE: gcc7.log
+    CC: gcc-7
+    CXX: g++-7
+    CXXFLAGS: "-Wall -Wextra"
+    PACKAGES: gcc-7 g++-7 
+              make autoconf automake autopoint gettext 
+              libxml2-dev libcurl4-gnutls-dev libpng-dev 
+              libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-net1.2-dev libsdl-ttf2.0-dev
+              gdb valgrind netcat-openbsd procps
+
+gcc-10_default:
+  stage: build
+  image: debian:bullseye
+  script:
+  - ./tools/ci/scripts/patchsdl1.sh
+  - time ./tools/ci/jobs/any_compiler.sh --enable-werror
+  - ./tools/ci/scripts/runtests.sh
+  - ./tools/ci/scripts/rundyecmd.sh
+  <<: *job-push
+  variables:
+    LOGFILE: gcc10.log
+    CC: gcc-10
+    CXX: g++-10
+    CXXFLAGS: "-Wall -Wextra"
+    PACKAGES: gcc-10 g++-10 
+              make autoconf automake autopoint gettext 
+              libxml2-dev libcurl4-gnutls-dev libpng-dev 
+              libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-net1.2-dev libsdl-ttf2.0-dev
+              gdb valgrind netcat-openbsd procps
+
+# This and the next job do not work any more:
+# access denied pulling the specified image
+.mxe_gcc6_shared_32:
+  only:
+  - branches@manaplus/manaplus
+  stage: build
+  image: registry.gitlab.com/manaplus/mxe:gcc6_shared_32
+  script:
+  - ls /mxe
+  - ./tools/ci/jobs/mxe_gcc6.sh
+  <<: *job-push
+  variables:
+    PACKAGES: bash
+    CROSS: i686-w64-mingw32.shared
+
+.mxe_gcc6_shared_64:
+  only:
+  - branches@manaplus/manaplus
+  stage: build
+  image: registry.gitlab.com/manaplus/mxe:gcc6_shared_64
+  script:
+  - ls /mxe
+  - ./tools/ci/jobs/mxe_gcc6.sh
+  <<: *job-push
+  variables:
+    PACKAGES: bash
+    CROSS: x86_64-w64-mingw32.shared
+
+docker-windows-builder:
+  stage: build
+  trigger:
+    project: mana/docker-windows-builder
+    strategy: depend
+  variables:
+    MP_BRANCH: $CI_COMMIT_REF_NAME
+    MP_REPOSITORY: $CI_PROJECT_URL
+
+
+gcc-sdl2:
+  stage: build
+  only:
+  - master
+  image: ubuntu:18.04
+  script:
+  - ./tools/ci/jobs/gcc_sdl2.sh
+  - ./tools/ci/scripts/rundyecmd.sh
+  - ./tools/ci/scripts/runtests.sh
+  - ./tools/ci/jobs/gcc_sdl2_c++11.sh
+  - ./tools/ci/scripts/runtests.sh
+  <<: *job-push
+  variables:
+    PACKAGES: gcc g++
+              make autoconf automake autopoint gettext 
+              libxml2-dev libcurl4-gnutls-dev libpng-dev 
+              libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev
+              gdb valgrind netcat-openbsd procps
+
+# TODO: make this only run once-in-a-while (e.g. before release?)
+.gcc-10_game_only:
+  stage: build
+  image: debian:bullseye
+  script:
+  - ./tools/ci/scripts/patchsdl1.sh
+  - ./tools/ci/jobs/gcc10.sh --without-dyecmd
+  - ./tools/ci/scripts/runtests.sh
+  <<: *job-push
+  variables:
+    PACKAGES: gcc-10 g++-10 
+              make autoconf automake autopoint gettext 
+              libxml2-dev libcurl4-gnutls-dev libpng-dev 
+              libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-net1.2-dev libsdl-ttf2.0-dev
+              gdb valgrind netcat-openbsd procps
+
+# TODO: make this only run once-in-a-while (e.g. before release?)
+.gcc-10_dyecmd_only:
+  stage: build
+  image: debian:bullseye
+  script:
+  - ./tools/ci/scripts/patchsdl1.sh
+  - ./tools/ci/jobs/gcc10.sh --without-gameclient
+  - ./tools/ci/scripts/rundyecmd.sh
+  <<: *job-push
+  variables:
+    PACKAGES: gcc-10 g++-10 
+              make autoconf automake autopoint gettext 
+              libxml2-dev libcurl4-gnutls-dev libpng-dev 
+              libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-net1.2-dev libsdl-ttf2.0-dev
+
+gcc-9_unittestsbin:
+  stage: build
+  only:
+  - master
+  image: debian:bullseye
+  script:
+  - ./tools/ci/scripts/patchsdl1.sh
+  - ./tools/ci/jobs/gcc9_silent.sh --enable-unittestsbin --without-gameclient --without-dyecmd
+  <<: *job-push
+  variables:
+    PACKAGES: gcc-9 g++-9
+              make autoconf automake autopoint gettext 
+              libxml2-dev libcurl4-gnutls-dev libpng-dev 
+              libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-net1.2-dev libsdl-ttf2.0-dev
+
+
+linters:
+  stage: lint
+  tags:
+  - lightweight
+  image: debian:bullseye
+  script:
+  - ./tools/ci/jobs/mplint.sh src po data
+  - ./tools/ci/jobs/pngcheck.sh
+  - ./tools/ci/jobs/imagemagiccheck.sh
+  - ./tools/ci/jobs/cpplint.sh
+  - ./tools/ci/jobs/nsiqcppstyle.sh
+  - ./tools/ci/jobs/potfiles_update_check.sh
+  <<: *job-push
+  variables:
+    MPLINT_PACKAGE_URL: "$CI_API_V4_URL/projects/mana%2Fmplint/jobs/artifacts/master/download?job=package_debian10_buster"
+    PACKAGES: git grep imagemagick pngcheck python2 python3 unzip wget
+
+
+gcc-headers_all:
+  stage: build
+  only:
+  - master
+  image: ubuntu:18.04
+  script:
+  - ./tools/ci/scripts/patchsdl1.sh
+  - ./tools/ci/jobs/gcc_headers.sh -std=c++11 -DDEBUGBUILD -DTMWA_SUPPORT -DENABLE_NLS -DUSE_OPENGL -DENABLE_LIBXML -I/usr/include/SDL
+  - ./tools/ci/jobs/gcc_headers.sh -std=c++11 -DDEBUGBUILD -DTMWA_SUPPORT -DENABLE_LIBXML -I/usr/include/SDL
+  - ./tools/ci/jobs/gcc_headers.sh -std=c++11 -DDEBUGBUILD -DTMWA_SUPPORT -DENABLE_NLS -DUSE_OPENGL -DENABLE_LIBXML -DUNITTESTS -DUNITTESTS_CATCH -DUNITTESTS_EMBED -I/usr/include/SDL
+  - ./tools/ci/jobs/gcc_headers.sh -std=c++11 -DDEBUGBUILD -DTMWA_SUPPORT -DENABLE_NLS -DENABLE_LIBXML -I/usr/include/SDL
+  - ./tools/ci/jobs/gcc_headers.sh -std=c++11 -DDEBUGBUILD -DENABLE_NLS -DUSE_OPENGL -DENABLE_LIBXML -I/usr/include/SDL
+  <<: *job-push
+  variables:
+    PACKAGES: gcc g++
+              make autoconf automake autopoint gettext
+              libxml2-dev libcurl4-gnutls-dev libpng-dev
+              libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-net1.2-dev libsdl-ttf2.0-dev
+
+# Coverage support is broken
+.gcov_gcc7:
+  stage: build
+  image: debian:buster
+  script:
+  - mkdir -p coverage/
+  - ./tools/ci/scripts/patchsdl1.sh
+  - ./tools/ci/jobs/gcc7_tests_gcov.sh --without-dyecmd --without-gameclient
+  variables:
+    PACKAGES: gcc-7 g++-7 
+              make autoconf automake autopoint gettext 
+              libxml2-dev libcurl4-gnutls-dev libpng-dev 
+              libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-net1.2-dev libsdl-ttf2.0-dev 
+              gcovr
+              git-core valgrind
+  coverage: /^\s*lines:\s*\d+.\d+\%/
+  artifacts:
+    paths:
+      - coverage
+    expire_in: 2 days
+    name: ${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/gcc-7.xml
+
+doxygen:
+  stage: build
+  image: debian:bullseye
+  script:
+  - ./tools/ci/scripts/patchsdl1.sh
+  - ./tools/ci/jobs/doxygen.sh
+  variables:
+    PACKAGES: doxygen graphviz 
+              libxml2-dev libcurl4-gnutls-dev libpng-dev 
+              libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-net1.2-dev libsdl-ttf2.0-dev
+              git-core
+  artifacts:
+    paths:
+      - doxygen
+    expire_in: 2 days
+
+pages:
+  stage: deploy
+  tags:
+  - lightweight
+  image: debian:bullseye
+  script:
+  - mkdir -p public
+  - cp -r doxygen/html/ public/doxygen/
+  - mkdir -p coverage; touch coverage/index.html; touch coverage/gcc-7.html
+  - cp -r coverage/ public/coverage/
+  - echo "<DOCTYPE html><head></head><body><a href='./doxygen/index.html'>Doxygen</a><br><a href='./coverage/gcc-7.html'>Coverage</a></body>" > public/index.html
+  <<: *job-pages
+  only:
+    - master
+
+# tests
+
+triggers:
+  stage: build
+  only:
+  - branches@manaplus/manaplus
+  script:
+  - ./tools/ci/scripts/triggers.sh
+  <<: *job-push
+  variables:
+    PACKAGES: curl
+
+
+# disabled due gitlab bug
+.gcc-10_SDL_SDL-1.2_sanitize2_test:
+  stage: build
+  script:
+  - ./tools/ci/scripts/downloadlib.sh ${LIBNAME} ${LIBVERSION}
+  - echo /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvz}
+  - export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libasan.so.4
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} env
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/jobs/gcc10_sanitize_tests.sh --enable-unittests=yes --without-gameclient --without-dyecmd
+  - export LD_PRELOAD
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/scripts/checkldd.sh src/manaplustests
+  - ldd ./src/manaplustests | grep "libasan"
+  <<: *job-push
+  variables:
+    LIBNAME: SDL
+    LIBVERSION: SDL-1.2_asan
+    PACKAGES: gcc-10 g++-10 
+              make autoconf automake autopoint gettext pkg-config 
+              libx11-dev libxext-dev libxt-dev libxv-dev x11proto-core-dev libgl1-mesa-dev libasound2-dev libglu1-mesa-dev libicu-dev 
+              valgrind 
+              wget unzip
+    JOBS: 1
+    ASAN_OPTIONS: "detect_leaks=0"
+    runenvz: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runzlib_master.sh
+    runenvx: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runlibxml2_master.sh
+
+# disabled due gitlab bug
+.gcc-10_SDL_default_sanitize2_test:
+  stage: build
+  script:
+  - ./tools/ci/scripts/downloadlib.sh ${LIBNAME} ${LIBVERSION}
+  - export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libasan.so.4
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/jobs/gcc10_sanitize_tests.sh --enable-unittests=yes --with-sdl2 --without-gameclient --without-dyecmd
+  - export LD_PRELOAD
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/scripts/checkldd.sh src/manaplustests
+  - ldd ./src/manaplustests | grep "libasan"
+  <<: *job-push
+  variables:
+    LIBNAME: SDL
+    LIBVERSION: default_asan
+    PACKAGES: gcc-10 g++-10 
+              make autoconf automake autopoint gettext pkg-config 
+              libx11-dev libxext-dev libxt-dev libxv-dev x11proto-core-dev libgl1-mesa-dev libasound2-dev libicu-dev 
+              valgrind 
+              wget unzip
+    JOBS: 1
+    ASAN_OPTIONS: "detect_leaks=0"
+    runenvz: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runzlib_master.sh
+    runenvx: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runlibxml2_master.sh
+
+# disabled due gitlab bug
+.gcc-10_SDL_SDL-1.2_sanitize_test:
+  stage: build
+  script:
+  - ./tools/ci/scripts/downloadlib.sh ${LIBNAME} ${LIBVERSION}
+  - echo /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvz}
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} env
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/jobs/gcc10_sanitize_tests.sh --enable-unittests=yes --without-gameclient --without-dyecmd
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/scripts/checkldd.sh src/manaplustests
+  - ldd ./src/manaplustests | grep "libasan"
+  <<: *job-push
+  variables:
+    LIBNAME: SDL
+    LIBVERSION: SDL-1.2
+    PACKAGES: gcc-10 g++-10 
+              make autoconf automake autopoint gettext pkg-config 
+              libx11-dev libxext-dev libxt-dev libxv-dev x11proto-core-dev libgl1-mesa-dev libasound2-dev libglu1-mesa-dev libicu-dev 
+              valgrind 
+              wget unzip
+    runenvz: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runzlib_master.sh
+    runenvx: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runlibxml2_master.sh
+
+# disabled due gitlab bug
+.gcc-10_SDL_default_sanitize_test:
+  stage: build
+  script:
+  - ./tools/ci/scripts/downloadlib.sh ${LIBNAME} ${LIBVERSION}
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/jobs/gcc10_sanitize_tests.sh --enable-unittests=yes --with-sdl2 --without-gameclient --without-dyecmd
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/scripts/checkldd.sh src/manaplustests
+  - ldd ./src/manaplustests | grep "libasan"
+  <<: *job-push
+  variables:
+    LIBNAME: SDL
+    LIBVERSION: default
+    PACKAGES: gcc-10 g++-10 
+              make autoconf automake autopoint gettext pkg-config 
+              libx11-dev libxext-dev libxt-dev libxv-dev x11proto-core-dev libgl1-mesa-dev libasound2-dev libicu-dev 
+              valgrind 
+              wget unzip
+    runenvz: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runzlib_master.sh
+    runenvx: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runlibxml2_master.sh
+
+
+# disabled due gitlab bug
+.gcc-10_SDL_SDL-1.2_old_sanitize_test:
+  stage: build
+  script:
+  - ./tools/ci/scripts/downloadlib.sh ${LIBNAME} ${LIBVERSION}
+  - echo /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvz}
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} env
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/jobs/gcc10_sanitize_tests.sh --enable-unittests=yes --without-gameclient --without-dyecmd
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/scripts/checkldd.sh src/manaplustests
+  - ldd ./src/manaplustests | grep "libasan"
+  <<: *job-push
+  variables:
+    LIBNAME: SDL
+    LIBVERSION: SDL-1.2_old
+    PACKAGES: gcc-10 g++-10 
+              make autoconf automake autopoint gettext pkg-config 
+              libx11-dev libxext-dev libxt-dev libxv-dev x11proto-core-dev libgl1-mesa-dev libasound2-dev libglu1-mesa-dev libicu-dev 
+              valgrind 
+              libjpeg-dev libtiff-dev
+              wget unzip
+    runenvz: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runzlib_v1.2.5.sh
+    runenvx: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runlibxml2_v2.9.1.sh
+    POST_CXXFLAGS: "-Wno-undef"
+
+# disabled due gitlab bug
+.gcc-10_SDL_default_old_sanitize_test:
+  stage: build
+  script:
+  - ./tools/ci/scripts/downloadlib.sh ${LIBNAME} ${LIBVERSION}
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/jobs/gcc10_sanitize_tests.sh --enable-unittests=yes --with-sdl2 --without-gameclient --without-dyecmd
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/scripts/checkldd.sh src/manaplustests
+  - ldd ./src/manaplustests | grep "libasan"
+  <<: *job-push
+  variables:
+    LIBNAME: SDL
+    LIBVERSION: default_old
+    PACKAGES: gcc-10 g++-10 
+              make autoconf automake autopoint gettext pkg-config 
+              libx11-dev libxext-dev libxt-dev libxv-dev x11proto-core-dev libgl1-mesa-dev libasound2-dev libicu-dev 
+              valgrind 
+              libjpeg-dev libtiff-dev
+              wget unzip
+    runenvz: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runzlib_v1.2.5.sh
+    runenvx: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runlibxml2_v2.9.1.sh
+    POST_CXXFLAGS: "-Wno-undef"
+
+# error compilation. cant find SDL.
+.gcc-10_zlib_ng_develop:
+  stage: build
+  script:
+  - ./tools/ci/scripts/patchsdl1.sh
+  - ./tools/ci/scripts/downloadlib.sh ${LIBNAME} ${LIBVERSION}
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ./tools/ci/jobs/gcc10.sh
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ./tools/ci/scripts/checkldd.sh src/manaplus
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ./tools/ci/scripts/runtests.sh
+  <<: *job-push
+  variables:
+    LIBNAME: zlib_ng
+    LIBVERSION: develop
+    PACKAGES: gcc-10 g++-10 
+              make autoconf automake autopoint gettext 
+              libxml2-dev libcurl4-gnutls-dev libpng-dev 
+              libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-net1.2-dev libsdl-ttf2.0-dev
+              wget unzip gdb valgrind netcat-openbsd procps
+
+# disabled due gitlab bug
+.gcc-10_SDL_SDL-1.2_sanitize:
+  stage: build
+  script:
+  - ./tools/ci/scripts/downloadlib.sh ${LIBNAME} ${LIBVERSION}
+  - echo /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvz}
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} env
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/jobs/gcc10_sanitize.sh
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/scripts/runtests.sh
+  - ldd ./src/manaplus | grep "libasan"
+  <<: *job-push
+  variables:
+    LIBNAME: SDL
+    LIBVERSION: SDL-1.2
+    PACKAGES: gcc-10 g++-10 
+              make autoconf automake autopoint gettext pkg-config 
+              libx11-dev libxext-dev libxt-dev libxv-dev x11proto-core-dev libgl1-mesa-dev libasound2-dev libglu1-mesa-dev libicu-dev 
+              valgrind netcat-openbsd
+              wget unzip
+    runenvz: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runzlib_master.sh
+    runenvx: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runlibxml2_master.sh
+
+# disabled due gitlab bug
+.gcc-10_SDL_default_sanitize:
+  stage: build
+  script:
+  - ./tools/ci/scripts/downloadlib.sh ${LIBNAME} ${LIBVERSION}
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/jobs/gcc10_sanitize.sh --with-sdl2
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/scripts/runtests.sh
+  - ldd ./src/manaplus | grep "libasan"
+  <<: *job-push
+  variables:
+    LIBNAME: SDL
+    LIBVERSION: default
+    PACKAGES: gcc-10 g++-10 
+              make autoconf automake autopoint gettext pkg-config 
+              libx11-dev libxext-dev libxt-dev libxv-dev x11proto-core-dev libgl1-mesa-dev libasound2-dev libicu-dev 
+              valgrind netcat-openbsd
+              wget unzip
+    runenvz: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runzlib_master.sh
+    runenvx: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runlibxml2_master.sh
+
+
+# disabled due gitlab bug
+.gcc-10_SDL_SDL-1.2_old_sanitize:
+  stage: build
+  script:
+  - ./tools/ci/scripts/downloadlib.sh ${LIBNAME} ${LIBVERSION}
+  - echo /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvz}
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} env
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/jobs/gcc10_sanitize.sh
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/scripts/runtests.sh
+  - ldd ./src/manaplus | grep "libasan"
+  <<: *job-push
+  variables:
+    LIBNAME: SDL
+    LIBVERSION: SDL-1.2_old
+    PACKAGES: gcc-10 g++-10 
+              make autoconf automake autopoint gettext pkg-config 
+              libx11-dev libxext-dev libxt-dev libxv-dev x11proto-core-dev libgl1-mesa-dev libasound2-dev libglu1-mesa-dev libicu-dev 
+              valgrind netcat-openbsd
+              libjpeg-dev libtiff-dev
+              wget unzip
+    runenvz: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runzlib_v1.2.5.sh
+    runenvx: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runlibxml2_v2.9.1.sh
+    POST_CXXFLAGS: "-Wno-undef"
+
+# disabled due gitlab bug
+.gcc-10_SDL_default_old_sanitize:
+  stage: build
+  script:
+  - ./tools/ci/scripts/downloadlib.sh ${LIBNAME} ${LIBVERSION}
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/jobs/gcc10_sanitize.sh --with-sdl2
+  - /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runenv.sh ${runenvx} ${runenvz} ./tools/ci/scripts/runtests.sh
+  - ldd ./src/manaplus | grep "libasan"
+  <<: *job-push
+  variables:
+    LIBNAME: SDL
+    LIBVERSION: default_old
+    PACKAGES: gcc-10 g++-10 
+              make autoconf automake autopoint gettext pkg-config 
+              libx11-dev libxext-dev libxt-dev libxv-dev x11proto-core-dev libgl1-mesa-dev libasound2-dev libicu-dev 
+              valgrind netcat-openbsd
+              libjpeg-dev libtiff-dev
+              wget unzip
+    runenvz: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runzlib_v1.2.5.sh
+    runenvx: /usr/local/spm/bin/${LIBNAME}_${LIBVERSION}/runlibxml2_v2.9.1.sh
+    POST_CXXFLAGS: "-Wno-undef"
+
+
+pkg_deb:
+  stage: build
+  tags:
+  - amd64
+  image: debian:bookworm # 2023
+  script:
+  - cp -r packaging/debian .
+  - cd debian; ../build/bdeb.sh; cd ..
+  - find .. -type f -name "*.deb"
+  - mv ../manaplus_*_amd64.deb manaplus_latest_amd64.deb
+  - mv ../manaplus-data_*_all.deb manaplus-data_latest_all.deb
+  - mv ../manaplus-dbg_*_amd64.deb manaplus-dbg_latest_amd64.deb
+  - sha256sum *.deb > deb-sha256checksum.txt
+  artifacts:
+    paths:
+    - "*.deb"
+    - "deb-sha256checksum.txt"
+    expire_in: 1 week
+  variables:
+    PACKAGES: g++ gcc git make autoconf automake autopoint gettext
+              libcurl4-gnutls-dev libphysfs-dev libpng-dev libxml2-dev
+              libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev
+              libsdl-net1.2-dev libsdl-ttf2.0-dev libgl1-mesa-dev
+              fakeroot build-essential dpkg-dev debhelper dh-autoreconf xsel

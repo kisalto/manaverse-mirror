@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id type="desktop">manaplus.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0</project_license>
+  <name>The Mana Verse Client</name>
+  <summary>client for the Moubootaur Legends and TMW-BR MMORPGs</summary>
+  <description>
+    <p>
+      ManaVerse is the official client for the Moubootaur Legends and
+      TMW-BR 2.5D MMORPGs with support for other eAthena-derivative
+      games such as The Mana World.
+    </p>
+  </description>
+  <url type="homepage">https://manaverse.germantmw.de/</url>
+  <screenshots>
+    <screenshot type="default">http://manaplus.org/_media/manaplus_screenshot_8.png</screenshot>
+    <screenshot>http://manaplus.org/_media/manaplus_screenshot_11.png</screenshot>
+    <screenshot>http://manaplus.org/_media/manaplus_screenshot_15.png</screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1">
+    <content_attribute id="violence-cartoon">mild</content_attribute>
+    <content_attribute id="violence-fantasy">mild</content_attribute>
+    <content_attribute id="social-chat">intense</content_attribute>
+  </content_rating>
+</component>

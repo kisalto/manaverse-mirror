@@ -1,0 +1,64 @@
+Source: manaplus
+Section: games
+Priority: optional
+Homepage: https://manaverse.germantmw.de/
+Maintainer: Mike Wollmann <jak1@themanaworld.org>
+Uploaders: Patrick Matthäi <pmatthaei@debian.org>
+Standards-Version: 3.9.7
+Build-Depends: debhelper (>= 9),
+ libcurl4-gnutls-dev,
+ libgl1-mesa-dev,
+ libsdl1.2-dev,
+ libsdl-image1.2-dev,
+ libsdl-net1.2-dev,
+ libsdl-mixer1.2-dev,
+ libphysfs-dev,
+ libpng-dev,
+ libxml2-dev,
+ zlib1g-dev,
+ libsdl-ttf2.0-dev,
+ libsdl-gfx1.2-dev,
+ dh-autoreconf,
+ autopoint
+
+Package: manaplus
+Architecture: any
+Depends: ${shlibs:Depends},
+ ${misc:Depends},
+ manaplus-data (= ${source:Version}),
+ xsel,
+ x11-utils,
+ xdg-utils
+Suggests: mumble
+Description: client for the Moubootaur Legends and TMW-BR MMORPGs
+ ManaVerse is the official client for the Moubootaur Legends and
+ TMW-BR 2.5D MMORPGs with support for other eAthena-derivative
+ games such as The Mana World.
+
+Package: manaplus-dbg
+Section: debug
+Architecture: any
+Priority: extra
+Depends: ${misc:Depends},
+ manaplus (= ${binary:Version})
+Description: client for the Moubootaur Legends and TMW-BR MMORPGs
+ ManaVerse is the official client for the Moubootaur Legends and
+ TMW-BR 2.5D MMORPGs with support for other eAthena-derivative
+ games such as The Mana World.
+ .
+ This package provides debugging symbols for the manaplus package.
+
+Package: manaplus-data
+Architecture: all
+Depends: ${misc:Depends},
+ fonts-dejavu-core,
+ fonts-liberation
+Recommends: manaplus,
+ fonts-mplus,
+ fonts-wqy-microhei
+Description: client for the Moubootaur Legends and TMW-BR MMORPGs
+ ManaVerse is the official client for the Moubootaur Legends and
+ TMW-BR 2.5D MMORPGs with support for other eAthena-derivative
+ games such as The Mana World.
+ .
+ This package contains the GUI data files for the manaplus package

@@ -1,0 +1,152 @@
+.<- @@index|<<Back to Index>>@@
+
+@@http://manaplus.org/|<<Official site:>> http://manaplus.org@@
+
+##3---------------------------
+##3-- <<ManaPlus Contributors>> --
+##3---------------------------
+##3== <<Contributors to client development>> ==
+
+##3<<Android porting>>
+##9Andrei Karas (4144) <akaras inbox ru>
+##9Danil Sagunov (Vasily_Makarov) <danilka.pro gmail com>
+
+##3<<Chrome (nacl) porting>>
+##9Andrei Karas (4144) <akaras inbox ru>
+##9Danil Sagunov (Vasily_Makarov) <danilka.pro gmail com>
+
+##3<<MacOSX porting>>
+##9Philippe Groarke (Socapex) <>
+##9Haru <haru dotalux com>
+
+##3<<Switch porting>>
+##9Cpasjuste
+
+##3<<Main development>>
+##9Andrei Karas (4144) <akaras inbox ru>
+
+##3<<Different patches>>
+##9Ben Longbons <b.r.longbons gmail com>
+##9Helmut Grohne (gnurfk) <helmut subdivi de>
+##9Maarten Vanraes (AL13N) <maarten.vanraes gmail com>
+##9Mihail Barer (Necromonger) <>
+##9Vincent Petithory (V0id) <vincent.petithory gmail com>
+
+##3== <<Translators>> ==
+##3Czech
+##9Petr Varkoček (pitriss) <chytrex_fsude centrum cz>
+##9Samuraiii <samurai no dojo+manaplus gmail.com>
+##9Zirry <zirry centrum cz>
+
+##3Danish
+##9GonzoDark <Gonzo.Dark gmail com>
+
+##3Dutch
+##9Elvano Miok (Elvano)
+
+##3Esperanto
+##9Tirifto
+
+##3Vlaams
+##9Maarten Vanraes (AL13N) <maarten.vanraes gmail com>
+
+##3Finnish
+##9Sini Ruohomaa (Byakushin) <sini.ruohomaa iki fi>
+
+##3French
+##9Antoine Ruck (Jumpy) <antoinebcn hotmail com>
+##9Bernard Hugonnet (Nard) <nard bh28 net>
+##9Choupom <andycootlapin hotmail fr>
+##9Nina O'Reilly (Reid) <reidyaro gmail com>
+##9Steel Style <steelstyle free fr>
+##9Yohann Ferreira (Bertram) <bertram cegetel net>
+##9(Alige) <alige evolonline org>
+
+##3German
+##9Anna <clos3rlook gmail com>
+##9DerLoisl <der.loisl gmx de>
+##9Fortunato <fortunato108 googlemail com>
+##9Marco Jäger (LinuxCobra/Cobraxas) <linuxcobra gmx de>
+##9matheus23
+##9Philipp <philipp.krueger1 googlemail com>
+##9Rosemarie Tauber <horos online de>
+##9Suni <sunlightshadow seelenkampf.de>
+##9tux9th <mr.x aon at>
+
+##3Greek
+##9DarkDragon <tassos19962009 hotmail com>
+
+##3Indonesian
+##9adjieps <adjieps yahoo com>
+##9Fuad Fauzi <me fuadfauzi web id>
+##9genesis <Genesis_Junior yahoo com>
+
+##3Italian
+##9Alessandro Camplese (Alel) <ale camplese gmail com>
+##9Francesco Miglietta (Hal9000) <miglietta francesco gmail com>
+##9Guglielmo Pini (WildX) <gwx480 gmail com>
+
+##3Japanese
+##9Candy
+##9Mihail Barer (Necromonger)
+##9sn0w75 <ibenrunnin gmail com>
+
+##3Polish
+##9Derpella <matwa poczta pl>
+##9foobo <lukasz.antoni.komorowski poczta fm>
+
+##3Portuguese
+##9Aline Ferraz de Souza (Freya) <freya.df gmail com>
+
+##3Portuguese (Brazil)
+##9alastrim <alasmirt gmail com>
+##9Aline Ferraz de Souza (Freya) <freya.df gmail com>
+##9bruno.nunes <bruno dukkha com br>
+##9Luciano Zago <lcnzg7 gmail com>
+##9María Rolón <luxlloth gmail com>
+
+##3Russian
+##9Alexandr Uspensky <AlexandrUSP yandex com>
+##9Andrei Karas (4144) <akaras inbox ru>
+##9Danil Sagunov (Vasily_Makarov) <danilka.pro gmail com>
+##9Saidullin Il'shat (Kenny690) <bio_editor mail ru>
+##9Mihail Barer (Necromonger)
+##9Victor <ratrex mail ru>
+##9Yummie <reslayer mail ru>
+
+##3Spanish
+##9Antoine Ruck (Jumpy) <antoinebcn hotmail com>
+##9Narus <narus.tmw gmail com>
+##9Nelson Martell (nelson6e65) <nelson6e65-manaplus yahoo es>
+##9Maria <mtorres2022 gmail com>
+##9Mr Pirate <salahbubuli44 gmail com>
+##9osuka <owen942009 gmail com>
+
+##3Ukraine
+##9William Lee <v4r trioptimum.com>
+
+##3Turkish
+##9HiiroNoHige <hiironohige gmail com>
+
+##3== <<Art or images contributors>> ==
+##9Aline Ferraz de Souza (Freya) <freya.df gmail com>
+<<Themes:>> pink, unity
+
+##9Felix Jely (Lien)
+<<Themes:>> blackwood
+
+##9Francesco Miglietta (Hal9OOO)
+<<Themes:>> jewelry
+
+##9Max Isele (DerLoisl) <der.loisl theavoraproject org>
+alien emote
+
+##9Nina O'Reilly (Reid) <reidyaro gmail com>
+emotes, icons
+
+##3== <<Sound effects>> ==
+##9artisticdude
+##9Cori Samuel
+##9psi-plus contributors
+
+@@otherteam|Mana contributors@@

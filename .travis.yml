@@ -1,0 +1,157 @@
+sudo: required
+
+services:
+  - docker
+
+language: c++
+dist: trusty
+
+before_script:
+  - uname -a
+  - echo before_script
+  - ./tools/ci/scripts/retry.sh sudo apt-get update
+  - ./tools/ci/scripts/retry.sh sudo apt-get install docker
+
+script:
+  - travis_wait 150 sleep infinity &
+  - ./tools/ci/scripts/docker_run.sh
+  - docker ps -a
+
+after_script:
+    cat config.log || true
+
+env:
+    global:
+      - SDL1="libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-net1.2-dev libsdl-ttf2.0-dev"
+      - SDL2="libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev"
+      - LIBS_PACKAGES="make autoconf automake autopoint gettext 
+                       libxml2-dev libcurl4-gnutls-dev libpng-dev"
+    matrix:
+# amd64, sdl1, --disable-tmwa
+      - IMAGE=ubuntu:xenial
+        COMMAND="./tools/ci/jobs/gcc5.sh --enable-werror --disable-tmwa"
+        PACKAGES="gcc-5 g++-5 
+                  ${LIBS_PACKAGES} ${SDL1}"
+      - IMAGE=debian:stretch
+        COMMAND="./tools/ci/jobs/gcc6.sh --enable-werror --disable-tmwa"
+        PACKAGES="gcc-6 g++-6 
+                  ${LIBS_PACKAGES} ${SDL1}"
+      - IMAGE=debian:unstable
+        COMMAND="./tools/ci/jobs/gcc10.sh --enable-werror --disable-tmwa"
+        PACKAGES="gcc-10 g++-10 
+                  ${LIBS_PACKAGES} ${SDL1}"
+      - IMAGE=ubuntu:xenial
+        COMMAND="./tools/ci/jobs/gcc5_tests.sh --disable-tmwa --without-dyecmd --without-gameclient"
+        PACKAGES="gcc-5 g++-5 
+                  ${LIBS_PACKAGES} ${SDL1}
+                  valgrind"
+      - IMAGE=debian:stretch
+        COMMAND="./tools/ci/jobs/gcc6_tests.sh --disable-tmwa --without-dyecmd --without-gameclient"
+        PACKAGES="gcc-6 g++-6 
+                  ${LIBS_PACKAGES} ${SDL1}
+                  valgrind"
+      - IMAGE=debian:unstable
+        COMMAND="./tools/ci/jobs/gcc10_tests.sh --disable-tmwa --without-dyecmd --without-gameclient"
+        PACKAGES="gcc-10 g++-10 
+                  ${LIBS_PACKAGES} ${SDL1}
+                  valgrind"
+      - IMAGE=ubuntu:xenial
+        COMMAND="./tools/ci/jobs/gcc5_sanitize_tests.sh --disable-tmwa --without-dyecmd --without-gameclient"
+        PACKAGES="gcc-5 g++-5 
+                  ${LIBS_PACKAGES} ${SDL1}
+                  valgrind"
+
+# i386, sdl1, --disable-tmwa
+      - IMAGE=i386/ubuntu:xenial
+        COMMAND="./tools/ci/jobs/gcc5.sh --enable-werror --disable-tmwa"
+        PACKAGES="gcc-5 g++-5 
+                  ${LIBS_PACKAGES} ${SDL1}"
+      - IMAGE=i386/debian:stretch
+        COMMAND="./tools/ci/jobs/gcc6.sh --enable-werror --disable-tmwa"
+        PACKAGES="gcc-6 g++-6 
+                  ${LIBS_PACKAGES} ${SDL1}"
+      - IMAGE=i386/debian:unstable
+        COMMAND="./tools/ci/jobs/gcc10.sh --enable-werror --disable-tmwa"
+        PACKAGES="gcc-10 g++-10 
+                  ${LIBS_PACKAGES} ${SDL1}"
+      - IMAGE=i386/ubuntu:xenial
+        COMMAND="./tools/ci/jobs/gcc5_tests.sh --disable-tmwa --without-dyecmd --without-gameclient"
+        PACKAGES="gcc-5 g++-5 
+                  ${LIBS_PACKAGES} ${SDL1}
+                  valgrind"
+      - IMAGE=i386/debian:stretch
+        COMMAND="./tools/ci/jobs/gcc6_tests.sh --disable-tmwa --without-dyecmd --without-gameclient"
+        PACKAGES="gcc-6 g++-6 
+                  ${LIBS_PACKAGES} ${SDL1}
+                  valgrind"
+      - IMAGE=i386/debian:unstable
+        COMMAND="./tools/ci/jobs/gcc10_tests.sh --disable-tmwa --without-dyecmd --without-gameclient"
+        PACKAGES="gcc-10 g++-10 
+                  ${LIBS_PACKAGES} ${SDL1}
+                  valgrind"
+
+# amd64, sdl2, --disable-tmwa
+      - IMAGE=ubuntu:xenial
+        COMMAND="./tools/ci/jobs/gcc5.sh --enable-werror --disable-tmwa --with-sdl2"
+        PACKAGES="gcc-5 g++-5 
+                  ${LIBS_PACKAGES} ${SDL2}"
+      - IMAGE=debian:stretch
+        COMMAND="./tools/ci/jobs/gcc6.sh --enable-werror --disable-tmwa --with-sdl2"
+        PACKAGES="gcc-6 g++-6 
+                  ${LIBS_PACKAGES} ${SDL2}"
+      - IMAGE=debian:unstable
+        COMMAND="./tools/ci/jobs/gcc10.sh --enable-werror --disable-tmwa --with-sdl2"
+        PACKAGES="gcc-10 g++-10 
+                  ${LIBS_PACKAGES} ${SDL2}"
+      - IMAGE=ubuntu:xenial
+        COMMAND="./tools/ci/jobs/gcc5_tests.sh --disable-tmwa --without-dyecmd --without-gameclient --with-sdl2"
+        PACKAGES="gcc-5 g++-5 
+                  ${LIBS_PACKAGES} ${SDL2}
+                  valgrind"
+      - IMAGE=debian:stretch
+        COMMAND="./tools/ci/jobs/gcc6_tests.sh --disable-tmwa --without-dyecmd --without-gameclient --with-sdl2"
+        PACKAGES="gcc-6 g++-6 
+                  ${LIBS_PACKAGES} ${SDL2}
+                  valgrind"
+      - IMAGE=debian:unstable
+        COMMAND="./tools/ci/jobs/gcc10_tests.sh --disable-tmwa --without-dyecmd --without-gameclient --with-sdl2"
+        PACKAGES="gcc-10 g++-10 
+                  ${LIBS_PACKAGES} ${SDL2}
+                  valgrind"
+      - IMAGE=ubuntu:xenial
+        COMMAND="./tools/ci/jobs/gcc5_sanitize_tests.sh --disable-tmwa --without-dyecmd --without-gameclient --with-sdl2"
+        PACKAGES="gcc-5 g++-5 
+                  ${LIBS_PACKAGES} ${SDL2}
+                  valgrind"
+
+# i386, sdl2, --disable-tmwa
+      - IMAGE=i386/ubuntu:xenial
+        COMMAND="./tools/ci/jobs/gcc5.sh --enable-werror --disable-tmwa --with-sdl2"
+        PACKAGES="gcc-5 g++-5 
+                  ${LIBS_PACKAGES} ${SDL2}"
+      - IMAGE=i386/debian:stretch
+        COMMAND="./tools/ci/jobs/gcc6.sh --enable-werror --disable-tmwa --with-sdl2"
+        PACKAGES="gcc-6 g++-6 
+                  ${LIBS_PACKAGES} ${SDL2}"
+      - IMAGE=i386/debian:unstable
+        COMMAND="./tools/ci/jobs/gcc10.sh --enable-werror --disable-tmwa --with-sdl2"
+        PACKAGES="gcc-10 g++-10 
+                  ${LIBS_PACKAGES} ${SDL2}"
+      - IMAGE=i386/ubuntu:xenial
+        COMMAND="./tools/ci/jobs/gcc5_tests.sh --disable-tmwa --without-dyecmd --without-gameclient --with-sdl2"
+        PACKAGES="gcc-5 g++-5 
+                  ${LIBS_PACKAGES} ${SDL2}
+                  valgrind"
+      - IMAGE=i386/debian:stretch
+        COMMAND="./tools/ci/jobs/gcc6_tests.sh --disable-tmwa --without-dyecmd --without-gameclient --with-sdl2"
+        PACKAGES="gcc-6 g++-6 
+                  ${LIBS_PACKAGES} ${SDL2}
+                  valgrind"
+      - IMAGE=i386/debian:unstable
+        COMMAND="./tools/ci/jobs/gcc10_tests.sh --disable-tmwa --without-dyecmd --without-gameclient --with-sdl2"
+        PACKAGES="gcc-10 g++-10 
+                  ${LIBS_PACKAGES} ${SDL2}
+                  valgrind"
+
+notifications:
+  email: false

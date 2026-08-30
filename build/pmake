@@ -1,0 +1,27 @@
+#!/bin/bash
+
+mkdir tmp
+cd ..
+
+dir=`pwd`
+
+export CCACHE_DIR="${dir}/build/ccache/pmake"
+export CC="ccache gcc"
+export CXX="ccache g++"
+
+export LANG=C
+
+export CXXFLAGS="-g -pg -fno-inline -fno-omit-frame-pointer"
+
+autoreconf -i
+cd build/tmp
+../../configure --prefix=$dir/run \
+--datadir=$dir/run/share/games \
+--bindir=$dir/run/bin \
+--mandir=$dir/run/share/man
+
+cd po
+make -j16 update-gmo
+cd ..
+make -j16
+

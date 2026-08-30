@@ -1,0 +1,2 @@
+#!/bin/sh
+exec manaplus @datadir@/manaverse/data/tmw/tmw.mana "$@"

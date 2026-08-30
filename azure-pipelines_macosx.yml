@@ -1,0 +1,79 @@
+jobs:
+- job: list_xcode
+  pool:
+    vmImage: 'macOS-latest'
+  steps:
+  - script: |
+      ls /Applications/ | grep Xcode|sort
+
+- template: tools/ci/templates/azure/macosx.yml
+  parameters:
+    name: xcode_10_3
+    xcode: Xcode_10.3.app
+
+- template: tools/ci/templates/azure/macosx.yml
+  parameters:
+    name: xcode_11_1
+    xcode: Xcode_11.1.app
+
+- template: tools/ci/templates/azure/macosx.yml
+  parameters:
+    name: xcode_11_2
+    xcode: Xcode_11.2.app
+
+- template: tools/ci/templates/azure/macosx.yml
+  parameters:
+    name: xcode_11_2_1
+    xcode: Xcode_11.2.1.app
+
+- template: tools/ci/templates/azure/macosx.yml
+  parameters:
+    name: xcode_11_3
+    xcode: Xcode_11.3.app
+
+- template: tools/ci/templates/azure/macosx.yml
+  parameters:
+    name: xcode_11_3_1
+    xcode: Xcode_11.3.1.app
+
+- template: tools/ci/templates/azure/macosx.yml
+  parameters:
+    name: xcode_11_4
+    xcode: Xcode_11.4.app
+
+- template: tools/ci/templates/azure/macosx.yml
+  parameters:
+    name: xcode_11_4_1
+    xcode: Xcode_11.4.1.app
+
+- template: tools/ci/templates/azure/macosx.yml
+  parameters:
+    name: xcode_11_5
+    xcode: Xcode_11.5.app
+
+- template: tools/ci/templates/azure/macosx.yml
+  parameters:
+    name: xcode_11
+    xcode: Xcode_11.app
+
+- job: vars
+  pool:
+    name: 'Hosted Ubuntu 1604'
+  dependsOn:
+    - xcode_10_3
+    - xcode_11
+    - xcode_11_1
+    - xcode_11_2
+    - xcode_11_2_1
+    - xcode_11_3
+    - xcode_11_3_1
+    - xcode_11_4
+    - xcode_11_4_1
+    - xcode_11_5
+  steps:
+  - script: |
+      curl -X POST \
+          -F token=$(IMAGETOKEN) \
+          -F "ref=macos" \
+          -F "variables[AZUREURL]=$(System.TeamFoundationCollectionUri)$(System.TeamProjectId)/_apis/build/builds/$(Build.BuildId)/artifacts?artifactName=ANAME&api-version=5.0-preview.3&%24format=zip" \
+          https://gitlab.com/api/v4/projects/2872004/trigger/pipeline

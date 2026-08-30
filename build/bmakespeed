@@ -1,0 +1,34 @@
+#!/bin/bash
+
+mkdir tmp
+cd ..
+
+dir=`pwd`
+
+export CCACHE_DIR="${dir}/build/ccache/bmakespeed"
+export CC="ccache gcc"
+export CXX="ccache g++"
+export LANG=C
+
+export CXXFLAGS="-pedantic -ggdb3 -O5 -pipe -ffast-math \
+-funswitch-loops \
+-D_FORTIFY_SOURCE=2 \
+-funsafe-loop-optimizations -flto -fwhole-program \
+-march=native -fsched-pressure \
+-std=gnu++2a \
+-fno-var-tracking -Wno-attributes"
+
+source ./tools/ci/flags/gcc8.sh
+
+autoreconf -i
+cd build/tmp
+../../configure --prefix=$dir/run \
+--datadir=$dir/run/share/games \
+--bindir=$dir/run/bin \
+--mandir=$dir/run/share/man
+
+cd po
+make -j16 update-gmo
+cd ..
+make -j16
+

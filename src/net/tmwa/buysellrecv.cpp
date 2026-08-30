@@ -1,0 +1,124 @@
+/*
+ *  The ManaVerse Client
+ *  Copyright (C) 2004-2009  The Mana World Development Team
+ *  Copyright (C) 2009-2010  The Mana Developers
+ *  Copyright (C) 2011-2020  The ManaPlus Developers
+ *  Copyright (C) 2020-2025  The ManaVerse Developers
+ *
+ *  This file is part of The ManaVerse Client.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include "net/tmwa/buysellrecv.h"
+
+#include "notifymanager.h"
+
+#include "being/playerinfo.h"
+
+#include "const/resources/currency.h"
+
+#include "enums/resources/notifytypes.h"
+
+#include "gui/windows/buydialog.h"
+
+#include "gui/widgets/createwidget.h"
+
+#include "net/messagein.h"
+
+#include "net/ea/buysellrecv.h"
+
+#include "debug.h"
+
+namespace TmwAthena
+{
+
+void BuySellRecv::processNpcBuy(Net::MessageIn &msg)
+{
+    msg.readInt16("len");
+    const unsigned int n_items = (msg.getLength() - 4U) / 11;
+    CREATEWIDGETV(Ea::BuySellRecv::mBuyDialog, BuyDialog,
+        Ea::BuySellRecv::mNpcId,
+        DEFAULT_CURRENCY);
+    Ea::BuySellRecv::mBuyDialog->setMoney(
+        PlayerInfo::getAttribute(Attributes::MONEY));
+
+    for (unsigned int k = 0; k < n_items; k++)
+    {
+        const int value = msg.readInt32("price");
+        msg.readInt32("dc value?");
+        const ItemTypeT type = static_cast<ItemTypeT>(msg.readUInt8("type"));
+        const int itemId = msg.readInt16("item id");
+        const ItemColor color = ItemColor_one;
+        Ea::BuySellRecv::mBuyDialog->addItem(itemId, type, color, 0, value);
+    }
+    Ea::BuySellRecv::mBuyDialog->sort();
+}
+
+void BuySellRecv::processNpcSellResponse(Net::MessageIn &msg)
+{
+    switch (msg.readUInt8("result"))
+    {
+        case 0:
+            NotifyManager::notify(NotifyTypes::SOLD);
+            break;
+        case 1:
+        default:
+            NotifyManager::notify(NotifyTypes::SELL_FAILED);
+            break;
+        case 2:
+            NotifyManager::notify(NotifyTypes::SELL_TRADE_FAILED);
+            break;
+        case 3:
+            NotifyManager::notify(NotifyTypes::SELL_UNSELLABLE_FAILED);
+            break;
+    }
+}
+
+void BuySellRecv::processNpcBuyResponse(Net::MessageIn &msg)
+{
+    const uint8_t response = msg.readUInt8("response");
+    if (response == 0U)
+    {
+        NotifyManager::notify(NotifyTypes::BUY_DONE);
+        return;
+    }
+    // Reset player money since buy dialog already assumed purchase
+    // would go fine
+    if (Ea::BuySellRecv::mBuyDialog != nullptr)
+    {
+        Ea::BuySellRecv::mBuyDialog->setMoney(
+            PlayerInfo::getAttribute(Attributes::MONEY));
+    }
+    switch (response)
+    {
+        case 1:
+            NotifyManager::notify(NotifyTypes::BUY_FAILED_NO_MONEY);
+            break;
+
+        case 2:
+            NotifyManager::notify(NotifyTypes::BUY_FAILED_OVERWEIGHT);
+            break;
+
+        case 3:
+            NotifyManager::notify(NotifyTypes::BUY_FAILED_TOO_MANY_ITEMS);
+            break;
+
+        default:
+            NotifyManager::notify(NotifyTypes::BUY_FAILED);
+            break;
+    }
+}
+
+}  // namespace TmwAthena

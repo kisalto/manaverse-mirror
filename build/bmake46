@@ -1,0 +1,70 @@
+#!/bin/sh
+
+cd ..
+
+#may be
+#-Wshadow -Waggregate-return -Winline 
+
+#for feature
+#-Wstrict-overflow=4 -Wfloat-equal
+#-Wunsafe-loop-optimizations
+#-Wnon-virtual-dtor
+#-Woverloaded-virtual
+#-Wformat=2
+#-Wswitch-enum
+#-Werror 
+
+#for better code
+# -Weffc++
+
+#from time to time fix: -Wold-style-cast -Wconversion -Wswitch-enum -Waggregate-return
+#from time to time fix: -Winline -Woverloaded-virtual
+#need fix: -Wsuggest-attribute=pure -Wsuggest-attribute=const
+#need fix: -Wstrict-overflow=5 -fstrict-overflow
+#need fix: -Wstrict-aliasing=3
+#need fix: -Wdouble-promotion
+#need fix: -Wfloat-equal
+#need fix: -Wunsafe-loop-optimizations
+#need fix: -Wpadded
+#need fix: -Wsign-conversion
+#prof -pg
+
+dir=`pwd`
+
+export CC=gcc-4.6
+export CXX=g++-4.6
+
+export LANG=C
+
+export CXXFLAGS="-Wvariadic-macros -Wvla -Wredundant-decls \
+-Wpacked-bitfield-compat -Wcast-qual -Wtrampolines \
+-Wsuggest-attribute=noreturn -Wunused -Wstrict-aliasing=2 \
+-fstrict-aliasing -Wunreachable-code -Wabi -Wdisabled-optimization \
+-Wvolatile-register-var -Winvalid-pch -Wredundant-decls \
+-Wnormalized=nfkc -Wmissing-format-attribute -Wmissing-noreturn \
+-Wsign-promo -Waddress -Wmissing-declarations \
+-Wctor-dtor-privacy -Wstrict-null-sentinel -Wlogical-op \
+-Wcast-align -Wcast-qual -Wpointer-arith -Wundef \
+-Wmissing-include-dirs -Winit-self -pedantic -Wall -ggdb3 -O2 -pipe \
+-Wpacked -Wextra -Wstrict-overflow=1 -Wunknown-pragmas -Wwrite-strings \
+-Wstack-protector -Wshadow -Wunused -Wunused-macros -Wsynth \
+-Wbuiltin-macro-redefined -Wctor-dtor-privacy -Wdeprecated -Wextra \
+-Wendif-labels -Wformat=1 -Wimport -Wnon-virtual-dtor -Wpsabi \
+-Wsign-promo -Wwrite-strings -D_FORTIFY_SOURCE=2 -Wc++17-compat \
+-Wno-attributes"
+
+autoreconf -i
+./configure --prefix=$dir/run \
+--datadir=$dir/run/share/games \
+--bindir=$dir/run/bin \
+--mandir=$dir/run/share/man \
+--enable-memdebug=no \
+--enable-tcmalloc=no \
+--enable-googleprofiler=no
+
+cd po
+#make -j16 update-po 2>../build/make1.log
+make -j16 update-gmo
+cd ..
+make -j16
+

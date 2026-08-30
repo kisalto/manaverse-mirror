@@ -1,0 +1,16 @@
+#!/bin/bash
+
+cd ..
+
+dir=`pwd`
+
+cd packaging/windows
+./make-translations.sh
+makensis -DDLLDIR=$dir/../libs/dll/ \
+    -DPRODUCT_VERSION="1.0" \
+    -DEXESUFFIX=/src \
+    -DUPX=true \
+    -DBITS=${BITS} \
+    -DSEHDLL=${SEHDLL} \
+    setup.nsi
+

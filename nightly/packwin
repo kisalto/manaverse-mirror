@@ -1,0 +1,14 @@
+#!/bin/bash
+
+cd ..
+
+dir=`pwd`
+
+cd packaging/windows
+./make-translations.sh
+makensis -DDLLDIR=$dir/../libs/dll/ \
+    -DPRODUCT_VERSION="nightly-$1" \
+    -DEXESUFFIX=/src \
+    -DUPX=true \
+    setup.nsi
+

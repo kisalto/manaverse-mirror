@@ -1,0 +1,3210 @@
+2019-03-23 New release 1.9.3.23
+fix: guild members in 2018 packet versions.
+fix: dynamic walls on windows.
+fix: badges state in legacy server.
+fix: improved auto sync logic for fix desyncs.
+add: troll emote by Tirifto.
+add: support for packets with item id in int32.
+add: support for 2018 packet versions.
+add: dynamic inventory size.
+update: different packets.
+
+2018-12-08 New release 1.8.12.8
+fix: dyecmd crash in A and S dye.
+fix: out of bound access in dye code if run with AVX support.
+fix: display stats with negative values.
+fix: avoid shop spam in legacy server.
+add: basic stat counters into debug window.
+add: new hercules packets.
+add: over weight flag from server side.
+add: server side online list on legacy server.
+change: protocol version changed to 25.
+remove: support for evol plugin version 19 or older.
+remove: some debug messages about cache usage.
+
+2018-09-01 New release 1.8.9.1
+fix: visual issue with used tiles from empty atlases.
+fix: hiding deleted temporary skills.
+fix: crash with wrong moving paths.
+fix: loading commands in text command editor.
+fix: some packets.
+fix: quotes in some char gm commands.
+fix: cross compilation issue. (by Helmut Grohne)
+fix: dont allow buy items with amount 0 from market shop types.
+fix: moving between slots by keyboard in character select dialog.
+fix: sending talk request to npc from menu if npc have not unique names.
+fix: split updateprotocol.cpp into parts for less memory usage in compilation.
+fix: add possible workaround for realpath overflow.
+fix: crash if read corrupted zip archive.
+fix: disable errors "in cache other image" due false positives.
+add: some new chat emotes.
+add: extent chat /use command for support colors and use actions.
+add: show warning in servers dialog if software mode selected.
+add: gm revive button in death dialog if player have revive command.
+add: shortcuts buttons icons by Guaritore. (disabled by default)
+add: log libcurl errors into manaplus.log.
+add: disable password from command line by default.
+add: extend shortcuts bars skining.
+add: use cache dir for game data files on Haiku.
+add: enable images in updater window.
+add: allow dragging by uneditable text boxes.
+add: use more strict flags in asan/ubsan builds.
+add: dont disable keyboard input in pincode dialogs.
+add: play item usage sounds for all players around.
+add: update packets.
+remove: support for CILK plus.
+remove: support for hercules plugin version 12 and older.
+remove: text "Message" from message related windows.
+
+2018-04-14 New release 1.8.4.14
+fix: group badge update on group change.
+fix: packet size for packet 0x07fd.
+fix: possible sorting issues in party and guild tabs.
+fix: possible issue in building walk path.
+fix: possible draw issue in speech texts.
+fix: crash in reordering sprites.
+fix: uploading files. Changed service to ex.io.
+add: allow any gm level for tmwa.
+add: separate sound messages for party, guild, clan tabs.
+add: support for item stat ranges.
+add: highlight attribute for groups.
+add: show atlases count in debug tab.
+add: pincode support.
+add: improve error message in resource loading.
+add: sorting field in gm item creation window.
+remove: legacy status effect field "block-id".
+
+2018-02-17 New release 1.8.2.17
+fix: some missing checks.
+add: new packets.
+add: packets type flag support for re and prere packets.
+add: zero packets type.
+add: shuffle packets for most packet versions.
+add: possible mitigation against glibc realpath error.
+add: clans support.
+
+2017-11-11 New release 1.7.11.11
+fix: compilation with unreleased tinyxml2.
+add: packets for new hercules packet versions.
+add: draw basic npc equipment.
+
+2017-10-28 New release 1.7.10.28
+fix: disable alt-tab workaround in SDL2 by default.
+add: new packets.
+add: configure options for build with system catch or dectest.
+add: show full SDL version in version string.
+
+2017-10-14 New release 1.7.10.14
+fix: some wrong asserts in text command editor.
+add: configure parameter for set working directory for unit tests.
+
+2017-09-30 New release 1.7.9.30
+fix: disconnect chat command.
+fix: max packet version in server editor.
+add: http tunneling in downloads.
+add: limit each download file to 500MB.
+add: limit minimal allowed download speed to 1 byte per 1 minute.
+add: new packet versions from hercules.
+add: allow use some atributes as int64.
+
+2017-09-16 New release 1.7.9.16
+fix: sorting fonts and themes lists.
+fix: scrolling big windows.
+fix: crash with simple text in chat window before connecting to server.
+fix: adding stackable items to mail window.
+fix: button in higlighted state in who is online window.
+fix: memory leak in downloads.
+fix: add workaround for fix alt-tab issue in SDL2.
+fix: ignoring keys in SDL 2.
+fix: prevent to run cmake by default. because cmake is legacy build system.
+fix: alternative fps mode in SDL 2 and before connecting to server.
+fix: audio termination on exit.
+add: jewelry-simple theme with non transparent chat window.
+add: rescale skill casting animation to whole skill area.
+add: current renderer into user agent string in web requests.
+add: extend input SDL events logging.
+add: option with SDL logging level (SDL 2).
+add: option for allow high dpi mode (SDL 2).
+add: allow use different existing renderer in SDL2 normal mode.
+add: option for max parallel sounds.
+
+2017-09-02 New release 1.7.9.2
+fix: duplicates for some assert messages.
+fix: mouse selection in some lists.
+fix: leaks and relations in unit tests.
+fix: some asserts on first run.
+add: support for new mail system.
+add: extend packets logging.
+add: unit tests for detect broken sdl features.
+
+2017-08-19 New release 1.7.8.19
+fix: drawing language badge.
+fix: hide item popup in context menu.
+fix: item containers scrolling if some items hidden by filter.
+fix: compilation on systems with missing bswap_16/32.
+add: debug window before connecting to server.
+add: attributes to missile particles.
+add: context menu way to add skill into shortcuts bar.
+add: custom context menu for items. Separate for inventory, storage, cart.
+add: more than one use action for items.
+add: packets for new mail system, but without gui.
+add: id offset for server plugin custom packets.
+
+2017-08-05 New release 1.7.8.5
+fix: quests window redraw speed and render too long lines.
+fix: mouse cursor update each 10 seconds.
+fix: crash in help window links with old compilers.
+fix: server command with name "int" in groups.xml.
+fix: memory leak in skill casting animation.
+fix: free network related memory or reconnecting to other servers.
+fix: prevent server connection timeout in register dialog.
+add: improve mouse move and click emulation.
+add: option to show player name at top or bottom.
+add: improve badges drawing with hidden player name.
+add: use gcc-6 for windows builds.
+add: default icons for unknown skills by types.
+add: shortcuts tab with automatically added active skills (not for legacy servers).
+
+2017-07-22 New release 1.7.7.22
+fix: memory leak if player not totally visible while moving.
+fix: character select dialog size if slots more than two rows.
+fix: show own group level if group hidden from public.
+fix: show tinyxml2 in client name if it was used.
+fix: possible crash on exit if compiled with SDL 2.
+add: command line flag for validate client data.
+add: show group name in being popups.
+add: load group name, badge, commands, permissions from xml file.
+add: mse lib with secure vector (for debug).
+add: show gm commands based on allowed commands for local player.
+
+2017-07-08 New release 1.7.7.8
+fix: flushing background logs.
+fix: stats in item popups.
+fix: workaround to build with libicu-59 (need by libxml2)
+add: new hercules packets.
+add: allow open chat window before connection to server.
+add: update readmes.
+add: update doctest library.
+
+2017-06-24 New release 1.7.6.24
+fix: browserbox width with small bold lines.
+fix: draw color in some renderers after window resize.
+add: server info window
+add: mark all server with free / non free / unknown label.
+add: set default theme to jewelry.
+add: improve speed in some windows.
+add: auto close death dialog if player resurrected.
+add: new chat commands.
+remove: auto adding sfx/ in sound files paths.
+
+2017-06-10 New release 1.7.6.10
+fix: use default configs in MacOSX version.
+fix: memory leak in different places.
+fix: possible issue in npc dialog.
+add: enable simd on windows and kFreeBSD.
+add: enable simd if build with clang.
+add: improve mixing images speed in most platforms.
+add: support for known packets version 2017.
+remove: codeblocks project file.
+
+2017-05-27 New release 1.7.5.27
+fix: default configuration files in NaCl builds.
+fix: simd functions working with LTO compilation flags.
+add: assert in debug tab about non 32 bit images.
+add: support for testing library doctest.
+add: improve load speed in Android builds.
+add: different chat commands.
+
+2017-05-14 New release 1.7.5.14
+fix: possible crash if exit while downloading servers list.
+fix: crashes in cart and some other inventories.
+fix: socket leak in ipc.
+fix: memory leak in screenshots.
+add: option for enable / disable particle effects located on map.
+add: use ccache in some build scripts.
+add: allow run ipc commands before connecting to server.
+add: different chat commands.
+add: support for 2016 packet versions.
+add: basic functional testing based on ipc and screenshots.
+
+2017-04-29 New release 1.7.4.29
+fix: loading map atlases on windows.
+fix: slow or wrong drawing with atlases enabled but without atlas for current map.
+fix: opening npc buy shop from invisible npc.
+add: support for item options.
+add: improve performance in some files operations.
+remove: drop support for old hercules plugin versions (before 2016 year)
+
+2017-04-15 New release 1.7.4.15
+add: server language flag on client
+add: quick messages with auto translation from player server language to english.
+add: update packets acording to hercules changes.
+
+2017-04-01 New release 1.7.4.1
+add: optional support for tinyxml2 (by default used libxml2)
+add: update readme.
+add: improve some file operations.
+add: configure flag for build binary for unit tests but not run it.
+remove: completly remove physfs usage.
+
+2017-03-18 New release 1.7.3.18
+fix: add missing include for BSD systems.
+fix: some issues in unit tests in some systems.
+fix: unit tests on windows.
+fix: zip archives reading on big endian systems.
+fix: sound at first run.
+fix: wrong transparency level if open and close setting at first run.
+fix: compilation autoconf files with mingw.
+fix: memory leak in buy dialog.
+add: stack generation in asserts for all supported platforms.
+add: update hercules packets for prevent warnings from new hercules builds.
+add: option for disable moving character by mouse.
+add: report about depricated sfx file paths.
+add: windows 64 builds.
+remove: physfs from dependencies.
+
+2017-03-04 New release 1.7.3.4
+fix: memory leaks in xml parsing.
+fix: pointers alias issues.
+fix: space and enter key press in updates window.
+add: option in client data for set overwight percent for message.
+add: option to build without physfs (experimantal).
+
+2017-02-18 New release 1.7.2.18
+fix: wrong buffer access.
+fix: custom currency in shop items list.
+fix: compilation warnings in some libs.
+fix: possible use after free in web requests.
+add: quests links in npc window.
+add: show manaplus.log path in console at start.
+
+2017-02-04 Nre release 1.7.2.4
+fix: compilation with very old libcurl versions.
+fix: compilation with very new SDL2 versions.
+fix: possible crash in buydialog.
+fix: unit tests compilation.
+add: unit tests for detect physfs bugs with new zlib.
+add: use pkg-config for all libs.
+add: impliment buy many items at once from cash shops.
+add: different currencies for npcs.
+add: impove map draw performance.
+
+2017-01-21 New release 1.7.1.21
+fix: minor issues in map layers drawing.
+fix: dont clean online list if http error happened (legacy server).
+fix: vsync for mesa drivers.
+fix: use pkg-config for linking with libpng.
+fix: crash with map without tmx file.
+add: detect cpu features avx and avx2.
+add: used font sources.
+add: logging about compiled and linked libraries versions on startup.
+remove: hercules plugin support version 6.
+
+2017-01-07 New release 1.7.1.7
+fix: compilation for kFreeBSD.
+fix: wrong dye with OpenGL and rectangular textures enabled.
+fix: possible issue with sprite replaces.
+add: improve a bit performance.
+add: unblacklist auto detect OpenGL modes with LLVM in driver.
+
+2016-12-24 New release 1.6.12.24
+fix: some typos.
+fix: compilation with cilk plus and gcc 6.
+fix: hair animation in char create dialog.
+add: rectangular skill pages.
+add: show skill tabs only with active skills.
+add: special tab for unknown skills.
+add: using sse2/avx2 in A and S dye.
+remove: support for evol plugin version 5.
+
+2016-11-05 New release 1.6.11.5
+fix: legacy status effects with block-id.
+fix: some packets for some packet versions.
+
+2016-10-22 New release 1.6.10.22
+fix: character creation for packet version >= 20120307 (hercules)
+add: support for redicts in online list (legacy servers)
+add: option to show player name only on selected player.
+
+2016-10-08 New release 1.6.10.8
+fix: fix modal dialogs if update window is open.
+fix: theme info dialog.
+fix: removing particle effect after it was disabled on server.
+add: in quest texts add fields for data from server.
+add: support for links to monsters, pets, homunculuses.
+add: more than one image support in one animation action.
+
+2016-09-24 New release 1.6.9.24
+fix: bold links hightlight.
+fix: some rare memory leaks.
+fix: not try insert intems into each other in legacy servers.
+fix: reading keys from configuration.
+add: support for fake and remove packets xml file.
+add: drag and drop into shop window.
+add: allow drag most windows by used parts.
+add: extend outfits window menu.
+
+2016-09-10 New release 1.6.9.10
+fix: file handlers leak.
+fix: running command in chat if not tab selected.
+add: esperanto translation selection.
+add: option for create custom OpenGL context.
+
+2016-08-27 New release 1.6.8.27
+fix: show skill level selection with skills with level 1.
+fix: leave guild.
+fix: getting party settings from server.
+fix: mercenary and homunculus moving.
+fix: remove stats pages on reconnecting to server.
+add: skill cast type and offsets into skills and shortcut window.
+add: default background music by Obani.
+add: menu in social window.
+add: change get auto item option in party.
+add: particle effects for equipment from cards.
+add: custom ai to homunculus and mercenary.
+add: in vending (sell) shop allow buy many items at once.
+add: in vending show for seller what item was sold.
+add: in item gm menu allow add more same item.
+add: improve sorting in inventory.
+remove: local pets support (tmwa).
+
+2016-08-14 New release 1.6.8.14
+fix: arrow slot in equipment window.
+fix: compilation with new curl 7.50.
+fix: freeze with some particle types.
+fix: particles count in popup.
+add: show being level at popup.
+add: shop hp/max hp in being popup.
+add: support for elemental beings.
+add: extend stats.xml with attribute names.
+add: extend riding offsets.
+add: player wall collision. (player cant walk).
+add: monster wall collision. (monster cant walk).
+add: cache most xml files.
+
+2016-07-30 New release 1.6.7.30
+fix: not allow moving while casting if skill not allow moving.
+fix: update skill in skills window after skill was changed.
+fix: moving desync distance read.
+fix: possible player particles leaks.
+add: show casting effect on ground and on caster and target.
+add: show skill action effects on caster and target.
+add: homunculus and mercenary attributes into status window.
+add: show homunculus and mercenary hp bar.
+remove: support for outdated equipmentwindow.xml format.
+remove: native guilds support (tmwa).
+
+2016-07-16 New release 1.6.7.16
+fix: invoking complex skill types.
+fix: clean statdb on unload.
+fix: remove wrong sound effect for drag & drop items.
+fix: translation in quest links.
+fix: saving shortcut to skill with max level selected.
+fix: crash if try to open windows list before connecting to server.
+add: translate and show in debug window map names.
+add: start particle effect for status effects.
+
+2016-07-02 New release 1.6.7.2
+fix: issues with translated item names.
+fix: probably final fix for being paths (hercules).
+add: show cards in foring items window.
+add: cards into char creation window (charcreation.xml).
+add: move equipment slots name into equipmentslots.xml
+add: move player stats definition into stats.xml
+add: extend dye unit tests.
+
+2016-06-18 New release 1.6.6.18
+fix: nuke command.
+fix: dont send CMSG_WHO_REQUEST for most new tmwa versions.
+fix: space usage in login dialog if build with SDL2.
+fix: being transparency with OpenGL renderer.
+fix: pet hungry level after login.
+add: check for tilesets in atlases.
+add: dont backup config file if found issue with disk.
+
+2016-06-04 New release 1.6.6.4
+fix: some false positive asserts.
+fix: chat command /msg for channels.
+fix: show asserts what happend before chat windows was created.
+add: support for all known hercules packet versions from 2010 to 2015.
+add: change default max chars in chat messages to 512.
+add: restore camera option in minimap menu.
+add: configurable in xml item stat fields.
+add: status effects name translation.
+add: show asserts for most errors in resource dbs.
+
+2016-05-21 New release 1.6.5.21
+fix: DSO in Mesa and disable DSO blacklist. Can be issue in NVIDIA.
+fix: /hat command output if no hat equipped.
+fix: fix random one tile desync in hercules.
+add: max distance for start auto fix client side position.
+add: switch emote bar mode for player/pet/mercenary/homunculus.
+add: different asserts. Also show them in debug tab if enabled.
+add: allow set change collisions on the fly (tmwa).
+add: improve performance in particles.
+
+2016-05-07 New release 1.6.5.7
+fix: login in title bar.
+fix: compilation for MacOSX.
+fix: follow moves with enabled atuo sync.
+fix: adding items by add button into npc inventory.
+fix: some images format.
+add: ci scripts.
+add: basic memory counting.
+add: support for show actual killer (hercules)
+add: assert functions with reporting stack.
+add: hide emotes and over head text for erased players.
+
+2016-04-23 New release 1.6.4.23
+fix: invite to guild from context menu.
+fix: possible crash in login dialog with opened drop down list.
+add: by default disable being advanced caching.
+add: show server and nick in game window title.
+add: support for different groups of update servers.
+add: option for disable OpenGL check.
+add: option for enable/disable chat commands from server.
+
+2016-04-09 New release 1.6.4.9
+fix: not allow some chat commands exuting by npc scripts.
+fix: crash in /debugspawn chat command if create beings outside of map.
+add: improve players draw performance.
+add: support for multiply packet versions at same time.
+add: ask before executing remote commands in chat.
+add: some new and old packets (hercules)
+
+2016-03-26 New release 1.6.3.26
+fix: wrong moving to target by mouse attack.
+fix: not allow close warp dialog until target selected (hercule).
+fix: crash in skill cooldowns.
+fix: compilation with recent clang versions (clang bug).
+fix: remove duplicated weight fields from items popups.
+add: extend debug logging about wrong packet sizes.
+add: rename server type EAthena into Hercules.
+add: improve particles update performance.
+add: improve performance in getting random numbers.
+add: add family packets support (hercules).
+add: raw status effects attributes in status-effects.xml.
+add: deprecate block-id attribute in status-effects.xml.
+add: status effect names in debug window.
+add: show skill unit created and id in context menu.
+add: packet version selection in servers list (hercules).
+add: not allow moving from sit state (hercules without evol plugin).
+add: drop support for evol plugin versions 1 - 3.
+add: open chat window by double click.
+
+2016-03-12 New release 1.6.3.12
+fix: search command triggering for text like "??" or "?!"
+fix: pet popup. now it show info only for own pet (hercules).
+fix: custom homunculus names (hercules)
+fix: moving in diagonal near air or water collision (hercules).
+fix: not allow add equipped items to trade (hercules).
+fix: targeting monsters who moved from collision to walkable tiles.
+fix: ping if player in party/guild (hercules).
+fix: heal packet from server (hercules).
+add: different new chat commands for gms (hercules).
+add: gm menu for pets, homunculuses, mercenaries (hercules).
+add: "add to chat" in show items menu.
+add: auto fix for desync between client and server while moving.
+add: reduce partciles update for very far particles.
+add: support for readable links in quests.xml.
+add: new tags in quests.xml (questgiver, npc, cooridinates).
+add: parameters support in quests.xml.
+add: for future tmwa servers parse chat messages with nick in each message.
+add: two new equipment slots support (hercules).
+add: allow fast up stats without lag (hercules).
+add: into players menu command "mail to" (hercules).
+add: disable legacy "magic" commands (hercules).
+add: more item visible attributes into items.xml.
+add: support for custom text in pet menu item "return to egg".
+add: improved performance.
+
+2016-02-27 New release 1.6.2.27
+fix: crash in setup gui tab.
+fix: char creation if stats was hidden (tmwa).
+fix: crash on startup on some systems.
+fix: beings sort offset in tiles with height more than zero.
+fix: hide popups if mouse enter context menu.
+add: extended drop position in pixels (hercules)
+add: onscreen buttons in format 3x2.
+add: extend gm menus for players, monsters, npcs.
+add: per server gm and char gm commands symbol.
+
+2016-02-13 New release 1.6.2.13
+fix: working with updated hercules without evol plugin.
+fix: possible crash with broken map.
+fix: stop cast animation after post delay effect.
+fix: attacking after skill casting.
+fix: ignore fuzzy translations in custom translation parser.
+fix: crash on exit with onscreen buttons.
+fix: drawing keyboard icon.
+add: show chat messages from hidden gms (tmwa)
+add: improve trade spam filter. Now it add message about moved text.
+add: option for enable/disable trade spam filter.
+add: logging mapping between account id and nicsk.
+add: logging last seen players time.
+add: chat command for last seen players.
+Command: /lastseen NICK
+add: cutins animations support (hercules)
+add: allow images in npc dialogs.
+add: allow skill units selection and attack.
+add: allow assign shortcut key actions to onscreen buttons.
+
+2016-01-30 New release 1.6.1.30
+fix: not allow add equipped items into craft.
+fix: /who command (hercules)
+fix: commands for remove moster from attack lists.
+fix: not allow walking by mouse if npc dialog is open.
+fix: undress in hercules.
+add: support for adding cards in item links.
+add: not move chat messages with links to debug tab.
+add: support for xml library pugixml (disabled by default).
+add: multy file help search index.
+add: in char create dialog hide fields if values not allow change it.
+add: move items by one to craft with stop attack key pressed.
+add: quick shortcuts for move current item to each craft slot (unasisgned).
+add: item menu for move current item to each craft slot (unasisgned).
+add: char commands for add/remove pickups in list.
+
+2016-01-16 New release 1.6.1.16
+fix: removing monster from attack list.
+fix: dye palette parsing with GIMP colors.
+fix: dont reset settings except OpenGL in safe mode (nacl).
+add: translation support in nacl.
+add: impliment new hercules packets.
+add: craft inventory (hercules).
+add: hex colors in dye palettes with GIMP colors.
+add: alpha channel in dye palettes with GIMP colors.
+add: into paths.xml options for GIMP palette.
+add: show cards in links.
+
+2016-01-02 New release 1.6.1.2
+fix: sprites animation for just loaded sprites.
+fix: default beings walk mask.
+add: refactor some code.
+
+2015-12-19 New release 1.5.12.19
+fix: custom cursor in nacl.
+fix: render fallback.
+add: per char gender (tmwa)
+add: OpenGL ES 2 renderer.
+add: nacl OpenGL support.
+add: screenshots support (nacl).
+add: full screen support (nacl).
+
+2015-12-05 New release 1.5.12.5
+fix: allow kill infinite life particles if parent was killed.
+fix: missing selection images in mana theme in windows.
+add: skill level selection for invoking skills.
+add: chat command for invoke skills.
+add: teleport skills location selection (hercules).
+add: spirit balls (hercules).
+add: basic OpenGL support in nacl.
+add: open urls and clipboard support in nacl (vasily_makarov).
+
+2015-11-21 New release 1.5.11.21
+fix: crash with enabled missing status effect.
+fix: scrollbars drawing in jewelry and golden delicious themes.
+fix: dont show empty notifications.
+fix: some skill error messages (hercules)
+fix: char create dialog height.
+fix: not allow registration without email (hercules)
+fix: party invite response (hercules)
+fix: attack animations.
+add: ground skills support (hercules)
+add: skill units support (hercules)
+add: support for casting status effect on ground (hercules)
+add: support for ground skills with text parameter (hercules)
+add: allow use support skills on self (hercules)
+add: slide chat command.
+add: casting animation.
+add: skill popups in shortcuts window.
+add: close button in context menu in minimap and shortcuts windows.
+add: in personal shops in sell dialog show missing items (tmwa only)
+add: update mplus fonts.
+add: features.xml attributes for force account and char gender.
+
+2015-11-07 New release 1.5.11.7
+fix: not reduce tiles in conditional layers.
+fix: cart inventory if it empty.
+add: separate flag for enable/disable gui opacity.
+add: npc menu and inventory skins support.
+add: extend npc inventory.
+add: dead trick status effect (hercules).
+add: status effects in player popup.
+add: buy/sell many items at once from npc (hercules).
+
+2015-10-24 New release 1.5.10.24
+fix: remove useless memory allocations.
+fix: status effects (hercules)
+add: flag for stay npcs after they going outside of visible range
+add: option for show why player disappeared (settings / players / Log players actions)
+add: support for change collisions from server side (hercules)
+add: support for show tiles from special layes based on tile collision type.
+add: protect most actions from executing from server.
+add: support for two parts and multy sprites horses.
+add: logging for not implimented status effects.
+
+2015-10-10 New release 1.5.10.10
+fix: moving animation lag in moving (hercules)
+fix: recode buildin sounds to 44100 khz
+fix: show trade messages with disabled trade tab in general tab.
+fix: dont show popup in inventory not on items.
+fix: attack actions on SDL2 builds.
+add: walkType attribute to all beings.
+add: extend walkType attribute to support different types.
+
+2015-09-26 New release 1.5.9.26
+fix: away badge.
+fix: allow set gui opacity to 100% on windows.
+fix: non local player moving on tiles with height more than zero.
+fix: saving beings state (hercules).
+add: select target if missing for attack skill automatically.
+add: support for packet version 20150226 (hercules).
+
+2015-09-12 New release 1.5.9.12
+fix: closing mail edit window.
+fix: buttons position in npc dialog with visible avatar and input field.
+add: received packet name in debug log.
+add: inhirit attribute in items.xml.
+add: manamarket bot integration for support /sendmail command.
+add: /sendmail for quick messages (hercules).
+add: badges for shop, away, inactive modes.
+add: packet SMSG_MAP_MASK (tmwa).
+add: option for creting screenshots on complete trade.
+add: by default init all possible quests to 0.
+add: driver AMD HD 15.x to ignore list.
+add: read packet version from server (hercules).
+add: named items (hercules).
+
+2015-08-29 New release 1.5.8.29
+add: support for item colors (hercules)
+add: separate item icon palette.
+add: drag drop cards for insert (hercules)
+add: improve player attack action (Travolta)
+add: disable DSA if driver AMD HD 14.10.*
+add: rental items support (hercules)
+add: support for message from scripts on server.
+add: Catalan, China (Hong Kong), Ukraine languages for manual selection.
+
+2015-08-15 New release 1.5.8.15
+fix: download updates if download error happend.
+fix: key message in outfits window.
+fix: archer attack range in yellow bar.
+fix: wrong sprites in char selection dialog (hercules).
+fix: show all sprites in char selection dialog (hercules).
+add: for future tmwa guilds fix guild kick.
+add: new attributes for items description.
+add: send to client equipped cards (hercules).
+
+2015-08-01 New release 1.5.8.1
+fix: update tmw address in tmw detection code.
+fix: not allow broken nicks. show messages from this nicks with warnings.
+add: enable fast atlases creation (except NVIDIA and Mesa 10.6)
+add: update xcode files (socapex)
+add: option to yellow bar for targetting type (travolta)
+add: calculate heal radius (travolta)
+add: badges for battle teams, parties, guilds, gms and personal player.
+
+2015-07-18 New release 1.5.7.18
+fix: moving with mouse on tiles with height more than zero.
+fix: crash if warp to map with heights with smaller size.
+add: support for insert and see cards (hercules).
+
+2015-07-04 New release 1.5.7.4
+fix: draw attack rectange under beings.
+fix: being position with heights layer.
+add: some missing checks.
+remove: outdated code used in evol v1.
+
+2015-06-20 New release 1.5.6.20
+fix: tab colors update.
+fix: bars context menu.
+add: use persistent ip option if switch map servers.
+add: new configurable colors: enemy, team1, team2, team3.
+add: split configurable colors to groups.
+add: use nick colors depend on team (pvp for tmwa)
+add: option minimal gm level for show gm chat tab.
+
+2015-06-06 New release 1.5.6.6
+fix: buy/sell from personal shops if stand close to npc.
+fix: possible crash if disconnect from server.
+fix: always emulate glTextureSubImage2D function for fix NVidia issue.
+add: improve draw performance.
+add: improve a bit memory usage.
+add: unit tests into make file.
+
+2015-05-23 New release 1.5.5.23
+fix: possible crash in sell dialog.
+fix: possible issue in texture atlases.
+fix: crash on exit with joined room (hercules)
+fix: chat room on rejoining (hercules)
+fix: cmake build with new libs/compiler.
+add: improve performance.
+add: enable some server features (tmwa)
+add: updated fonts.
+add: impliment missing client to server guild packets (hercules)
+
+2015-05-09 New release 1.5.5.9
+fix: compilation on non x86/amd64.
+fix: possible crash on exit with opened storage window.
+add: experimental support for CilkPlus.
+add: mail system (hercules).
+add: chat commands to get/set config variables.
+add: item name filter in buy dialogs.
+remove: bot checker window.
+
+2015-04-25 New release 1.5.4.25
+fix: move animation.
+fix: wrong slots update (hercules)
+fix: error message with delayed items (hercules)
+fix: characters list after password change.
+fix: default walk speed in stats (hercules)
+fix: kill stats window on levelup.
+fix: displaying mod stat with value -1.
+add: mirror support for servers list.
+add: change password support (hercules)
+add: quick settings page (yellow bar in settings)
+add: help messages for chat settings page.
+add: experimental support for CilkPlus (disabled by default).
+remove: hide shield setting.
+
+2015-04-11 New release 1.5.4.11
+fix: chat command /me.
+fix: remove from priority attack list.
+fix: compilation with code blocks.
+add: heal popup message if used heal skill (hercules).
+add: char rooms support (hercules).
+add: mute/unmute support (hercules).
+add: different skill related particle effects (hercules).
+add: variable with player name in away message.
+Variable name: 'NAME'.
+
+2015-03-28 New release 1.5.3.28
+fix: crash in setting gm flag (hercules).
+fix: timeout disconnect from login server (hercules).
+fix: crash if switch character with opened storage window.
+fix: same servers update in servers list with different server type.
+fix: monster context menu item "remove from attack list".
+fix: chat tabs visibility in some cases.
+fix: memory leak in map loading.
+add: chat command to show equpped hat in chat. Command /hat.
+add: show exp and job based on special packet (hercules).
+add: show in pet and homunculus popup intimacy and hungry numbers (hercules)
+add: impliment skill deletetion (hercules).
+add: for each skill own levelup and deletion particle effect.
+
+2015-03-14 New release 1.5.3.14
+fix: skills display is some cases.
+fix: donw request warp names (hercules).
+fix: show chat message from hidden player (hercules).
+fix: dont try enable guild bot on servers with native guilds.
+fix: hair color after reordering sprites (hercules).
+fix: dont read servers list url from configuration.
+fix: show pvp/gvg map modes (hercules).
+add: item links with empty item name.
+add: ride support (hercules).
+add: logging unimplimented packets.
+
+2015-02-28 New release 1.5.2.28
+fix: dont show empty tooltips in inventory.
+fix: drop/store button in inventory.
+fix: dont hide storage window by h key.
+fix: cart status effect (hercules)
+fix: direction issues (hercules)
+add: buying stores support (hercules)
+add: pet talk, change direction, emote, move (hercules)
+add: mercenary, homunculus talk, emote (hercules)
+add: online list support (hercules)
+add: allow rename pet from menu (hercules)
+add: action for heal most damaged player.
+add: fast pet move in distance. left shift + left click.
+
+2015-02-14 New release 1.5.2.14
+fix: camera position if npc dialog was closed by server script command closedialog.
+fix: make file for android.
+fix: storing player relations if switch servers.
+fix: storing attack mobs / pickups filter if switch server.
+fix: weight bar in inventory and cart window.
+add: personal sell shops support (hercules).
+add: improve skill error messages.
+
+2015-01-31 New release 1.5.1.31
+fix: mixed chat lines with colors and emotes.
+fix: follow (hercules)
+fix: auto join buildin channels (hercules)
+fix: fps restoring after away mode (SDL2)
+add: extend /tagetattack for support name argument.
+add: cart support (hercules)
+add: changed shop window to tabbed window.
+
+2015-01-17 New release 1.5.1.17
+fix: char deletion (hercules)
+fix: char deletion if connect to server with password from command line.
+fix: multiply death dialogs.
+fix: player position after warp if source and destination position heighs different.
+add: allow set gender, race, look in char creation (hercules).
+add: sound effects in emotes.
+add: chat command for select general tab (/generaltab)
+add: chat command for select debug tab (/debugtab)
+add: chat command for select battle tab (/battletab)
+add: chat command for select trade tab (/tradetab)
+add: chat command for select lang tab (/langtab)
+add: chat command for select gm tab (/gmtab)
+add: chat command for select party tab (/partytab)
+add: chat command for select guild tab (/guildtab)
+add: for special tabs use channels (hercules)
+remove: support for very old evol servers.
+
+2015-01-03 New release 1.5.1.3
+fix: chat commands /store, /retreive
+fix: chat commands /buy, /sell
+fix: show long key names in browserbox macroses.
+fix; translation for default equip/unequip/use actions.
+fix: crash with completly broken themes.
+add: another tab in shortcuts window.
+add: pets moving and direction actions and commands.
+add: some new commands to commands help.
+add: per char gender (hercules)
+add: market support (hercules)
+add: cach shop support (hercules)
+
+2014-12-20 New release 1.4.12.20
+fix: inventory related packets (hercules).
+fix: background paralax.
+add: command /me in pet talk.
+add: npc whispers (hercules).
+add: keyboard navigation in popup menus.
+add: many chat commands.
+add: own context menus for each npc.
+add: autohatch it present only one egg in inventory (hercules).
+add: support url variable in help/npc/update windows.
+
+2014-12-06 New release 1.4.12.6
+fix: block target+attack action in player dead.
+add: additional slots support (hercules).
+add: option to disable logging in game.
+add: being particle effects (hercules).
+add: map mask support (hercules).
+add: npc genders (hercules).
+add: full moving mob path (hercules).
+add: map music packet (hercules).
+add: npc change title (hercules).
+add: action to switch pvev/next inventory tab.
+add: impliment correct join/part channels (hercules).
+
+2014-11-22 New release 1.4.11.22
+fix: variant attribute in sprites xml with includes.
+add: extend hercules and evol2 support.
+add: update manaplus.cbp.
+add: command option --server-type for set server type.
+
+2014-11-08 New release 1.4.11.8
+fix: dont show overhead text for chat channels messages.
+add: invole chat commmands from skills.
+add: update hercules version support to 20141022.
+add: skill attribute to show skill always.
+add: read first time chat commands from configuration file.
+add: server type Evol2.
+
+2014-10-25 New release 1.4.10.25
+add: extent chat tabs theming.
+add: channels support (hercules).
+add: whisper and channel commands to autocomplete.
+add: different packets support (hercules).
+add: bank window (hercules).
+add: pickup item statuses (hercules).
+add: multiline popup.
+add: missing slots to equipment window.
+
+2014-10-11 New release 1.4.10.11
+fix: portals color on minimap.
+fix: portal names (hercules).
+fix: press on selected button in buttons group.
+fix: add missing disconnect errors.
+fix: creation party name size in social window.
+fix: duplicate numbers in sell dialog.
+fix: input fields detection for action keys rules.
+fix: updates downloading if server not give update server.
+fix: some guild packets (hercules).
+remove: auction bot support.
+add: pets, mercenary, homunculus minimap color.
+add: pages in equipment window.
+add: extend equipment window theming.
+add: player attributes karma, manner.
+add: some missing packets (hercules).
+add: missing attack packets.
+add: missing buy fail reasons.
+add; missing equip, trade error messages.
+add: rename characters if admins allow this (hercules).
+add: missing leave party statuses.
+add: by default disable lazy scrolling.
+
+2014-09-27 New release 1.4.9.27
+fix: chat creation on hercules.
+fix: away mode if was disconnect from server.
+add: support hecules packet version 201500.
+add: option for compile with/without tmwa/evol support.
+add: different hercules packets.
+add: ignore list for logging packets.
+add: formatting in debug packets log.
+add: names for sent packets in debug log.
+add: skills cooldown.
+add: theme colors for disabled text.
+add: basic support for chat objects.
+add: mercenary, pets, homunculus basic support (hercules).
+add: actions for targeting mercenaries, pets, homunculuses.
+add: error text for skills.
+
+2014-09-14 New release 1.4.9.14
+fix: heal shorcut action.
+fix: crash with context menu before connecting to game.
+fix: possible issue to connect to map server.
+fix: chat commands in party/guild.
+fix: in hide all windows action dont hide locked windows.
+add: basic support for hercules server.
+add: extend net packets logging.
+add: allow use item color palettes in non evol servers.
+add: allow use unknown skills.
+add: skill types based on it way to use skills.
+add: skill popup with skill stats.
+add: pet emote key action (unassigned).
+add: chat command for set party leader: /setleader (hercules only).
+add: action and chat command for catch pet (hecules only).
+add: chat command for ignore/unignore whispers from individual player.
+Commands: /serverignore, /serverunignore
+
+2014-08-30 New release 1.4.8.30
+fix: evol desktop file translations.
+add: OpenGL 4.5 features detection.
+add: OpenGL texture compression bptc.
+add: dyecmd to windows version.
+add: missing values into outfits, chat, minimap context menu.
+add: chat command /nextTab and /prevTab.
+add: many different chat commands what mapped to existing actions.
+add: allow load itemcolors.xml in legacy servers.
+
+2014-08-16 New release 1.4.8.16
+fix: floor item position if tile height is not zero.
+fix: allow context menu in outfits window in all places.
+add: upload log button in settings.
+
+2014-08-02 New release 1.4.8.2
+fix: block char moving if any input fields selected.
+fix: possible crash in reset windows button.
+fix: hide all windows action (H).
+fix: follow parent particle attribute.
+fix: different issues in all translation languages.
+fix: player position based on tile heights if player not moving.
+fix: draw order if tiles height not zero.
+add: basic inter process communication.
+add: back yellow bar switch mode (left shift + key).
+add: in map remap db add support for patches and includes.
+add: missing windows into reset to default button.
+add: sv_SE translation and add it to languages list.
+add: debug commands for spawn locale clones (/debugSpawn).
+
+2014-07-19 New release 1.4.7.19
+fix: possible memory leak in texture compression.
+fix: OpenGL renderers fallback.
+fix: logging about emulated OpenGL functions.
+fix: OpenGL renderer detection with SDL2.
+add: new item visible attributes.
+add: missing idx file in windows installers.
+add: empty map mode without collisions.
+add: in OpenGL context creation add support for compatibility context.
+add: disable OpenGL fallback mode while running tests.
+add: on Android move login dialog to top.
+add: useButton option into skills.
+add: modern OpenGL into renderers tests.
+add: max texture size detection for all supported modes.
+add: urls for download client update into branding file.
+add: move manaplus mirror urls into branding file.
+add: allow set "move to target" distance from 1 to 9.
+
+2014-07-05 New release 1.4.7.5
+fix: vsync control on nvidia closed source drivers.
+fix: vsync control on Mesa.
+fix: social window drawing.
+fix: not use depricated OpenGL api in moder and mobile opengl.
+fix: possible crash with missing images.
+fix: OpenGL texture compression detection.
+fix: window resize in modern OpenGL.
+fix: background music if it was enabled by quick enable action ([3]).
+add: manual context creation in modern OpenGL.
+add: action for select closest monster without filter or priority.
+add: GPU way to copy images to atlases.
+add: use GL_EXT_direct_state_access OpenGL extension in atlases.
+add: disable by default texture atlases on Android.
+add: own action names for using items.
+add: another manaplus mirror in files downloading.
+
+2014-06-21 New release 1.4.6.21
+fix: chat window input field size if smiles button disabled.
+fix: make file for tmw branding.
+fix: some spelling errors.
+add: fallback OpenGL renderer if OpenGL version too small.
+add: modern OpenGL renderer.
+add: improve speed in normalopengl renderer.
+add: shell script into tmw/evol branding.
+
+2014-06-07 New release 1.4.6.7
+fix: screenshot key in input fields in SDL2 builds.
+fix: missing text while chat scrolling (up/down).
+add: max texture size detection in video mode test.
+add: improve profiler speed.
+
+2014-05-24 New release 1.4.5.24
+fix: memory leak.
+add: mirrors support for generic manaplus downloads.
+add: imrove beings creation/deletion speed.
+add: open updater window while connected to server.
+add: improved a bit code style.
+
+2014-05-10 New release 1.4.5.10
+fix: time events before connecting to game.
+fix: compilation for Android with SDL2.
+add: <animation> tag in maps.
+add: update project file for code blocks.
+add: option same ip, for individual servers.
+add: mirrors support for downloads.
+
+2014-04-26 New release 1.4.4.26
+fix: crash with dragging empty spell.
+fix: crash if open storage and start trade.
+fix: links drawing over player head.
+fix: downlod music option with incomplete configuration.
+
+2014-04-12 New release 1.4.4.12
+fix: possible crash.
+fix: selection in dropdowns.
+fix: redraw graphics on game window resize.
+add: improve online list update speed.
+add: slider step in char creation dialog.
+add: improved gui draw speed.
+
+2014-03-29 New release 1.4.3.29
+fix: memory leak on window resize.
+fix: crash with map layer patches.
+add: improve performance.
+add: chat command for send message to gms.
+Command: /gm message
+add: context menu in windows.
+add: in social window highlight poisoned hp bad with other color.
+add: option to hide support link on errors.
+add: option to show server side player position.
+add: swap X and left Ctrl keys.
+
+2014-03-15 New release 1.4.3.15
+fix: selection in equipment window.
+fix: emotes in crazy moves.
+fix: enable download music by default.
+fix: configuration cleanup from old values.
+fix: disbale pet selection by mouse.
+fix: the mana world about page.
+add: ctrl+b for insert bold font.
+add: auto save configuration files.
+add: print server name in screenshots.
+add: about button.
+add: long mouse press action.
+add: right ctrl in ctrl actions.
+
+2014-03-01 New release 1.4.3.1
+fix: crazy moves.
+add: missing help translations.
+add: allow load branding info from portable.xml.
+add: dehardcode weapons id for auto switching weapons.
+add: remove all depericated manaserv code.
+add: remove support for external guichan.
+
+2014-02-15 New release 1.4.2.15
+fix: friends tab update in social window.
+fix: windows resizing for smaller screen size.
+fix: displaying scale value.
+fix: autocomplete commands in party and guild tabs.
+fix: guild and party tab help.
+fix: dyecmd with non standard 32 bit images.
+add: actions for next/prev tab in shortcuts window.
+add: actions for next/prev tab in commands window.
+add: action for open trade window.
+add: start attributes for abmient layers.
+add: all emotes in crazy moves a.
+add: crazy moves command for pet emotes.
+add: diagonal directions for crazy moves.
+add: select unselectable npc if mod key pressed.
+add: map layer replacment (for mods).
+
+2014-02-01 New release 1.4.2.1
+fix: pet talk in trade tab is disabled.
+fix: screenshot directory editing.
+fix: paths into tools in OpenBSD and FreeBSD.
+add: show emote id in emotes.
+add: attack action to pets.
+add: /dumpmods command.
+add: commands for upload config and log into pastebin.
+add: screen scale in OpenGL modes.
+
+2014-01-18 New release 1.4.1.18
+fix: npc font option.
+fix: job bar showing in new installs.
+fix: input actions before logging to game.
+fix: icon under windows.
+fix: block moving keys in buy/sell dialogs.
+fix: logging in threads.
+fix: reload background image if connecting to different servers.
+fix: rainbow colors with utf8 chars and smiles.
+fix: crash with external guichan in chat.
+add: chinese locale and font support.
+add: most client data configs splits/patching by other configs.
+add: mods support.
+add: in input fields for ctrl+left, ctrl+right.
+add: update dejavu fonts.
+add: multiply pets for one owner at same time.
+add: autoclose npc dialog by moving keys if it almost closed.
+add: show date time and server name in screenshot file names.
+add: create screenshots before connecting to game.
+add: allow edit screenshot path (not in windows).
+add: change screenshot default path to pictures directory.
+
+2014-01-04 New release 1.4.1.4
+fix: draw background for very small objects.
+fix: sound event selection.
+fix: split utf8 strings in npc dialog menu.
+fix: being popups height.
+fix: over head text draw order.
+fix: configs saving while switching characters.
+add: extend progress bar theming.
+add: client side pets support.
+add: improve performance in renderers.
+add: basic config auto backups.
+
+2013-12-22 New release 1.3.12.22
+fix: bot checker window in some themes.
+fix: tabbed area resizing.
+fix: chat window resizing with enabled color picker.
+fix: multi line motd messages in "new" tmw server.
+add: allow replace body/race sprite by equipped item.
+add: extend theming.
+add: allow set small size for shortcuts windows.
+add: golden-delicious theme by t3st3r.
+add: in updater window cut long news.
+add: show emotes in over head text.
+add: npc window title change from server script.
+add: ability to give more than one item to npc (evol only).
+add: addition attributes for abient layer.
+
+2013-11-24 New release 1.3.11.24
+fix: compilation with SDL2.
+fix: compilation with libc++.
+fix: language tab (evol only).
+fix: shortcuts in input fields in SDL2.
+fix: SDL2 default renderer.
+fix: possible fix to incomplete chat messages in "new" tmw server.
+add: item particles.
+add: update mplus fonts.
+add: option to enable/disable tile animations.
+add: improve sprites update speed.
+
+2013-11-10 New release 1.3.11.10
+fix: crash with broken OpenGL functions.
+fix: item amount in trade in selling into personal shop.
+fix: char replacment for sender in whispers.
+fix: char deletion.
+fix: images in did you know dialog.
+fix: motd show/hide option in "new" tmw server.
+fix: edit dialog theming.
+fix: renadomly wrong windows background in software renderer.
+fix: storage between changing chars.
+add: map layers mask support.
+add: save outfits into config after each change.
+add: initial porting to nacl.
+add: temporaty background music given by server. (evol only).
+add: dyecmd tool for content developers.
+add: action "move forward".
+add: improve slider draw speed.
+add: option into features file to enable/disable follow.
+add: improve libxml2 error logging.
+add: configure option --without-internalsdlgfx to disable emdedded sdl2gfx (SDL2 only).
+add: basic porting to nacl.
+add: progress bar while loading in SDL2 on Android and nacl.
+
+2013-10-27 New release 1.3.10.27
+fix: drawing complex gui in Android.
+fix: text fields on SDL2.
+fix: input on Android on SDL2.
+add: new in chat emotes.
+add: emotes button near chat input line.
+add: extend chat window theming.
+add: context menu for buy/sell items.
+add: option to show/hide server motd.
+
+2013-10-12 New release 1.3.10.12
+fix: custom update server selection.
+fix: crash with rename map object.
+fix: crash if close game with opened select char dialog.
+fix: players version in online list in ARM systems.
+fix: store button if item was protected.
+fix: not allow drag and drop protected items.
+fix: equipment menu draw order.
+fix: code::blocks project file for windows.
+add: show SDL version in client version.
+add: browser opening with SDL2 on Android.
+add: onscreen buttons 3x3, 4x2, 4x3
+add: legacy target selection images in mana theme.
+add: gm detection in online list on "new" tmw server.
+add: command to dump OpenGL vendor: /dumpgl
+add: support for /me command inside /away command.
+add: sound effect for equip, unequip, use, pickup, drop, take, put events.
+add: allow scrolling listboxes by hold and move mouse/finger.
+add: remember sort order in inventory, storage, buy dialog.
+add: label string cutting in player selection and creation dialogs.
+add: hide "did you know" window on Android by default.
+add: emulate right click on Android and SDL2 by hold two fingers.
+add: invert scrolling on Android.
+add: show numbers on onscreen buttons.
+add: improve header and footer in help window.
+add: improve network performance a bit.
+add: extend browserbox theming.
+add: update liberation font.
+add: help button before connecting to server.
+
+2013-09-29 New release 1.3.9.29
+fix: closing equipment window.
+fix: possible memory leaks.
+fix: sound memory leaks.
+fix: best mode detection.
+fix: auction bot integration loading.
+add: ability to heal nearest player (by left shift + C)
+add: map heights.
+add: online/offline messages in party tab.
+add: android make file (Android.mk)
+add: allow use only actual window size on Android.
+add: set frequesnce to 44100.
+add: hide mouse cursor on Android.
+
+2013-09-15 New release 1.3.9.15
+fix: compilation on some systems.
+fix: windows resize in SDL2.
+fix: delay flag in die sount.
+fix: missing country flags in windows builds.
+fix: help translations in windows builds.
+fix: animated tiles in CSV map formats.
+add: SDL2 default renderer mode.
+add: improve perfomance in SDL2 software renderer.
+add: improve setup input actions window.
+add: updated liberation font.
+add: improver draw speed.
+add: drag and drop for equipment window.
+add: icon in protected items.
+add: separate drop and protect context menu items.
+add: server side full move path (evol only).
+add: diagonal move speed (can be disabled for players).
+add: globals filter by name.
+by default messages ignored from "Sagatha"
+add: atlas for common images usage like particle effects.
+add: server check version for "new" tmw server.
+add: disable some removed features for "new" tmw server.
+
+2013-09-01 New release 1.3.9.1
+fix: S/a dye for big endian systems.
+fix: some typos.
+fix: different crashes if corrupted data files.
+fix: compilation not from top directory.
+add: improve software mode draw speed.
+add: improve S/A dye speed.
+add: target cursors animations.
+add: SDL2 build mode.
+add: show npc name in npc dialog caption.
+add: open help window before logging into game.
+
+2013-08-18 New release 1.3.8.18
+fix: money label position in status window.
+fix: shorted long key names.
+fix: outline color issues.
+add: color and font tabs in chat emotes window.
+add: resize and icons in chat emotes window.
+add: autocomplete in chat for online list.
+add: giving item to npc. (evol only)
+add: counter in social window.
+
+2013-08-04 New release 1.3.8.4
+fix: allow buy protected items.
+add: option for hp bar offset.
+add: sprite actions depen on tile type (evol only).
+add: chat emotes.
+for open use f1 inside chat.
+add: improve a bit memory usage.
+
+2013-07-21 New release 1.3.7.21
+fix: background gradients in default theme.
+add: stats display from items.xml for non number values.
+add: configuration with death messages.
+add: player context menu for gms.
+add: chat command to select and create any items /createitems.
+add: option to disable/enable double click support.
+add: support for actual keys and tabulation help/npc windows.
+add: show job level in job popup.
+add: support name offsets for monsters/npcs.
+
+2013-07-07 New release 1.3.7.7
+fix: buttons in character selection dialog.
+fix: switch login button.
+fix: some checkboxes visualisation in video setting tab.
+fix: drawbefore/drawafter options in items.xml for non evol servers.
+fix: crash in close with opened storage window.
+fix: crash with broken default files and client data.
+fix: resize issue in chat tabs.
+add: protected items.
+add: multi lines in menu in npc dialog.
+add: logging debug chat tab (disabled).
+add: support page link if server error happend.
+add: drag and drop in almost all existing windows.
+
+2013-06-23 New release 1.3.6.23
+fix: S and A dye channels order.
+fix: padding in listbox.
+add: support for player look (evol only).
+add: support for monster look (evol only).
+add: copy to clipboard in npc dialog.
+add: level attribute in items.xml.
+add: update mplus fonts.
+
+2013-06-09 New release 1.3.6.9
+fix: colors in jewelry theme.
+fix: player sprite in disguise mode.
+fix: spell attack key.
+fix: some inventory crashes.
+fix: space button in edit server dialog.
+fix: wrong animation time with goto and label.
+add: money popup in inventory.
+add: include tags in most configs.
+add: drag and drop between inventory and other windows.
+add: chat command for testing particle effects: /testparticle
+add: alternate server name in servers list.
+add: improve windows version speed.
+add: remove "server:" from chat notifications.
+
+2013-05-26 New release 1.3.5.26
+fix: char selection dialog if screen is big.
+fix: resources reloading if switching servers.
+fix: invisible exp messages with software renderer.
+add: load avatars from avatars.xml.
+add: show onscreen keyboard if input field selected.
+add: popup in char selection dialog.
+add: selection chars by double click.
+add: features configuration file.
+add: new commands in particle effects.
+add: option to prevent selling items without confirmation.
+add: updated jewelry theme.
+add: chat commands to enable/disable sound hightlight in tab.
+add: chat command for drop, move, set home etc.
+
+2013-05-12 New release 1.3.5.12
+fix: update host issue after registering on evol server.
+fix: outline colors in pink theme.
+add: improve character selection window
+add: default different font sizes in different screen density.
+add: different options depend on screen density.
+add: option for override screen density.
+add: small and big font sizes from 8 to 23
+add: extend outlining to all controls.
+add: some new colors in themes.
+add: themes update.
+add: installer script for tmw windows build.
+
+2013-04-28 New release 1.3.4.28
+add: delay for hurt sound.
+add: support for GIMP palettes.
+add: separate time delays for emotes.
+add: improve perfomance in SDLFont class.
+add: update mplus fonts.
+add: ability to close chat tab. (left shift + right click).
+add: per server special location for online list.
+
+2013-04-14 New release 1.3.4.14
+fix: login dialog size with some localizations.
+fix: big http links in chat.
+fix: unstackable items sell.
+fix: random rare crashes in closing windows.
+add: option for mode players names in map.
+add: sound effects in notifications.
+add: animated emotes.
+add: animated effects for effects.xml.
+add: turkish language and translation.
+add: improve perfomance.
+add: improve latency in linux versions.
+add: option to left all per map sprites in memory.
+
+2013-03-31 New release 1.3.3.31
+fix: talking text position.
+fix: mumble configure parameter.
+fix: per server settings update.
+fix: custom repeat interval.
+add: improve map loading speed.
+add: language chat tab (evol only).
+add: improve speed.
+add: restore auction bot support.
+add: disable more particles if particle egine disabled.
+
+2013-03-17 New release 1.3.3.17
+fix: key repeat time calculation.
+fix: incorrect map loading on server switching.
+fix: sefault on exit with help switch.
+fix: status icons draw posiiton.
+add: chat command /cleangraphics to clean graphics cache.
+add: chat command /cleanfonts to clean fonts cache.
+add: chat command /execute to execute external programs.
+add: in debug window field "target type".
+add: different npc effects depend on quest statuses (evol only).
+add: rate button in quit dialog in android version.
+add: option to enable/disable weight notifications.
+
+2013-03-03 New release 1.3.3.3
+fix: guild tab update in guild bot integration.
+fix: http links in windows.
+fix: incorrect chars in links.
+fix: name signs update.
+fix: password change issue with empty players list.
+fix: skills and stats conflict.
+fix: command line parameters.
+fix: map arrows images draw.
+add: enable some aditinal feature on tmw like servers.
+add: help seach links: /url ?word
+add: option to show hide guil online messages.
+add: gm tab for gms and @wgm command output.
+add: away particle effect.
+add: pseudo skills based on quest variables (evol only)
+add: particle effect to skill levelup.
+
+2013-02-17 New release 1.3.2.17
+fix: inventory sorting
+fix: initial setup window resize issue.
+fix: some windows size on small screens.
+fix: onscreen buttons and positions.
+fix: resize issue in online list.
+fix: configuration for onscreen buttons 3 and 4.
+fix: crash with particle effects.
+add: browser support on android.
+add: support for scrolling popup menus.
+add: allow hide yellow bar and hide it by default.
+add: unassign default key for "change move type".
+add: google play url in update message for Android version.
+add: onscreen buttons default size depend on resolution.
+add: extend theming.
+add: adjust on screen buttons positions and padding.
+add: close buttons to some windows.
+add: enable job support by default.
+add: on Android by default hide chat color picker.
+add: dont hide top right buttons on small screens.
+add: browser support in android version.
+add: close buttons to some windows.
+add: enable job support by default.
+add: improve font cache cleaning.
+add: improve network code speed.
+add: https links support.
+add: extend theming.
+add: improve speed.
+
+2013-02-03 New release 1.3.2.3
+fix: crash on closing before entering into game.
+fix: sounds in broken quests (evol only)
+fix: context menu in chat window.
+fix: erase action for guild members.
+fix: draw most left tiles in visible map.
+fix: empty lines support in news.
+fix: possible crash in skills dialog.
+fix: first time map loading after registration.
+fix: minimal windows size for very small resolutions.
+fix: setup window resize.
+add: show better ping if response slow.
+add: show colored party and guild members in online list.
+add: extend listbox theming.
+add: increase default soft fps limit for Android to 100.
+add: texture compression format selection.
+add: option for autoresize minimaps.
+add: loading default music files for each maps.
+add: support for selecting char by click in chars selection dialog.
+add: new tips.
+add: sort option to buy dialog from players.
+add: default avatars support for npcs.
+
+2013-01-20 New release 1.3.1.20
+fix: macosx fixes.
+fix: collision masks.
+fix: crash on exit on windows.
+fix: minor changes in black&black theme.
+fix; servers deletion from servers list.
+fix: language selection in last ubuntu.
+fix: environment variables usage.
+fix: different game sound fixes.
+fix: shortcuts window resize issue in software draw mode.
+add: extend theming.
+add: http registrations in register dialog.
+add: updated jewelry theme.
+add: support for outlined texts in some windows and controls.
+add: show flag icons in language selection list.
+add: chat command to dump environment variables (/dumpe)
+add: open broweser in MacOSX.
+add: popup menu for text fields.
+add: for sound "strike" alias "miss".
+add: different sounds from different weapons.
+add: option to show/hide onscreen keyboard.
+add: actions for onscreen buttons (touch tab).
+add: configurable number of onscreen buttons.
+add: talk to very close npc by only talk key (T).
+add: better stats line in copy to chat stats.
+add: context menu for hyper links.
+add: detect joystick button.
+
+2012-12-23 New release 1.2.12.23
+fix: reset in memory password if password was wrong.
+fix: dont show opengl restart mesasge in settings under Android.
+fix: image particles alpha property.
+fix: equipment window selection draw.
+fix: mouse move events under Android.
+fix: possible crash in rename nav point dialog.
+fix: by default disable texture compression.
+add: settings page for onscreen controls.
+add; show trading partner nick in trade error messages.
+add: replace drop down listboxes to popup lists.
+add: different skills for each skill level.
+add: description to skills.
+add: option to disable gamma correction.
+add: new default wallpaper.
+add: option for log input events.
+add: update mplus fonts.
+
+2012-12-09 New release 1.2.12.9
+fix: relative mouse moving for Android.
+fix: show chat history option.
+fix: MacOSX compilation.
+add: email in registration dialog (evol only).
+add: enable jewelry theme by default for evol branding.
+add: improve OpenGL draw speed.
+add: protect chat focus by default.
+add: basic on screen buttons for Android version.
+
+2012-11-25 New release 1.2.11.25
+fix: some fixes in jewelry theme.
+fix: disable some popups in Android version.
+fix: drops window cleaning.
+fix: missing themes in windows installer.
+fix: random incorrect beings draw order.
+add: show/hide on screen keyboard on Android.
+add: attack human chat command (by Travolta)
+command: /atkhuman
+add: extend theming.
+add: onscreen joystick.
+add: improve OpenGL draw speed.
+add: persistend directories under Android.
+
+2012-11-11 New release 1.2.11.11
+fix: resolution switching under Android with OpenGL.
+fix: guichan draw lines under ARM.
+fix: some fixes in jewelry theme.
+fix: translations under Android.
+fix: ok dialog size.
+fix: disable video mode autodetection under Android.
+fix: chat log if switch game characters.
+fix: crash with empty relations list.
+fix: game termination under Android by using "home" key.
+fix: minimaps loading.
+add: close button in android version.
+add: extend theming.
+add: select maximum resolution under Android.
+add: highlight window header with "*" if got new chat messages.
+
+2012-10-28 New release 1.2.10.28
+fix: some ARM fixes.
+fix: open/close sounds for some windows.
+fix: texture memory usage.
+add: extend theming.
+add: some changes for android support.
+add: mobile OpenGL backend.
+add: jewelry by Hal9000 (incomplete)
+add: info button with information about selected theme.
+add: option to disable/enable screensaver.
+add: OpenGL logging support.
+add: new cursor types.
+add: new cursor images. (by Hal9000)
+add: cursor selection for different items, monsters, npcs.
+
+2012-10-14 New release 1.2.10.14
+fix: monsters particle effects attacks.
+fix: chat window resize cursor.
+fix: popups sizes.
+fix: chat logs command line paramter.
+fix: shortcuts while buy dialog is open.
+add: texture atlases support.
+add: improve draw speed.
+add: some OpenGL extensions support.
+add: sound effects for open/close windows.
+add: extend theming.
+add: additinal monster attack particle effects.
+add: imporve map draw in fast OpenGL mode.
+add: set additional OpenGL settings from video detection.
+add: double click in buy/sell dialogs.
+
+2012-09-30 New release 1.2.9.30
+fix: minimap size with long map name.
+fix: possible crash.
+fix: empty space between screen buttons.
+add: improved speed.
+add: extend theming.
+add: double click in npc dialog.
+add: monsters offset sort parameters.
+
+2012-09-16 New release 1.2.9.16
+fix: non cycle player select.
+fix: color in equipment window.
+fix: fix hair color palette switching (evol).
+fix: horizontal lines draw in software mode.
+fix: navigation commands.
+fix: partial items load in player selection dialog.
+fix: on the fly resize in windows in software mode.
+fix: cmake install action.
+add: extend theming.
+add: improve OpenGL speed.
+add: show question dialog before opening urls.
+add: improved inventory look.
+add: improved speed.
+
+2012-09-02 New release 1.2.9.2
+fix: show special message in window header while doing video test.
+fix: possible fix non standart update ports on windows.
+add: show clickable update links in news window.
+add: reenable add special chars in chat by char codes.
+Example: test&33;
+add: extend replace/reorder sprites.
+add: extend theme colors.
+add: improve OpenGL draw speed.
+add: improve perfomance.
+
+2012-08-19 New release 1.2.8.19
+fix: enable italian translation.
+fix: remember checkbox in login dialog.
+fix: background in buy/sell dialogs.
+fix: possible crash.
+add: extend theming.
+add: extend outfits to 4x4 cells and add equip button.
+add: connect button to edit server dialog.
+add: units separator.
+by default space is separator.
+add: sounds for new/complete quests.
+add: hightlight gms in online list with color and letters (GM).
+add: enable best video mode autodetection under linux.
+add: enable FBO under windows.
+add: npc cycle select.
+
+2012-08-05 New release 1.2.8.5
+fix: colors in speech buuble.
+fix: emote shortcuts default size.
+fix: radio button images in wood theme.
+fix: guild bot message delay.
+fix: unassign key action.
+add: open urls in browser.
+add: chat command /url LINK
+put url link in chat.
+add: chat command /openurl LINK
+open url in browser.
+add: equipment button in inventory.
+add: key for disable full screen mode.
+add: support for images in npc menu.
+add: new font dejavu serif condensed.
+add: extend background theming.
+add: quests window (evol only).
+
+2012-07-22 New release 1.2.7.22
+fix: allow moving with opened buy/sell dialogs by mouse.
+fix: not allow moving with opened storage window.
+add: changed themes storing.
+add: enable by default pickup particle messages.
+add: removed emote popup window.
+add: audio fallback from unsupported modes.
+add: dye type A. Same with S but also using alpha channel.
+add: close button for npc dialog while it show menu.
+add: some new swords to auto equip list.
+add: mode "(B) attack range - 1".
+add: show level in experience bar popup.
+
+2012-07-08 New release 1.2.7.8
+fix: allow enter in qestion mark.
+fix: crashes with corrupted data.
+fix: sime memory leaks.
+add: basic support for eathena stable.
+add: maps without client data (without tmx).
+add: special npc font. (by default 13px size)
+add: increase npc window default size.
+add: popup menu option all except 1.
+add: npc avatars (for evol only).
+add: floor item attribute for max pixel offset.
+
+2012-06-24 New release 1.2.6.24
+fix: scrolling big text in texfields.
+fix: npc selection by mouse.
+fix: animated tiles animation speed.
+add: profiler to manaplus for windows.
+add: improved perfomance in manaplus for windows.
+add: double click support to storage and inventory.
+add: help seach commands (command ?text).
+Example: ?download
+add: help pages updated.
+add: delayed image load for OpenGL modes.
+add: delay to update image in software mode.
+
+2012-06-10 New release 1.2.6.10
+fix: incorrect animation (hair bug).
+fix: keys conflict in login dialog.
+fix: kill stats on levelup.
+fix: stay animation in beings without dead animation.
+add: player relations to whisper chat context menu.
+add: per hair style own palette (evol).
+add: sittop animation (evol).
+add: ground top collision flag (evol).
+add: hide botchecker button by default.
+add: improve image loading in OpenGL renderers.
+add: improve dye speed.
+add: footer to help window.
+add: per server news in help window.
+add: use actual desktop dir for screenshots in linux.
+add: to npc option to disallow select npc.
+
+2012-05-27 New release 1.2.5.27
+fix: tips translations.
+fix: joystick repeat key presses.
+fix: minimap show/hide on windows.
+fix: dehardcode some old paths.
+add: button detect best video mode (windows only).
+add: autodetect best video mode at first start.
+add: disable by default autofix position.
+add: prevent from healing enemies.
+add: option to hide nick for erased players.
+
+2012-05-12 New release 1.2.5.12
+fix: keys for Next chat line/previous chat line.
+fix: autologin from command line.
+fix: move shortcuts windows.
+add: timeout option between connections to servers.
+add: pickup filter.
+add: replace obsolete opengl code.
+add: custom autorepeat for some actions.
+add; option for auto attack next target if attack was not cancelled.
+Disabled by default.
+
+2012-04-29 New release 1.2.4.29
+fix: bluring setting apply.
+fix: split long lines in kill stats window.
+fix: actions translation.
+fix: vsync setting.
+fix: improved in game visible position calculation.
+add: keyboard repeat setting.
+add: split input settings to tabs.
+add: separate configurable shorcuts for emotes, shorcuts, move to target.
+add: deharcode gui input keys.
+add: improve keyboard handling in some dialogs.
+add: autoclean configuration file from old keys.
+add: option to center window on screen (windows, osx).
+add: audio frequency and channels options to audio tab.
+add: particle physics setting. (normal by default).
+add: for OpenGL add option to enable/disable texture compression.
+add: for OpenGL add option to enable/disable rectangular textures support.
+add: in debug window add LPS counter near FPS.
+add: write to log OpenGL info.
+add: support for server independent updates.
+add: improve perfomance.
+add: update mplus font.
+
+2012-04-15 New release 1.2.4.15
+fix: cancel update fix.
+fix: multiple conflicts between windows and game keys.
+fix: random crash in chat update.
+fix: possible crash after connecting to game.
+fix: assign keys before connecting to game.
+fix: cmake build flags.
+add: proxy support for download updates.
+add: change autohide buttons to three state (hide/show/hide in small resolution).
+add: show client version in game window header.
+add: clear in drops window context menu.
+add: improve fill rectange speed in software mode.
+add: option for enable disable textures blurring.
+by default enabled.
+add: allow assign 3 keys or joystick buttons to any action.
+add: unselect item inventory if it was added to other windows.
+add: extend sdl unknown keys for usage in any actions.
+
+2012-04-01 New release 1.2.4.1
+fix: validate assigned keys on load.
+fix: animated tiles drawing in opengl modes.
+fix: copy to clipboard.
+fix: chat item links.
+fix: online list auto update after error.
+fix: outfits items adding/removing.
+add: multi language help.
+add: protect autocomplete from evil nicks.
+add: theme blacknblack (kook).
+add: redesign input handling.
+add: extend xml animation tags.
+add: autohide buttons on top right corner.
+add: autohide chat window if inactive (disabled by default).
+add: remove packet limits for changing direction.
+
+2012-03-18 New release 1.2.3.18
+fix: minimaps scrolling with moving camera.
+fix: context menu in outfits window.
+fix: shortcuts creation in windows portable version.
+fix: volume in afk mode if was disconnect from server.
+add: many update hosts. (evol only)
+add: dye mode S.
+add: support for unknown for SDL keys bindings.
+add: basic skills actions.
+add: allow add skills to shortcuts bar.
+add: per race equipment sprites.
+add: remove second "equip" button.
+add: neutral other gender.
+
+2012-03-04 New release 1.2.3.4
+fix: loading client data translations.
+fix: display translated xp+job messages.
+fix: default paramters value.
+fix: last frame delay in dead sprite actions.
+fix: don't show errors for missing emotes.
+fix: drawing big minimaps.
+fix: ignore shortcuts keys in npc menu and in inventory.
+fix: npc menu keyboard navigation.
+fix: default npc dialog size.
+fix: some copyrights.
+fix: possible crashes.
+add: visual settings page.
+add: option to grab input.
+add: move some settings and new to page visual in settings.
+add: different sound effects for different messages.
+can be configured in audio settings page.
+add: resize minimaps.
+add: context menu for minimaps.
+add: gdb to windows build.
+add: show latest client version in update news.
+add: option for for creating screenshots with FBO.
+If enable, can fix opengl screenshots issue.
+add: update liberation fonts.
+
+2012-02-19 New release 1.2.2.19
+add: client data translations (items, etc).
+add: increased max value for drop counter from 9 to 30.
+add: chat command /setdrop N. to set drop counter from scripts.
+add: hide map layers feature.
+add: show gms with green color in online list (evol server).
+add: relative position for floor items (item drops).
+add: option to enable/disable grouping friends in online list.
+add: enable chat logging by default.
+add: set default max chat lines to 40.
+add: update windows libs.
+add: center game on screen in windows and osx.
+add: race name to status and debug windows.
+add: update liberation and mplus fonts.
+
+2012-02-05 New release 1.2.2.5
+ManaPlus:
+fix: particle font in japan localisation.
+fix: some untranslated strings.
+fix: possible crash after switching servers.
+fix: option "attack range" in evol server.
+fix: drop counter with enabled "buggy servers protection".
+fix: empty custom update server.
+add: request client language from server. (evol server)
+add: moving camera by npc commands. (evol server)
+add: evol branding in windows installer.
+add: extended online list. (evol server)
+add: redesign char creation dialog.
+add: resize window from video settings tab.
+add: option to enable/disable window resize.
+add: option to show/hide window frame border.
+add: 3 new emotes by (Nina O'Reilly)
+add: support for 48 emotes.
+add: redesign servers list dialog, using new server editor.
+add: increase login dialog size.
+add: use translation for description in servers dialog.
+
+Mana:
+fix: infinite character selection with command line parameter --character
+add: resize update window.
+add: separate server editor.
+add: possible improve loading images/music.
+add: game window resize.
+
+2012-01-22 New release 1.2.1.22
+fix: bad update hosts handling.
+fix: possible crashes.
+fix: player name checking in logging.
+fix: default shortcuts window size.
+fix: player and mob hp bar in evol server.
+fix: mouse pickup logic.
+fix: adding double attributes to status window.
+fix: ambient layer drawing in safe opengl mode.
+add: increase resize and moving areas in shortcut window and other similar windows.
+add: friends tab in social window.
+add: load all servers from list in server dialog.
+
+2012-01-08 New release 1.2.1.8
+fix: -s command line parameter.
+fix: restore GL_PACK_ALIGNMENT after creating screenshots in opengl modes
+fix: rare crash with reconnecting to different servers.
+fix: color for /me messages in wood theme.
+fix: crash in char autocomplete if no active tab in chat window.
+fix: bold chat/npc text correction.
+add: allow close npc dialog if script stopped with error.
+add: clear outfit option in outfits context menu.
+add: ability to test graphics and sound perfomance and stability.
+Shortcut ManaPlus (test). Need close all other ManaPlus instances.
+add: chat command /dumpt to dump last test values.
+add: addiitional checks for unsecure chars combinations in players nicks.
+add: allow use item replacment with empty from value.
+This mean replace from any value.
+add: remove "> Next" message from npc dialogs.
+
+2011-12-25 New release 1.1.12.25
+fix: increasing log file if client disconnected from network.
+fix: memory leak in evol online list.
+fix: enter some chars in inventory input box.
+fix: some rare used packets.
+fix: dont load move type from configuration file.
+fix: create char dialog size.
+fix: wrong auto adjusting perfomance after sleep mode.
+add: last login time in char selection dialog.
+add: update mplus font.
+add: move target cursors to themes.
+
+2011-12-11 New release 1.1.12.11
+fix: draw damage part on hp bar.
+fix: recursive directory creation on windows.
+fix: text colors in wood theme.
+fix: talk to npc key delay.
+add: polish translation (Derpella).
+add: server side online list (evol only).
+add: copy any line from chat to clipboard.
+add: use two clipboard in xserver.
+add: gm commands autocomplete for gms.
+add: to combined menus floor items.
+add: variables for replacment in chat messages.
+<PLAYER> - target or nearest player nick.
+<MONSTER> - target or nearest monster name.
+<PEOPLE> - comma separated list of visible players (except self).
+<PARTY> - all party members (except self).
+
+2011-11-27 New release 1.1.11.27
+ManaPlus:
+fix: show enemy relation in online list.
+fix: dead monsters and floor items poisition.
+fix: file name conflicts between skins and client data files.
+add: update ru and es translations.
+add: change chat log save path to yyyy-mm/dd/file.log.
+add: support for incomplete replace tag for items for compotability with future version of mana.
+add: background images for equipment window.
+add: whisper player name in autocomplete list.
+add: show yellow bar mode changes in debug chat tab.
+add: limits for hair color and style for char creation dialog.
+add: different animations depend on monster hp (only for evol).
+
+2011-11-12 New release 1.1.11.12
+ManaPlus:
+fix: hide death message on reconnect.
+fix: stop move after open npc dialog.
+fix: disable incomplete hr, hy translations.
+fix: self player ignore.
+fix: double network error dialog.
+fix: joystick support.
+fix: random key press loses.
+add: pseudo away.
+Command: /pseudoaway text
+add: enemy relation. (no any ignore, but mark player as enemy)
+add: option for attack players in pvp "Switch pvp attack". Default key not assigned
+add: interface language selection.
+Settings / Theme / Language.
+add: Bold text type in chat. (To enable command ##B, to disable ##b)
+Example: ##Bbold##b text.
+add: update mplus fonts.
+add: joystick selection, option for joystick usage only in active game.
+add: enable joystick hat (if exists).
+
+2011-10-30 New release 1.1.10.30
+ManaPlus:
+fix: disable autofix position for archer mode.
+fix; hide password from packets log.
+fix: replace tags without item id in items.xml.
+fix: protect trades from some kind of abusing.
+add: chat commands to use server side ignore for whispers:
+Commands: /serverignoreall and /serverunignoreall
+add: command for dump graphics and some other settings to chat.
+Command: /dumpg
+
+2011-10-16 New release 1.1.10.16
+ManaPlus:
+fix: particle effects Y position.
+fix: resize in some dialogs.
+fix: codeblocks project file.
+fix: global messages sound highlight.
+fix: last character selection with space in login dialog.
+fix: fps if network error.
+add: move to target mode for archers/mages.
+add: blacklist relation.
+add: reading real monsters attack range (in evol only).
+add: option to show hide MVP messages.
+add: update mplus fonts.
+
+2011-10-02 New release 1.1.10.2
+ManaPlus:
+fix: inactive state.
+fix: hide inventory filter if window too small.
+fix: mouse selection.
+fix: speed in targeting monsters.
+fix: move to target in attack range.
+add: comment for spells/commands.
+add: split keyboard keys to groups.
+add: chat or other windows scrolling with dragging mouse.
+add: limits for stop attack packet.
+add: show current experience after max level (for tmw after 99 level).
+add: untarget key. it not stop attack but remove selection from current target.
+add: amount field in buy dialog.
+
+2011-09-18 New release 1.1.9.18
+ManaPlus:
+fix: restore windows visible state after restart.
+fix: players sorting in relation and party tab.
+fix: configuration settings in first start.
+fix: animation moving animation with mouse and some other.
+fix: reorder sprites if disabled in settings.
+fix: disable config copy from ancient tmw versions.
+fix: chat autocomplete case.
+fix: change player state from sit to stay if under attack.
+fix: whisper errors detection.
+add: options to configure lazy scrolling.
+add: move by minimaps clicks.
+add: copy text to clipboard by CTRL+C.
+add: additional sorting to inventory: by wight, by amount, by type.
+add: inventory filter by item name.
+add: per window visual configuration in themes.
+add: add item move to context menu for party members.
+add: configuration buttons in initial game window.
+add: theme unity (by Freya).
+add: Czech (cs) translation (by Pitriss).
+add: improve game speed.
+
+Mana:
+fix: draw overlay in opengl mode.
+
+2011-09-04 New release 1.1.9.4
+ManaPlus:
+fix: compilation with different flags.
+fix: possible fix with incorrect camera position.
+fix: replace sprite issues.
+fix: some crashes.
+add: hightlight words list in chat.
+add: many colors for themes.
+add: alien emote (DerLoisl).
+add: basic auction bot integration.
+add: guild bot integration.
+add: impore guild members list sorting.
+add: auto download content fixes.
+add: show guild members on minimap.
+add: always show party members in minimap if on same map.
+add: lock windows position (at top right window corner).
+add: update mplus fonts.
+add: attribute damage per second.
+add: option to disable self heal with mouse.
+
+2011-08-21 New release 1.1.8.21
+ManaPlus:
+fix: moving near npc.
+fix: crash in server dialog if press load button twice.
+fix: saving opened whisper tabs.
+fix: hide/show setup window by hot key.
+fix: show shop sign on players only if shop enabled and shop not empty.
+fix: chat auto scroll.
+fix: mode with switching bow to knife.
+fix: adding limits to adding items to trade.
+fix: perfomance issue with invisible npcs.
+add: auto improve perfomance by disabling different draphics features.
+add: perfomance tab. most perfomance related settings moved to this tab.
+add: new perfomance related options to perfomance tab.
+add: split players setup tab to relations and players.
+add: ability to add comments to npcs.
+add: option to hide ip addresses on screen shots.
+add: warp menu item navigation points menu (for gms only).
+add: copy to chat button in status window to copy player stats to chat.
+add: enable auto switching to janapese font if used japan locale.
+add: update dejavu and mplus fonts.
+add: updated translations.
+
+2011-08-07 New release 1.1.8.7
+ManaPlus:
+fix: player attack animation length.
+fix: random opacity issue in complex sprites in software mode.
+fix: compilation in manaserv mode.
+fix: adjust wait time after pasting text. possible should fix multiply paste issue.
+add: improve perfomance in caching complex sprites in software mode.
+add: improve perfomance with max opacity in software mode.
+add: different keys in edit fields.
+
+2011-07-24 New release 1.1.7.24
+ManaPlus:
+fix: compilation without opengl.
+fix: crash with other players equipment window.
+fix: improve speed.
+fix: compilation in big endian systems.
+fix: opengl configure flag for mac os.
+fix: rectangle draw bug in some systems in software mode.
+add: close popup menu by esc key.
+add: keys for quick add items to trade
+add: shortcut key to close current chat tab.
+by default unassigned.
+add: uninstall before install in windows installer.
+add: multi user support in windows installer.
+add: new update check url.
+add: updated translations.
+
+2011-07-10 New release 1.1.7.10
+ManaPlus:
+fix: char deletion
+fix: improve speed.
+fix: improve speed in software mode.
+fix: some memory leaks.
+fix: music fadeout.
+fix: crash in reconnecting to servers.
+add: make script for MacOS with fink.
+add: updated mplus and libiration fonts.
+add: player statuses: enabled shop, away and inactive mode.
+add: map reduce mode useful for sftware drawing mode (improving speed).
+add: updated translations.
+add: redesign video tab in settings.
+
+2011-06-26 New release 1.1.6.26
+ManaPlus:
+fix: context menu positions.
+fix: copy equiped to outfits.
+fix: revert video resolutiion changes if new is fail.
+fix: some more memory leaks.
+add: own comments to players.
+add: option to use local time in chat.
+Can be changed here: SET / Chat / Use local time.
+add: redesigned setup pages.
+add: missing video modes.
+add: updated some windows libs.
+add: tooltips in skills dialog.
+add: archlinux PKGBUILD file.
+
+
+2011-06-12 New release 1.1.6.12
+ManaPlus:
+fix: outfits item selection.
+fix: item slots in "show items" menu item.
+fix: memory leaks.
+fix: item colors in different windows.
+add: secure font for highlighting incorrect nicks.
+add: gender sign with any players names.
+add: extend quick move items from inventory and back (LSHIFT)
+modifier key + left click - move all items from/to storage.
+modifier key + right clikc - show window for amount selection for moving.
+modifier key + drop button - drop all items from selected slot.
+add: add "drop all" to context menu.
+add: menu item to copy text from bars to chat.
+add: did you know window.
+add: improve software draw mode (SDL) speed.
+
+
+2011-05-29 New release 1.1.5.29
+ManaPlus:
+fix: infinite paste.
+fix: remove home location by mouse.
+fix: walk path in special collision.
+fix: restore color hightlight smaller money in trade window.
+add: moved classic theme to default. Default theme renamed to Mana.
+add: support for images in help window.
+add: evol server type (now it works same as tmw)
+add: show other players equipment by context menu item "show items".
+add: updated translations.
+add: complete Finnish translation (Byakushin).
+add: secure trades option to protect trade from some kind of cheats.
+add: show speach popup variable. time depend on message size.
+
+
+2011-05-15 New release 1.1.5.15
+ManaPlus:
+fix: targeting monster if monster added to priority attack list and "cycle mobs select" disabled.
+fix: improved text cache cleaning.
+fix: chat tab incorrect size if enabled hiding chat input line.
+add: ask password before deleting char.
+add: save attack filter.
+add: updated japan fonts.
+add: improved moving with mouse.
+add: spanish help translation.
+add: air and water collisions (incompotable with tmw).
+
+
+2011-05-01 New release 1.1.5.1
+ManaPlus:
+fix: some controls draw issue in SDL software mode.
+fix: map objects drawing. (incompotable with tmw maps).
+fix: default values for new configurations.
+fix: crash with incorrect maps.
+add: away log.
+add: attack filter.
+new tab in social window.
+new chat commands /addattack, /removeattack, /addignoreattack, /addpriorityattack
+add: reset yellow bar context menu item.
+add: spec file for rpm distros (mageia).
+
+Mana:
+add: music fadeout.
+
+
+2011-04-17 New release 1.1.4.17
+ManaPlus:
+fix: add to trade menu item in inventory context menu.
+fix: update error if update file list have empty lines (like in aethyra).
+fix: manaserv support deprecated. By default all compilation scripts ignoring manaserv.
+fix: inventory equip/unequip buttons.
+fix: protected pickups spam.
+fix: show unknown items in inventory.
+add: moved help from chat to help window.
+add: update progress files counter.
+add: custom autocomplete words list. Place in customwords.txt.
+add: dont waste chat space if input box is hidden.
+
+2011-04-03 New release 1.1.4.3
+ManaPlus:
+fix: improve opengl speed.
+fix: update ru, pt, pt_BR, fr, es translations.
+add: remove nicks in whisper. useful for bots like guild bot.
+add: no away option in whisper context menu.
+add: save chat tabs options between client restarts.
+
+2011-03-20 New release 1.1.3.20
+ManaPlus:
+fix: other players directions while moving.
+fix: being direction while attacking.
+fix: other players animation while moving.
+fix: mouse pickup from big distance.
+add: show message in party tab if some on join party.
+add: /uptime chat command to show current client update.
+add: small optimisation in software drawing mode (SDL).
+
+Mana:
+add: scroll buttons in chat tabs.
+
+
+2011-03-06 New release 1.1.3.6
+ManaPlus:
+fix: remove extra spaces from chat commands.
+fix: possible fix for pasting from clipboard in X system.
+fix: partially opacity in extended minimaps.
+add: add to trade items in item context menu.
+add: tabs to spells window.
+add: check already downloaded files intergrity.
+add: pink theme (Freya).
+add: updated pt_BR translation some lines from mana client (Freya).
+add: updated russian translation.
+add: update dejavu fonts.
+
+
+2011-02-20 New release 1.1.2.20
+ManaPlus:
+fix: stop/start playung music after changing option.
+add: show/hide buttons in top right corner.
+right click on buttons open menu.
+add: show/hide bars in top right corner.
+right click on bars open menu.
+add: extended minimaps (Ben Longbons).
+add: npc gender. (only for extended servers)
+add: hiding equipment sprites by attributes (need support in client data).
+add: weight notice dialogs not modal and auto hiding after 10 seconds.
+add: show amount in pickup particles.
+add: new bars Weight bar, Inventory slots bar, Money bar, Arrows bar.
+
+
+2011-02-06 New release 1.1.2.6.
+ManaPlus:
+fix: crashes.
+fix: close npc dialogs in different actions like change character/server or network error.
+fix: dont show random navigation point with coord 0,0.
+fix: update item amount in sell dialog.
+add: japanese fonts mplus 1p regular and mplus 1p bold.
+add: option to enable/disable players popups.
+
+
+2011-01-30 New release 1.1.1.30.
+ManaPlus:
+fix: stuck on disconnections while opened modal window.
+fix: allow use rock knife in auto switching weapons.
+fix: issue with invisible items in inventory after moving to and from storage.
+fix: mouse cursors in wood and blackandwhite themes. (Nina O'Reilly)
+add: show job bar in ministatus window.
+add: diagonal move animation (need support in client data).
+add: recovery on broken server job level and job level max experience.
+add: floor item icon different from normal item icon (need support in client data).
+add: show unknown skills in skills window.
+add: show job xp after mob kill.
+add: support for zlib map compression.
+add: updated russian translation.
+
+
+2011-01-16 New release 1.1.1.16.
+ManaPlus:
+fix: hide own hp bar if dead.
+fix: equipment window.
+add: inventory filter and sorter.
+add: increased char slots number from 3 to 9 per each account.
+Also add support for configurable char slots number in exended servers.
+add: option to force connection to only one ip for all three servers (char, login, map).
+useful for port mapping connections.
+add: updated russian translation.
+
+Mana:
+add: updated german and french translation.
+
+
+2011-01-09 New release 1.1.1.9.
+ManaPlus:
+fix: some strings translation support.
+add: increase items slots support from 11 to 13.
+add: new 4 emotes (Nina O'Reilly).
+add: increased max emotes count to 44.
+add: sound volume depend on distance to sound source point.
+add: update russian translation.
+
+Mana:
+add: update french and spain translation.
+
+
+2010-12-26 New release 1.0.12.26.
+ManaPlus:
+fix: manaserv a bit working now.
+tested on woa server.
+fix: spawned mobs with already taken damage.
+fix: some chat crashes.
+add: walk delay parameter in status window.
+add: mob hp bar in selected mob.
+add: tabs in shortcuts bar.
+add: updated russian translation.
+
+Mana:
+
+
+2010-12-12 New release 1.0.12.12.
+ManaPlus:
+add: variables <TARGET> and <TARGETID> and <TARGETORSELF> in spells / text commands.
+add: show weight message if weight was more then half and now less then half.
+add: show attack range in status window.
+add: offset of target cursor in monster and npc.
+add: ability to dinamically change drawing player sprites order.
+
+Mana:
+add: support for tiles with aligment.
+
+
+2010-11-28 New release 1.0.11.28.
+ManaPlus:
+fix: enter space in npc dialogs.
+fix: popup xp messages flood.
+fix: move all server messages if need to debug tab.
+fix: visibility of moved npc.
+add: show pvp rank in pvp maps.
+add: show is pvp enabled on map or not.
+add: shortcut keys to switch between social window tabs.
+by default unassigned.
+add: store/retreive 10, half, all.
+
+Mana:
+
+
+2010-11-14 New release 1.0.11.14.
+ManaPlus:
+fix: level percent in kill stats window.
+fix: setting walkable tile alpha setting.
+fix: freze with incorrect image set.
+add: tooltips for emote shortcuts.
+add: show short keys on map signs and warps.
+add: distance 2 in move to distance.
+add: improve speed in SDL (Software) mode.
+add: safe opengl support, like in old tmw versions.
+add: small speed improvements.
+add: actors count in debug window.
+add: move "show own name" from video to players tab.
+add: battle chat tab and battle event.
+Disable by default.
+add: color hightlight if trade partner lower money.
+add: custom update host.
+Can be useful if normal update server is dead.
+To enable in login dialog select custom update type and put new update host url in text field. (custom host for tmw server is http://manaplus.jonklo.net/updates/)
+
+Mana:
+
+
+2010-10-31 New release 1.0.10.31.
+ManaPlus:
+fix: who is online list if used --server parameter.
+fix: reenable portable mode for all platforms.
+fix: update visible player levels.
+fix: equip type for some items in TAW server.
+fix: attack animation in TMW server and some clones.
+add: option to hide warps particles.
+SET / misc / Show warp particles.
+by default warp particles disabled.
+add: option to allow start buy/sell trade without asking player.
+SET / misc / Accept sell/buy requests.
+add: sorting player in party and guild tabs.
+add: extended context menu to many players in one tile.
+show submenus for each player in tile.
+add: shortucts option in windows installer.
+add: auto remove very old font cache items.
+add: update russian translation.
+add: new pumpkin smile. (Nina O'Reilly)
+
+Mana:
+
+
+2010-10-19 New release 1.0.10.19.
+ManaPlus:
+fix: command line switch -u now working like in mana client.
+fix: crash on drawing incorrect strings.
+fix: possible crash on exit.
+add: disabled special chars by char codes for platinum server (because on this server players using many ugly clients).
+
+Mana:
+
+
+2010-10-17 New release 1.0.10.17.
+ManaPlus:
+fix: disable portable mode in non windows systems.
+fix: improve speed in disabled opengl mode and opacity = 1. (based on idea from mana client)
+add: /wait chat command. It play sound if find being with requested name.
+add: chat autocomplete for mob names.
+add: hot key for who is online window. (unassigned)
+add: show players ip in social window. (only for GM's)
+add: special chars by char codes &xxx;.
+Example: &33; is !.
+add: option in settings to disable quick stats assign.
+
+Mana:
+
+
+2010-10-05 New release 1.0.10.5.
+ManaPlus:
+fix: possible client stuck.
+add: show killer name in debug tab.
+add: enable/disable sound hightlight per tab.
+can be enabled/disable from chat tab context menu.
+
+Mana:
+
+
+2010-10-04 New release 1.0.10.4.
+ManaPlus:
+fix: emote key + cursor keys to change direction.
+fix: emotes in popup window.
+fix: possible crashes.
+
+Mana:
+
+
+2010-10-03 New release 1.0.10.3.
+ManaPlus:
+fix: opacity cache.
+add: quick increase stats.
+now not working on windows.
+add: portable mode.
+In windows installer need select portable option.
+add: add basic guild support.
+guild chat commands:
+/createguild name - create new guild.
+/invite nick - invite player to guild.
+/kick nick - kick player from uild.
+/notice text - change guild notice.
+/info - show info about guild.
+/leave - leave guild.
+Note: to create guild you should have snake egg in inventory.
+add: increase item shortcuts count to 20.
+add: increase emote shortcuts count to 40.
+add: 19 server independent smiles. (Nina O'Reilly)
+new smiles supported only by manaplus clients.
+add: updated help. (Mihail Barer).
+
+Mana:
+
+
+2010-09-19 New release 1.0.9.19.
+ManaPlus:
+fix: improve chat resize speed.
+fix: invisible objects with disabled opengl, like pinkies.
+fix: resize windows from top corners.
+add: opacity cache to improve game speed with disabled opengl.
+Warning: some times it may crash client.
+To enable SET \ Video \ Enable opacity cache.
+add: increase outfits count from 80 to 100.
+add: increase outfit slots from 9 to 12.
+add: support zip archives in per server local updates dir.
+add: support update patches zips.
+in this dir local resources can have bigger priority over resources from update server.
+Example dir in linux: ~/.local/share/mana/updates/updates.themanaworld.org/fix/
+In this directory you can place http://tmw.cetki.com/other/update-96b7ecd..eeac43f.zip to fix moggun issue.
+add: moving windows by dragging window from any empty space.
+add: option to disable/enable attack while moving.
+add: context menu in who is online window.
+add: updated russian translation.
+
+Mana:
+
+
+2010-09-12 New release 1.0.9.12.
+ManaPlus:
+fix: set map arrows.
+fix: draw map arrows.
+fix: improved chat draw speed.
+fix: improved game speed.
+add: /undress chat command and popup menu item.
+This command remove all clothes from selected player. This changes only local.
+add: /attack chat command.
+add: icons to spells / text commands.
+add: /outfit next, /outfit prev commands.
+add: /dirs chat command to show game dirs.
+
+Mana:
+
+
+2010-09-04 New release 1.0.9.4.
+ManaPlus:
+fix: updating servers list.
+fix: warp removing from map.
+fix: in away mode drop fps only if game inactive.
+fix: crash on exit on tmw server.
+add: server side attack mode.
+add: free camera mode ([+]).
+In this mode camera can be moved by cursor keys.
+add: draw screen border in minimap.
+add: play sound if you receive global message and game inactive.
+add: dont highlight party tab if got server message on it.
+add: change color on players, who attacking local player.
+add: place away dialog on top of screen.
+add: option to disable auto fix position.
+
+Mana:
+fix: focus on char select dialog.
+
+
+2010-08-29 New release 1.0.8.29.
+ManaPlus:
+fix: walk between maps in e map modes.
+fix: funny symbols and item links.
+fix: visible names option.
+fix: trying avoid server packets bug also in default attack mode.
+fix: changed attack time limit to avoid new server bugs.
+fix: disable hot keys in npc input dialogs.
+fix: crash if client have some corrupted images.
+fix: compilation for gcc 4.5.
+fix: compilation with flag --without-opengl.
+add: new map mode. symbol b. (f)
+add: removed length limit in build walk path.
+add: play whisper sound if new message in active whisper and game not active.
+add: navigation tab in social window.
+left click go to selected target.
+add: key to move to location from navigation tab in social window (RSHIFT + 0-9)
+Key like outfits but only mod key is right shift.
+add: show items refine level.
+add: continue attack if player moved.
+add: attack target after moving to it by attack key (x).
+add: switching to already opened whisper tab.
+add: per server local updates dir.
+in this dir can be placed local resources.
+Example dir in linux: ~/.local/share/mana/updates/updates.themanaworld.org/local/
+
+Mana:
+
+
+2010-08-15 New release 1.0.8.15.
+ManaPlus:
+fix: battle sfx sound.
+fix: gui sound in deb packages.
+fix: show own player level.
+fix: colors in black wood theme (lien).
+fix: crash with -p command line option.
+add: /disconnect chat command.
+add: tooltips for control buttons (right top corner).
+add: /me command in whisper and party tabs.
+add: show level if possible in online list.
+
+Mana:
+
+
+2010-08-03 New release 1.0.8.3.
+ManaPlus:
+fix: money display bug.
+
+Mana:
+
+
+2010-08-01 New release 1.0.8.1.
+ManaPlus:
+fix: improve speed.
+fix: adjust money field size in trade dialog.
+add: show GM level near level in status window.
+add: attribute Attack Delay in status window.
+To open this windows, press F2.
+add: increased number of servers from 6 to 15 in server dialog.
+add: restore whispers between client restarts.
+add: set fps limit to alternate value in away mode or if game minimized.
+add: disable any sound and music in away mode.
+add: antispoof chat protection.
+add: option to auto close or skip updates in login window.
+add: server name in login window.
+add: theme black wood (lien).
+
+Mana:
+fix: fps limiter on windows.
+
+
+2010-07-18 New release 1.0.7.18.
+ManaPlus:
+fix: moved mumble from recommended to suggested in deb packages.
+fix: allow set more then 99 stat points, max 120.
+Work only on servers with this ability, like UFB server.
+fix: show player level.
+fix: improve speed in openGL mode.
+fix: crash on exit.
+fix: dont fix player position in default attack mode.
+add: updated russian translation (Schekoldin Ivan).
+add: context menu to players in online list.
+add: chat commands /befriend, /disregard, /neutral.
+add: allow set fps from 2 to 160.
+add: allow set gui opacity from 2 to 100 %.
+
+Mana:
+
+
+2010-07-04 New release 1.0.7.4.
+ManaPlus:
+fix: problems with font selection.
+fix: crashes.
+fix: -U command option.
+fix: setup window size.
+add: help font.
+add: updated help.
+add: show history in whispers.
+add: per server player relations.
+add: whisper and dialog ame sfx, gui sfx.
+add: experimental support for mumble voice chat.
+First start mumble, then start client with enabled mumble option.
+add: updated russian translation.
+add: safe mode shortcut for windows.
+
+Mana:
+fix: chat messages about user offline now showing in player tab.
+
+
+2010-06-21 New release 1.0.6.21.
+ManaPlus:
+fix: crash on some servers.
+
+Mana:
+
+
+2010-06-20 New release 1.0.6.20.
+ManaPlus:
+fix: avoid server direction bug.
+right direction server send as unknown direction.
+fix: restore main line attack automation.
+add: some russian translation.
+add: show popups for players without party.
+add: font changes.
+To change open SET \ Theme.
+add: per server configs.
+Moved many server related options to per server configs, like magic spells.
+Old values for bars can be restored from context menu.
+add: attack mode 'd'.
+Attack without auto target next monster.
+
+Mana:
+
+
+2010-05-31 New release 1.0.5.30.
+Patch:
+fix: crash from incorrect utf8 chars.
+fix: allow registration.
+add: moved to master mana branch.
+
+Mana:
+fix: improve game speed.
+
+
+2010-05-23 New release 1.0.5.23.
+Patch:
+fix: follow modes and navigate.
+fix: try avoid new server side bugs with packet limiter.
+fix: --skip-update now working.
+add: pickup mode A.
+Allow pickup items in max distance.
+add: allow add any items to buy list in personal shops.
+add: improve text draw speed.
+add: new imitation mode for imitating outfits.
+Switch initation mode by key ([4])
+add: allow mark any map positions with arrow sign and comment.
+To mark current position while you standing press Set Home Location key ([5]).
+To add comment press right button on map arrow.
+To add home location, sit and press Set Home Location key ([5]).
+add: custom resolution.
+To change resolution, click on "custom" resolution.
+add: auto change position if can't attack closed being.
+add: option to hide move path.
+add: change resolution in safe mode to 640x480.
+
+Mana:
+fix: crash with disabled opengl.
+
+
+2010-05-1 New release 1.0.5.1.
+Patch:
+fix: allow start client if update server is down.
+add: show floor item amount, if more then one.
+add: improved command /navigate.
+add: improved move to target.
+add: improved targeting nearest beings.
+
+Mana:
+
+New keys:
+
+
+2010-04-25 New release 1.0.4.25.
+Patch:
+fix: dont show shop requests if shop mode disabled.
+fix: draw items in outfits even if no this item in inventory.
+fix: invite command.
+add: option to hide whisper shop messages.
+Enabled by default.
+add: change color in whisper tab if player go offline.
+add: open buy sell window on selected player.
+Select player, then press talk key.
+add: new follow modes: relative, mirror, pet. ([1])
+add: show server side player position.
+add: manual mode to fix desync position. (D)
+add: add missing help for chat commands.
+add: new commands /loadprice, /saveprice.
+For load and save prices.
+add: new command /trade NICK.
+Open trade window.
+add: option to send shop announce with or without links to items.
+add: partialy right click emulation from keyboard (TAB).
+add: translated some string to russian.
+
+Mana:
+fix: crashes.
+add: clear butotn in npc dialogs.
+
+New keys:
+
+switch follow modes. ([1])
+right click emulation (TAB)
+
+
+2010-04-14 New release 1.0.4.14.
+Patch:
+fix: item amout window size.
+fix: gender display.
+add: trade chat tab.
+Most trade messages now moving to this tab.
+Also players can speak in this tab about trades.
+add: speed improvement.
+add: button store in config window.
+Save configuration file to disk.
+add: simplify context menus.
+add: personal shop.
+To this shop player can add items for buy/sale.
+Other players can use it by ser away outfit, and after away it restore old outfit.
+
+Mana:
+add: classic skin update.
+
+
+2010-02-28 New release 1.0.2.28.
+Patch:
+fix: allow enter in NPC dialogs letters, assigned to prev\next chat tab keys.
+fix: dont redirect server messages from party tab.
+fix: npc flood with small dialogs.
+fix: fixed some crashes.
+add: show target player level, nick, party in debug window.
+add: command /navigate x y.
+add: heal players by click in social window.
+add: get player levels from parsing #inwilt result.
+add: visible players tab in social window (P tab).
+add: actions in social window.
+left click - heal
+right click - context menu
+middle click - whisper
+add: damage counter for players.
+You can see it in social window in P tab.
+
+Mana:
+fix: crash in TAW maps.
+add: party windows replaced to social window.
+add: party tooltips for players.
+add: paste from clipboard.
+CTRL+V
+
+
+2010-02-07 New release 1.0.2.7.
+add: health bars in party window.
+add: own health in party window.
+add: build on latest mana git client.
+fix: allow enter numbers in input fields.
+fix: segfault in follow.
+fix: other small fixes.
+
+
+2010-01-17 New release 1.0.1.17.
+fix: D.o.S. in chat.
+fix: D.o.S. in trade.
+add: ignore button in trade request.
+add: themes (classic, wood, red).
+change : SET / theme / gui theme
+add: buy/sell in npc context menu.
+add: /follow command.
+add: /heal command.
+
+
+2010-01-02 New release 0.12.
+fix: random generator in crazy move A.
+fix: improved draw chat speed.
+fix: fixed /closeall crush.
+fix: use workaround to fix clover/towel and some other feature inventory bugs.
+Two buttons, one for equip and second for use item.
+fix: default Who is online size and position.
+add: e? command in crazy move A.
+e? show random emotion in crazy move A.
+add: limit lines in chat.
+change: SET / chat / Limit max lines in chat.
+add: clear command in chat context menu.
+add: highlight target being by bold font.
+add: afk mode. ([2])
+change : SET / other / Enable afk message
+use: key 2 on numeric keuboard or chat command /away TEXT. (or /away)
+add: draw item in item popups.
+
+New keys:
+Enable away mode ([2]).
+
+
+2009-12-13 New release 0.11.
+add: highlight player and monsters attack range.
+change: set / Other
+Highlight Player Attack Range
+Highlight Monster Attack Range
+add: colors in setup colors for attack range and portals.
+change: set / Colors
+Local Player Attack Range
+Local Player Attack Range Border
+Monster Attack Range
+Portal Highlight
+add: colors in setup for home location, collisions.
+change: set / Colors
+Home Place
+Home Place Border
+Collision Highlight
+add: key to copy equiped items to outfit (]).
+add: key to disable game modifiers ([8]).
+add: ping field in debug window.
+add: target id in debug window.
+add: chat logger.
+change: set / chat / Enable Chat Logger
+add: /outfit N command.
+Wear outfit N.
+add: /emote N command.
+Show emote N.
+add: auto complete party members in party tab.
+add: key switching on/off sound ([3]).
+add: highlight inactive tab if player name is writed.
+change: set / Color / Tab With Player Name Highlight
+
+New keys:
+key to copy equiped items to outfit (]).
+key to disable game modifiers ([8]).
+key switching on/off sound ([3]).
+
+
+2009-11-29 New release 0.10.
+fix: possible crush in update window.
+fix: localisation resources in deb packages.
+fix: added edit button to crazy move A.
+fix: allow using other update servers.
+add: auto complete chat key in settings. (TAB)
+add: hide input chat key. (ESC)
+add: manual update button in online users list and online list resize.
+add: set log file name from command line.
+add: limit chat messages size.
+Change: set / chat / Limit max chars in chat line.
+
+New keys:
+Hide input chat key (ESC)
+
+add: manual update button in online users list and online list resize.
+add: set log file name from command line.
+add: limit chat messages size.
+Change: set / chat / Limit max chars in chat line.
+
+New keys:
+
+Hide input chat key. (ESC)
+
+Download
+
+
+
+2009-11-15 New release 0.9.
+Download  Install in Ubuntu
+
+New features:
+
+fix: remove spaces and (GM) label from GM nicks in onlile list.
+new: moved to git sources.
+new: popup windows for hp, mp, xp bars.
+new: more font sizes in setup.
+new: context menu in chat tabs.
+new: keys to wear next/previous outfit.
+new: Increased outfits count to 40.
+Keys for outfits 1 - 0, -, =, backspace, insert, home, q - p, [, ], \, a - l, ;, ', z
+new: Increased drop slots to 16.
+new: Increased spell shortcuts to 49.
+new: New pick up modes g ang G. go and pick up in 4 and 8 cell distance.
+new: programmed crazy move type A.
+For this crazy move type you can write simple program in set / Other / Crazy move A program.
+Allowed commands:
+du, dd, dl, dr, d? change direction to up, down, left, right or random.
+mu, md, ml, mr, m?, mf, mb move to up, down, left, right, random, forward, backward.
+s sit.
+on, op wear next outfit, wear previous outfit.
+d0, da drop from first slot, drop from all slots.
+p pick up.
+e0 - e9, ea - ed emotions.
+new: /target command.
+
+New keys:
+
+Wear next outfit. (right alt + right)
+Wear previous outfit. (right alt + left)
+
+Download
+
+
+
+2009-10-25 New release 0.8.
+Download
+
+New features:
+
+new: Setting to disable higlighting floor items.
+new: Auto complete in chat.
+To use press TAB key.
+Auto complete visible nicks, commands from Commands Window and from chat history.
+new: Show patch update information in update window.
+
+Download
+
+
+
+2009-10-18 New release 0.7.
+New features:
+
+new: Spells Window renamed to Commands Window.
+new: Command (spells) editor.
+To use editor, open Commands Window (j), then to open editor, press by right mouse button on spell.
+new: Text or GM commands in Commands Window.
+Now you can add or edit in Commands Window spells, simple text or GM commands.
+new: Command /closeall for close all whisper tabs.
+new: Command /ignoreall for ignore all current whispers.
+new: highlight drops by time.
+remove: no rain.
+fix: disable keyboard shortcuts in drop/select item window.
+
+
+
+2009-10-11 New release 0.6.
+New features:
+
+fix: fixed remove colors.
+fix: fixed "Allow magic and GM command in all chat tabs".
+new: bot checker. ([)
+Warning: may conflict with other key bindings.
+Check bindings in set / Keyboard / Bot Checker Window .
+By default disabled. To enable, use set / other / enable bot checker
+new: in colors picker color numbers replaced to color names.
+new: display selected target in debug window.
+new: spell shortcuts. (j)
+Allow add spell shortcurs to shortcuts window.
+To use, select spell in spells window by mouse click, then click on free slot in shortcuts window.
+In this versions only predefined spells.
+
+New keys:
+
+Bot checker window. ([)
+Spells window. (j)
+
+
+
+2009-10-04 New release 0.5.
+New features:
+
+fix: possible crush if open emote window.
+fix: now work 14 slots in emote window.
+fix: some fix for jacko counter.
+new: cycle select palyers.
+Change: set / other / cycle player targets.
+new: cycle select monsters or palyers.
+Change: set / other / cycle monster targets.
+new: cycle rainbow colors.
+new: target name and position in debug window.
+new: magic spells and GM commands work in all chat tabs.
+Change: set / chat / All magic and GM commands in all chat tabs.
+new: move player spell messages to debug window.
+Change: set / chat / Log magic messages in debug tab.
+new: move server messages to debug window.
+Change: set / chat / Show server messages in debug tab.
+new: outfits wear and copy keys in settings.
+Change: set / keyboard / Wear Outfit.
+set / keyboard / Copy Outfit.
+new: move to target modifer.
+Allow move to target in given distance
+Move to target. (v)
+Change distance. (.)
+new: hide or show chat colors picker.
+Change: set / chat / Chow chat colors list.
+new: allow set home position.
+Set home locaton to current position. ([5])
+Go to home location. (d)
+new: home locations now highligted.
+
+New keys:
+
+Change distance in move to target. (.)
+Set home locaton to current position. ([5])
+
+
+
+2009-09-29 New release 0.4.
+New features:
+
+Remove colors on overhead text.
+Setting to hide or show portals higlighting.
+Change: set / other / Highlight map portals.
+Whisper command in popup menu.
+Magic attack.
+Attack key (b).
+Switch attack spell (,).
+Ability to change default text color in sended text messages.
+Ability to remove colors from other users messages.
+Change: set / chat / Remove colors from received chat messages.
+Fix: Allow select dead player by mouse, if enabled seleting dead players.
+Fix: Joystick pick up now work like pick up from keyboard.
+Fix: Fixed negative jacko spawn counter.
+Fix: Fixed some default colors.
+Fix: Fixed crazy move 9.
+
+New keys:
+
+Magic attack (b).
+Switch magic attack spell (,).
+
+
+2009-09-26 First patch version.
+New features:
+Show damage inflicted near monster's name.
+Change: set / other / Show damage inflicted to monsters.
+Select text colors for local player damage and local player misses.
+Change: set / colors. Items: Local player hit monster, Local player critical hit, Local player miss.
+Highlighting map portals with color.
+Allow target only reachable monsters.
+Change: set / other / Auto target only reachable monsters.
+Allow target dead players.
+Change: set / players / Target dead players.
+Quick heal feature.
+Heal targeted player or self.
+Quick pick up feature.
+Pick up modes: small (1x1), default (2x1), forward (2x3), full (3x3)
+For pick up use standard pickup key. (z)
+For change use Change pickup type key. (o)
+Nuke player (ported from qoal patch).
+Debug chat tab for some information.
+Print all visible object to debug chat window.
+In chat type /all.
+Anti rain.
+Change: set / other / No rain.
+/ignore, /unignore, /quit command in chat (ported from git version)
+/move X Y command for move to location.
+Quick Drops Window with 9 drop slots.
+To open use drop window key. (w)
+Quick drop.
+Drop N items at once from 0 slot. (y)
+Drop N items at once from all slots. (u)
+Use drop counter for drops. To change counter use (i)
+Who is online (ported from qoal patch).
+Outfit window (ported from git version).
+To open use outfits window key. (`)
+To wear outfit use Right-CTRL+outfit key. (1-9,0,-,=,backspace,insert,home)
+Outfit addons.
+15 different outfits.
+To Copy different outfit to current use left CTRL+outfit key. (1-9,0,-,=,backspace,insert,home)
+Check box unequip first work independently for each outfit.
+Kill stats (ported from qoal patch).
+To open use Kill stats window key. (e)
+Changing direction (rotate player) without moves.
+To rotate use Direct up/left/down/right keys. (|,;,k,')
+or ALT+move keys
+Crazy moves.
+For programmed moves use crazy moves key. (/)
+To change current move type use Change crazy move type. (\)
+Insert unicode chars in chat (ported from qoal patch).
+Player position in debug window.
+Id in item popups.
+Experience per 1,5,15 minutes in kill stats.
+Jack O counter in kill stats.
+Different statuses in top left window corner.
+To change statuses use designated keys.
+To see detailed information, move mouse to statuses bar.
+Unassign key binding in keyboard setup.
+You can unassign any key in key bindings window.
+After changing key bindings show first conflicting key binding.
+New setup page "Other".
+New settings in setup player tab.
+New parameters in stats window.
+Added Flee bonus and target time.
+New map view mode. (without big objects, for example without trees).
+To switch mode use Find path to mouse key. (f)
+Allow player to speak after death (ported from qoal patch).
+Smaller window buttons in top right corner.
+More shortcuts (15).
+Game modifiers.
+Allow player to change some game behaviours from keyboard.
+Can view in top left corner.
+Allow sit without pauses.
+Allow attack from sitting (quick stand).
+Allow move to last target.
+To move use Move to target key. (v)
+Allow player to move to home position.
+To move use Move to home key. (d)
+Show player gender.
+To change open set / player / show gender.
+Allow automatically switch from bow to sword and backward.
+Allow switch weapon depend on distance to target.
+To change current switch mode use Change attack weapon type key. (g)
+
+New keys:
+Move to target. (v)
+Move to home. (d)
+Change pick up type. (o)
+Changing player facing direction. (k,l,;,')
+Crazy moves. (/)
+Change crazy move type. (\)
+Quick drop. (u)
+Quick drop from first slot only. (y)
+Switch quick drop counter. (i)
+Heal. (c)
+Itenplz. (m)
+Invert move direction. ([.])
+Change attack weapon type. (g)
+
+New mouse actions:
+Heal (Attack Key + left mouse button)

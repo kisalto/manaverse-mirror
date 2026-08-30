@@ -1,0 +1,60 @@
+#!/bin/sh
+
+cd ..
+
+#may be
+#-Waggregate-return -Winline 
+
+#for feature
+#-Wstrict-overflow=4 -Wfloat-equal
+#-Wunsafe-loop-optimizations
+#-Woverloaded-virtual
+#-Wformat=2
+#-Wswitch-enum
+
+#for better code
+# -Weffc++
+
+#need fix: -Wold-style-cast -Wconversion
+#prof -pg
+
+dir=`pwd`
+
+export CC=gcc-4.5
+export CXX=g++-4.5
+
+export LANG=C
+export CXXFLAGS="-Wunreachable-code -Wmissing-field-initializers \
+-Wabi -Wdisabled-optimization -Wuninitialized \
+-Wvolatile-register-var -Winvalid-pch -Wredundant-decls \
+-Wnormalized=nfkc -Wmissing-format-attribute -Wmissing-noreturn \
+-Wsign-promo -Waddress -Wmissing-declarations \
+-Wctor-dtor-privacy -Wstrict-null-sentinel \
+-Wunused-parameter -Wlogical-op \
+-Wempty-body -Wsign-compare -Wclobbered -Wcast-align -Wcast-qual \
+-Wtype-limits -Wpointer-arith -Wundef -Wmissing-include-dirs \
+-Wignored-qualifiers -Winit-self -pedantic -Wall -ggdb3 -O2 -pipe \
+-Wpacked -Wshadow -Wunused -Wsynth \
+-Wbuiltin-macro-redefined -Wctor-dtor-privacy -Wdeprecated -Wextra \
+-Wendif-labels -Wformat=1 -Wimport -Wnon-virtual-dtor -Wpsabi \
+-Wsign-promo -Wwrite-strings -D_FORTIFY_SOURCE=2 \
+-Wno-attributes"
+
+autoreconf -i
+./configure --prefix=$dir/run \
+--datadir=$dir/run/share/games \
+--bindir=$dir/run/bin \
+--mandir=$dir/run/share/man \
+--enable-memdebug=yes \
+--enable-tcmalloc=no \
+--enable-googleprofiler=no
+
+#--enable-applebuild=yes
+#--without-librt
+
+cd po
+#make -j16 update-po 2>../make1.log
+make -j16 update-gmo
+cd ..
+make -j16
+

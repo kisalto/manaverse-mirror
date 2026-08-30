@@ -1,0 +1,22 @@
+ <- @@index|<<Back to Index>>@@
+
+
+##3                            === <<DOWNLOADS>> ===
+
+ ##2GNU+Linux 64-bit @@https://git.themanaworld.org/mana/appimg-builder/-/jobs/artifacts/master/browse?job=x86_64-AppImage|<<AppImg>>@@  @@https://git.themanaworld.org/mana/appimg-builder/-/jobs/artifacts/master/browse?job=deb_pkg|<<Debian pkg>>@@
+ ##2Android:         Help wanted
+ ##2Chrome:          Help wanted
+ ##2MacOSX:          Builds coming soon %%N
+ ##2Windows:         @@https://git.themanaworld.org/mana/docker-windows-builder/-/jobs/artifacts/master/download?job=mxe_gcc5_release|<<Download>>@@
+ ##2Source:          @@https://git.themanaworld.org/mana/verse|<<repository>>@@
+
+
+ ##3                      === <<MANAPLUS DOWNLOADS>> ===
+   Expect bugs and broken links. Use at your own risk.
+
+ ##2Android:     @@http://download.evolonline.org/manaplus/download/manaplus.apk|apk@@, @@http://www.amazon.com/gp/product/B00FINPCWA|Amazon@@, @@https://play.google.com/store/apps/details?id=org.evolonline.beta.manaplus|Google Play@@
+ ##2Chrome:      @@https://chrome.google.com/webstore/detail/manaplus/fgdcjlfkdeadkbplfhkbjjccagjepodj|<<Chrome store>>@@
+ ##2MacOSX:      @@http://download.evolonline.org/manaplus/macosx/manaplus-lion-1.3.9.15.dmg|Lion@@, @@http://download.evolonline.org/manaplus/macosx/manaplus-snowleopard.dmg|Snow leopard@@
+ ##2Windows:     @@http://download.evolonline.org/manaplus/download/manaplus-win32.exe|<<Download>>@@, @@http://manaplus.org/windowsinstaller|<<Instructions>>@@
+ ##2<<Sources:>>     @@http://download.evolonline.org/manaplus/download/manaplus.tar.xz|<<Download>>@@
+ ##2<<Other linux:>> @@http://download.evolonline.org/manaplus/download/manaplus-linux.tar.bz2|<<Download>>@@

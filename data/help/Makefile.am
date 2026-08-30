@@ -1,0 +1,26 @@
+SUBDIRS = idx tips
+
+helpdir = $(pkgdatadir)/data/help
+
+help_DATA =				\
+	about-tmw.txt		\
+	about.txt			\
+	chatcommands.txt	\
+	chatguild.txt	\
+	chatparty.txt	\
+	commands.txt		\
+	download.txt		\
+	footer.txt			\
+	header.txt			\
+	index.txt			\
+	otherteam.txt		\
+	searchmany.txt		\
+	searchnotfound.txt	\
+	skills.txt			\
+	support.txt			\
+	team.txt			\
+	windows.txt
+
+EXTRA_DIST =			\
+	$(help_DATA) \
+	CMakeLists.txt

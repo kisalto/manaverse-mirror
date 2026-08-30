@@ -1,0 +1,148 @@
+/*
+ *  The ManaVerse Client
+ *  Copyright (C) 2011-2020  The ManaPlus Developers
+ *  Copyright (C) 2020-2025  The ManaVerse Developers
+ *
+ *  This file is part of The ManaVerse Client.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include "gui/widgets/tabs/setuptabscroll.h"
+
+#include "gui/widgets/scrollarea.h"
+#include "gui/widgets/setupitem.h"
+#include "gui/widgets/vertcontainer.h"
+
+#include "utils/delete2.h"
+
+#include "debug.h"
+
+SetupTabScroll::SetupTabScroll(const Widget2 *const widget) :
+    SetupTab(widget),
+    mContainer(new VertContainer(this, 25, false, 8)),
+    mScroll(new ScrollArea(this, mContainer, Opaque_false, std::string())),
+    mItems(),
+    mAllItems(),
+    mPreferredFirstItemSize(200)
+{
+    mScroll->setHorizontalScrollPolicy(ScrollArea::SHOW_NEVER);
+    mScroll->setVerticalScrollPolicy(ScrollArea::SHOW_AUTO);
+    mScroll->setSelectable(false);
+    mContainer->setSelectable(false);
+}
+
+SetupTabScroll::~SetupTabScroll()
+{
+    mScroll = nullptr;
+    delete2(mContainer)
+    removeItems();
+}
+
+void SetupTabScroll::removeItems()
+{
+    for (SetupItem *item : mAllItems)
+        delete item;
+    mAllItems.clear();
+
+    mItems.clear();
+}
+
+void SetupTabScroll::clear()
+{
+    removeItems();
+    mContainer->removeControls();
+    mContainer->clear();
+}
+
+void SetupTabScroll::addControl(SetupItem *const widget)
+{
+    if (widget == nullptr)
+        return;
+    addControl(widget, widget->getActionEventId());
+}
+
+void SetupTabScroll::addControl(SetupItem *const widget,
+                                const std::string &event)
+{
+    if (!event.empty())
+    {
+        auto pair = mItems.insert({event, widget});
+        if (!pair.second) // insertion failed
+        {
+            delete (pair.first)->second;
+            (pair.first)->second = widget;
+        }
+    }
+    mAllItems.insert(widget);
+}
+
+void SetupTabScroll::apply()
+{
+    for (std::map<std::string, SetupItem*>::const_iterator
+         iter = mItems.begin(), iter_end = mItems.end();
+         iter != iter_end; ++ iter)
+    {
+        if ((*iter).second != nullptr)
+            (*iter).second->apply((*iter).first);
+    }
+}
+
+void SetupTabScroll::cancel()
+{
+    for (std::map<std::string, SetupItem*>::const_iterator
+         iter = mItems.begin(), iter_end = mItems.end();
+         iter != iter_end; ++ iter)
+    {
+        if ((*iter).second != nullptr)
+            (*iter).second->cancel((*iter).first);
+    }
+}
+
+void SetupTabScroll::externalUpdated()
+{
+    for (std::map<std::string, SetupItem*>::const_iterator
+         iter = mItems.begin(), iter_end = mItems.end();
+         iter != iter_end; ++ iter)
+    {
+        SetupItem *const widget = (*iter).second;
+        if ((widget != nullptr) && widget->isMainConfig() == MainConfig_false)
+            widget->externalUpdated((*iter).first);
+    }
+}
+
+void SetupTabScroll::externalUnloaded()
+{
+    for (std::map<std::string, SetupItem*>::const_iterator
+         iter = mItems.begin(), iter_end = mItems.end();
+         iter != iter_end; ++ iter)
+    {
+        SetupItem *const widget = (*iter).second;
+        if ((widget != nullptr) && widget->isMainConfig() == MainConfig_false)
+            widget->externalUnloaded((*iter).first);
+    }
+}
+
+void SetupTabScroll::widgetResized(const Event &event A_UNUSED)
+{
+    mScroll->setWidth(getWidth() - 12);
+    mScroll->setHeight(getHeight() - 12 - 12);
+}
+
+void SetupTabScroll::reread(const std::string &name)
+{
+    SetupItem *const item = mItems[name + "Event"];
+    if (item != nullptr)
+        item->rereadValue();
+}

@@ -1,0 +1,151 @@
+---------------------------
+-- ManaPlus Contributors --
+---------------------------
+== Contributors to client development ==
+
+Andrei Karas (4144) <akaras inbox ru>
+Ben Longbons <b.r.longbons gmail com>
+Danil Sagunov (Vasily_Makarov) <danilka.pro gmail com>
+Fedja Beader <fedja protonmail ch>
+Helmut Grohne (gnurfk) <helmut subdivi de>
+Philippe Groarke (Socapex) 
+Maarten Vanraes (AL13N) <maarten.vanraes gmail com>
+Mihail Barer (Necromonger) <>
+Mike Wollmann <jak1 themanaworld org>
+Vincent Petithory (V0id) <vincent.petithory gmail com>
+Haru <haru dotalux com>
+
+== Translators ==
+adjieps <adjieps yahoo com>                                (id)
+alastrim                                                   (pt_BR)
+Alexandr Uspensky <AlexandrUSP yandex com>                 (ru)
+Alessandro Camplese (Alel) <ale camplese gmail com>        (it)
+(Alige) <alige evolonline org>                             (fr)
+Aline Ferraz de Souza (Freya) <freya.df gmail com>         (pt, pt_BR)
+Andrei Karas (4144) <akaras inbox ru>                      (ru)
+Anna <clos3rlook gmail com>                                (de)
+Antoine Ruck (Jumpy) <antoinebcn hotmail com>              (fr,es)
+Bernard Hugonnet (Nard) <>                                 (fr)
+bruno.nunes <bruno dukkha com br>                          (pt_BR)
+Candy                                                      (jp)
+Choupom <andycootlapin hotmail fr>                         (fr)
+Danil Sagunov (Vasily_Makarov) <danilka.pro gmail com>     (ru)
+DarkDragon <tassos19962009 hotmail com>                    (el)
+DerLoisl <der.loisl gmx de>                                (de)
+Derpella <matwa poczta pl>                                 (pl)
+Elvano Miok (Elvano)                                       (nl_BE)
+foobo <lukasz.antoni.komorowski poczta fm>                 (pl)
+Fuad Fauzi <me fuadfauzi web id>                           (id)
+Fortunato <fortunato108 googlemail com>                    (de)
+genesis <Genesis_Junior yahoo com>                         (id)
+Francesco Miglietta (Hal9000) <miglietta francesco gmail com> (it)
+HiiroNoHige <hiironohige gmail com>                        (tr)
+Saidullin Il'shat (Kenny690) <bio_editor mail ru>          (ru)
+Luciano Zago <lcnzg7 gmail com>                            (pt_BR)
+Maarten Vanraes (AL13N) <maarten.vanraes gmail com>        (nl_BE)
+Marco Jäger (LinuxCobra/Cobraxas) <linuxcobra gmx de>      (de_
+María Rolón <luxlloth gmail com>                           (pt_BR)
+Maria <mtorres2022 gmail com>                              (es)
+Mihail Barer (Necromonger) <>                              (ru, jp)
+Mr Pirate <salahbubuli44 gmail com>                        (es)
+Narus <narus.tmw gmail com>                                (es)
+Nelson Martell (nelson6e65) <nelson6e65-manaplus yahoo es> (es)
+Nina O'Reilly (Reid) <reidyaro gmail com>                  (fr)
+osuka <owen942009 gmail com>                               (es)
+Petr Varkoček (pitriss) <>                                 (cs)
+Philipp <philipp.krueger1 googlemail com>                  (de)
+Rosemarie Tauber <horos online de>                         (de)
+Sini Ruohomaa (Byakushin) <sini ruohomaa iki fi>           (fi)
+(Suni) <sunlightshadow seelenkampf de>                     (de)
+9sn0w75 <ibenrunnin gmail com>                             (jp)
+Steel Style <steelstyle free fr>                           (fr)
+Tirifto                                                    (eo)
+Victor <ratrex mail ru>                                    (ru)
+tux9th <mr.x aon at>                                       (de)
+Yohann Ferreira (Bertram) <bertram cegetel net>            (fr)
+Yummie <reslayer mail ru>                                  (ru)
+Guglielmo Pini (WildX) <gwx480 gmail com>                  (it)
+William Lee <v4r trioptimum com>                           (uk)
+Zirry <zirry centrum cz>                                   (cs)
+
+== Art or images contributors ==
+Aline Ferraz de Souza (Freya) <freya.df gmail com>          Themes
+Felix Jely (Lien)                                           Black & wood theme
+Max Isele (DerLoisl) <der.loisl theavoraproject org>        Alien emote
+Nina O'Reilly (Reid) <reidyaro gmail com>                   Emotes, icons 
+Tirifto                                                     Troll emote
+
+
+
+
+-----------------------
+-- Mana Contributors --
+-----------------------
+
+ This file lists all contributors up to the current release. Check the wiki
+ for the currently active development team.
+
+== Contributors to client/server development ==
+
+Aaron Marks  <nymacro gmail com>
+Alexander Baldeck (Shura)  <alexander archlinux org>
+Andreas Habel  <mail exceptionfault de>
+Andrei Karas (4144)  <akaras inbox ru>
+Andrej Sinicyn  <andrej4000 gmail com>
+Bernd Wachter (Aard)  <bwachter-tmw lart info>
+Blue Sans Douze (Blue112) <bluesansdouze gmail com>
+Björn Steinbrink (Doener)  <b.steinbrink gmx de>
+Cedric Borgese (moi1392)  <cedric.borgese gmail com>
+Chuck Miller (Kage)  <shadowmil gmail com>
+Daniel Bradshaw  <daniel+commits the-cell co.uk>
+David Athay (trapdoor)  <ko2fan gmail com>
+Dennis Friis  <peavey placid dk>
+Douglas Boffey  <dougaboffey netscape net>
+Duane Bailey  <nayryeliab gmail com>
+Eugenio Favalli  <elvenprogrammer gmail com>
+Eric Scrivner  <zenogais gmail com>
+Fate  <fate.tmw googlemail com>
+Fredrik Reveny  <chetic gmail com>
+Freeyorp  <Freeyorp101 NOSPAM hotmail com>
+Guillaume Melquiond (Silene)  <guillaume.melquiond gmail com>
+Ira Rice (Tametomo)  <irarice gmail com>
+Jan-Fabian Humann (Mra)  <malastare gmx net>
+Jared Adams  <jaxad0127 gmail com>
+José Ávila  <linux javila net>
+Joshua Langley <joshlangley optusnet com.au>
+Kess Vargavind  <vargavind gmail com>
+Kiyoshi Kyokai  <kiyoshi.kyokai gmail com>
+Krzysztof Daszuta  <irukard gmail com>
+Lloyd Bryant  <lloyd_bryant netzero net>
+Marcel W. Wysocki  <maci satgnu org>
+Mateusz Kaduk (Usiu)  <mateusz.kaduk gmail com>
+Matthias Hartmann  <hartmann.matthias gmail com>
+Philipp Sehmisch (Crush)  <tmw crushnet org>
+Roderic Morris (rodge)  <roderic ccs.neu.edu>
+Rogier Polak  <rogier.l.a.polak gmail com>
+Scott Ellis  <quiche_on_a_leash hotmail co.uk>
+Simon Edwardsson  <simon crossnet se>
+Stefan Dombrowski  <stefan uni-bonn de>
+Steve Cotton  <steve s.cotton.clara co.uk>
+Thorbjørn Lindeijer  <thorbjorn lindeijer nl>
+Maximilian Philipps  <Turmfalke2007 web de>
+Yohann Ferreira  <bertram cegetel net>
+
+== Translators ==
+
+Alexander Breidenbroich (German)  <metast gmx de>
+Blue Sans Douze (French) <bluesansdouze gmail com>
+Eugenio Favalli (Italian)  <elvenprogrammer gmail com>
+Jonathan Kolberg (German)  <bulldog98 freenet de>
+Jumpy (French)  <antoinebcn hotmail com>
+Kess Vargavind  (Swedish)  <vargavind gmail com>
+Leif Kildelund (Danish)  <gonzo.dark gmail com>
+Matthias Hartmann (German)  <hartmann.matthias gmail com>
+Thorbjørn Lindeijer (Dutch)  <thorbjorn lindeijer nl>
+
+== Other contributors ==
+
+Jean-Francois Lampron  <sull.kf gmail com>
+Rodney Dawes  <dobey novell com>
+Ultramichy
+Zuzanna K. Filutowska  <platyna users.sourceforge net>

@@ -1,0 +1,529 @@
+diff --git a/configure.in b/configure.in
+index ab0e314..c7ae13b 100644
+--- a/configure.in
++++ b/configure.in
+@@ -957,7 +957,7 @@ AC_HELP_STRING([--enable-naclvideo], [enable the nacl video driver [[default=yes
+         AC_DEFINE(SDL_VIDEO_DRIVER_NACL)
+         SOURCES="$SOURCES $srcdir/src/video/nacl/*.c"
+         EXTRA_LDFLAGS="-lppapi_simple -l${NACL_CXX_LIB:-stdc++} $EXTRA_LDFLAGS"
+-        SDL_LIBS="-Wl,-unacl_main -Wl,-undefined=PSUserMainGet -lSDLmain $SDL_LIBS -lppapi_gles2 -lcli_main -lnacl_spawn -ltar -lppapi_simple -lnacl_io -lppapi -lm -l${NACL_CXX_LIB:-stdc++}"
++        SDL_LIBS="-lSDLmain $SDL_LIBS -lppapi_gles2 -lcli_main -lnacl_spawn -ltar -lppapi_simple_cpp -lnacl_io -lppapi -lm -l${NACL_CXX_LIB:-stdc++} -lppapi_cpp"
+         SDL_CFLAGS="$SDL_CFLAGS -Dmain=SDL_main"
+     fi
+ 
+@@ -2449,7 +2449,7 @@ case "$host" in
+             have_timers=yes
+         fi
+         CheckPTHREAD
+-        SDLMAIN_SOURCES="$srcdir/src/main/nacl/*.c"
++        SDLMAIN_SOURCES="$srcdir/src/main/nacl/*.cc"
+         ;;
+     *-*-linux*|*-*-uclinux*|*-*-gnu*|*-*-k*bsd*-gnu|*-*-bsdi*|*-*-freebsd*|*-*-dragonfly*|*-*-netbsd*|*-*-openbsd*|*-*-sysv5*|*-*-solaris*|*-*-hpux*|*-*-irix*|*-*-aix*|*-*-osf*)
+         case "$host" in
+diff --git a/src/events/SDL_keyboard.c b/src/events/SDL_keyboard.c
+index 5753927..da37fe6 100644
+--- a/src/events/SDL_keyboard.c
++++ b/src/events/SDL_keyboard.c
+@@ -371,6 +371,13 @@ Uint8 * SDL_GetKeyState (int *numkeys)
+ 		*numkeys = SDLK_LAST;
+ 	return(SDL_KeyState);
+ }
++
++// private (used in naclevents.c)
++void SDL_SetKeyState (SDLKey key, Uint8 state)
++{
++	SDL_KeyState[key] = state;
++}
++
+ SDLMod SDL_GetModState (void)
+ {
+ 	return(SDL_ModState);
+diff --git a/src/main/nacl/SDL_nacl_main.c b/src/main/nacl/SDL_nacl_main.c
+deleted file mode 100644
+index ef26120..0000000
+--- a/src/main/nacl/SDL_nacl_main.c
++++ /dev/null
+@@ -1,125 +0,0 @@
+-/*
+-  Simple DirectMedia Layer
+-  Copyright (C) 1997-2014 Sam Lantinga <slouken@libsdl.org>
+-
+-  This software is provided 'as-is', without any express or implied
+-  warranty.  In no event will the authors be held liable for any damages
+-  arising from the use of this software.
+-
+-  Permission is granted to anyone to use this software for any purpose,
+-  including commercial applications, and to alter it and redistribute it
+-  freely, subject to the following restrictions:
+-
+-  1. The origin of this software must not be misrepresented; you must not
+-     claim that you wrote the original software. If you use this software
+-     in a product, an acknowledgment in the product documentation would be
+-     appreciated but is not required.
+-  2. Altered source versions must be plainly marked as such, and must not be
+-     misrepresented as being the original software.
+-  3. This notice may not be removed or altered from any source distribution.
+-*/
+-#include "SDL_config.h"
+-
+-#if SDL_VIDEO_DRIVER_NACL
+-
+-/* Include the SDL main definition header */
+-#include "SDL_main.h"
+-#include "../../SDL_trace.h"
+-
+-#include <errno.h>
+-#include <ppapi_simple/ps_main.h>
+-#include <ppapi_simple/ps_event.h>
+-#include <ppapi_simple/ps_interface.h>
+-#include <nacl_io/nacl_io.h>
+-#include <sys/mount.h>
+-#include <nacl_main.h>
+-#include <unistd.h>
+-
+-extern void NACL_SetScreenResolution(int width, int height);
+-
+-static int
+-ProcessArgs(int argc, char** argv) {
+-    const char* arg = getenv("SDL_TAR_EXTRACT");
+-    if (arg != NULL) {
+-        const char* source;
+-        const char* target = "/";
+-        char* sep;
+-        char buf[64];
+-        int n;
+-
+-        const char* q, *p = arg;
+-        while (*p) {
+-            while (*p && isspace((unsigned char)*p)) ++p;
+-            if (!*p) break;
+-            q = p;
+-            while (*p && !isspace((unsigned char)*p)) ++p;
+-
+-            n = sizeof(buf) - 1;
+-            if (p - q < n) n = p - q;
+-            strncpy(buf, q, n);
+-            buf[n] = '\0';
+-
+-            sep = strchr(buf, ':');
+-            source = buf;
+-            if (sep) {
+-                target = sep + 1;
+-                *sep = '\0';
+-            }
+-
+-            SDL_log("extracting tar file '%s' -> '%s'\n", source, target);
+-            if (nacl_startup_untar(argv[0], source, target) != 0)
+-              return 1;
+-        }
+-    }
+-
+-    return 0;
+-}
+-
+-/* This is started in a worker thread by ppapi_simple! */
+-int
+-nacl_main(int argc, char *argv[])
+-{
+-    SDL_TRACE("nacl_main\n");
+-    PSEvent* ps_event;
+-    PP_Resource event;
+-    struct PP_Rect rect;
+-    int ready = 0;
+-    const PPB_View *ppb_view = PSInterfaceView();
+-
+-    if (ProcessArgs(argc, argv) != 0) {
+-        return 1;
+-    }
+-
+-    /* Wait for the first PSE_INSTANCE_DIDCHANGEVIEW event before starting the app */
+-    PSEventSetFilter(PSE_INSTANCE_DIDCHANGEVIEW);
+-    /* Process all waiting events without blocking */
+-    while (!ready) {
+-        ps_event = PSEventWaitAcquire();
+-        event = ps_event->as_resource;
+-        switch(ps_event->type) {
+-            /* From DidChangeView, contains a view resource */
+-            case PSE_INSTANCE_DIDCHANGEVIEW:
+-                ppb_view->GetRect(event, &rect);
+-                NACL_SetScreenResolution(rect.size.width, rect.size.height);
+-                ready = 1;
+-                break;
+-            default:
+-                break;
+-        }
+-        PSEventRelease(ps_event);
+-    }
+-
+-    /*
+-     * Startup in /mnt/http by default so resources hosted on the webserver
+-     * are accessible in the current working directory.
+-     */
+-    if (getenv("PWD") == NULL) {
+-        if (chdir("/mnt/http") != 0) {
+-            SDL_log("chdir to /mnt/http failed: %s\n", strerror(errno));
+-        }
+-    }
+-
+-    return SDL_main(argc, argv);
+-}
+-
+-#endif /* SDL_VIDEO_DRIVER_NACL */
+diff --git a/src/main/nacl/SDL_nacl_main.cc b/src/main/nacl/SDL_nacl_main.cc
+new file mode 100644
+index 0000000..ee80b9a
+--- /dev/null
++++ b/src/main/nacl/SDL_nacl_main.cc
+@@ -0,0 +1,129 @@
++/*
++  Simple DirectMedia Layer
++  Copyright (C) 1997-2014 Sam Lantinga <slouken@libsdl.org>
++
++  This software is provided 'as-is', without any express or implied
++  warranty.  In no event will the authors be held liable for any damages
++  arising from the use of this software.
++
++  Permission is granted to anyone to use this software for any purpose,
++  including commercial applications, and to alter it and redistribute it
++  freely, subject to the following restrictions:
++
++  1. The origin of this software must not be misrepresented; you must not
++     claim that you wrote the original software. If you use this software
++     in a product, an acknowledgment in the product documentation would be
++     appreciated but is not required.
++  2. Altered source versions must be plainly marked as such, and must not be
++     misrepresented as being the original software.
++  3. This notice may not be removed or altered from any source distribution.
++*/
++#include "SDL_config.h"
++
++#if SDL_VIDEO_DRIVER_NACL
++
++/* Include the SDL main definition header */
++#include "SDL_main.h"
++#include "../../SDL_trace.h"
++
++#include <errno.h>
++#include <ppapi_simple/ps_main.h>
++#include <ppapi_simple/ps_event.h>
++#include <ppapi_simple/ps_interface.h>
++#include <nacl_io/nacl_io.h>
++#include <sys/mount.h>
++#include <nacl_main.h>
++#include <unistd.h>
++
++extern "C" void NACL_SetScreenResolution(int width, int height);
++
++static int
++ProcessArgs(int argc, char** argv) {
++    const char* arg = getenv("SDL_TAR_EXTRACT");
++    if (arg != NULL) {
++        const char* source;
++        const char* target = "/";
++        char* sep;
++        char buf[64];
++        int n;
++
++        const char* q, *p = arg;
++        while (*p) {
++            while (*p && isspace((unsigned char)*p)) ++p;
++            if (!*p) break;
++            q = p;
++            while (*p && !isspace((unsigned char)*p)) ++p;
++
++            n = sizeof(buf) - 1;
++            if (p - q < n) n = p - q;
++            strncpy(buf, q, n);
++            buf[n] = '\0';
++
++            sep = strchr(buf, ':');
++            source = buf;
++            if (sep) {
++                target = sep + 1;
++                *sep = '\0';
++            }
++
++            SDL_log("extracting tar file '%s' -> '%s'\n", source, target);
++            if (nacl_startup_untar(argv[0], source, target) != 0)
++              return 1;
++        }
++    }
++
++    return 0;
++}
++
++#undef main
++
++/* This is started in a worker thread by ppapi_simple! */
++int
++main(int argc, char *argv[])
++{
++    SDL_TRACE("main\n");
++    PSEvent* ps_event;
++    PP_Resource event;
++    struct PP_Rect rect;
++    int ready = 0;
++    const PPB_View *ppb_view = PSInterfaceView();
++
++    if (ProcessArgs(argc, argv) != 0) {
++        return 1;
++    }
++
++    /* Wait for the first PSE_INSTANCE_DIDCHANGEVIEW event before starting the app */
++    PSEventSetFilter(PSE_INSTANCE_DIDCHANGEVIEW);
++    /* Process all waiting events without blocking */
++    while (!ready) {
++        ps_event = PSEventWaitAcquire();
++        event = ps_event->as_resource;
++        switch(ps_event->type) {
++            /* From DidChangeView, contains a view resource */
++            case PSE_INSTANCE_DIDCHANGEVIEW:
++                ppb_view->GetRect(event, &rect);
++                NACL_SetScreenResolution(rect.size.width, rect.size.height);
++                ready = 1;
++                break;
++            default:
++                break;
++        }
++        PSEventRelease(ps_event);
++    }
++
++    mount("",                                       /* source */
++          "/persistent",                            /* target */
++          "html5fs",                                /* filesystemtype */
++          0,                                        /* mountflags */
++          "type=PERSISTENT,expected_size=1048576"); /* data */
++
++    mount("",       /* source. Use relative URL */
++          "/http",  /* target */
++          "httpfs", /* filesystemtype */
++          0,        /* mountflags */
++          "");      /* data */
++
++    return SDL_main(argc, argv);
++}
++
++#endif /* SDL_VIDEO_DRIVER_NACL */
+diff --git a/src/video/nacl/SDL_naclevents.c b/src/video/nacl/SDL_naclevents.c
+index a2f7e19..a97134f 100644
+--- a/src/video/nacl/SDL_naclevents.c
++++ b/src/video/nacl/SDL_naclevents.c
+@@ -29,6 +29,7 @@
+ 
+ #include <math.h>
+ #include <ppapi_simple/ps_event.h>
++#include <ppapi/c/ppb_input_event.h>
+ 
+ #define PPAPI_KEY_CTRL 17
+ #define PPAPI_KEY_ALT 18
+@@ -176,12 +177,85 @@ static SDLKey translateKey(uint32_t code) {
+     }
+ }
+ 
++static SDL_bool SDL_NeedModUpdate = SDL_TRUE;
++
++static int Utf8ToUtf16(const Uint8 *utf8, const int utf8_length, Uint16 *utf16, const int utf16_max_length) {
++
++    /* p moves over the output buffer.  max_ptr points to the next to the last slot of the buffer.  */
++    Uint16 *p = utf16;
++    Uint16 const *const max_ptr = utf16 + utf16_max_length;
++
++    /* end_of_input points to the last byte of input as opposed to the next to the last byte.  */
++    Uint8 const *const end_of_input = utf8 + utf8_length - 1;
++
++    while (utf8 <= end_of_input) {
++	Uint8 const c = *utf8;
++	if (p >= max_ptr) {
++	    /* No more output space.  */
++	    return -1;
++	}
++	if (c < 0x80) {
++	    /* One byte ASCII.  */
++	    *p++ = c;
++	    utf8 += 1;
++	} else if (c < 0xC0) {
++	    /* Follower byte without preceeding leader bytes.  */
++	    return -1;
++	} else if (c < 0xE0) {
++	    /* Two byte sequence.  We need one follower byte.  */
++	    if (end_of_input - utf8 < 1 || (((utf8[1] ^ 0x80)) & 0xC0)) {
++		return -1;
++	    }
++	    *p++ = (Uint16)(0xCF80 + (c << 6) + utf8[1]);
++	    utf8 += 2;
++	} else if (c < 0xF0) {
++	    /* Three byte sequence.  We need two follower byte.  */
++	    if (end_of_input - utf8 < 2 || (((utf8[1] ^ 0x80) | (utf8[2] ^ 0x80)) & 0xC0)) {
++		return -1;
++	    }
++	    *p++ = (Uint16)(0xDF80 + (c << 12) + (utf8[1] << 6) + utf8[2]);
++	    utf8 += 3;
++	} else if (c < 0xF8) {
++	    int plane;
++	    /* Four byte sequence.  We need three follower bytes.  */
++	    if (end_of_input - utf8 < 3 || (((utf8[1] ^ 0x80) | (utf8[2] ^0x80) | (utf8[3] ^ 0x80)) & 0xC0)) {
++		return -1;
++	    }
++	    plane = (-0xC8 + (c << 2) + (utf8[1] >> 4));
++	    if (plane == 0) {
++		/* This four byte sequence is an alias that
++                   corresponds to a Unicode scalar value in BMP.
++		   It fits in an UTF-16 encoding unit.  */
++		*p++ = (Uint16)(0xDF80 + (utf8[1] << 12) + (utf8[2] << 6) + utf8[3]);
++	    } else if (plane <= 16) {
++		/* This is a legal four byte sequence that corresponds to a surrogate pair.  */
++		if (p + 1 >= max_ptr) {
++		    /* No enough space on the output buffer for the pair.  */
++		    return -1;
++		}
++		*p++ = (Uint16)(0xE5B8 + (c << 8) + (utf8[1] << 2) + (utf8[2] >> 4));
++		*p++ = (Uint16)(0xDB80 + ((utf8[2] & 0x0F) << 6) + utf8[3]);
++	    } else {
++		/* This four byte sequence is out of UTF-16 code space.  */
++		return -1;
++	    }
++	    utf8 += 4;
++	} else {
++	    /* Longer sequence or unused byte.  */
++	    return -1;
++	}
++    }
++    return p - utf16;
++}
++
++
+ void HandleInputEvent(_THIS, PP_Resource event) {
+     static Uint8 last_scancode = 0;
+     static int alt_down = 0;
+     static int ctrl_down = 0;
+     PP_InputEvent_Type type;
+     PP_InputEvent_Modifier modifiers;
++    SDLMod sdl_mod;
+     Uint8 button;
+     Uint8 state;
+     Uint8 gained;
+@@ -197,9 +271,49 @@ void HandleInputEvent(_THIS, PP_Resource event) {
+     int sdl_wheel_clicks_y;
+     int i;
+ 
++    // defining modifiers array for conversion
++    static const size_t modcnt = 6;
++    static const int ppapi_mods[modcnt] = {
++      PP_INPUTEVENT_MODIFIER_SHIFTKEY,
++      PP_INPUTEVENT_MODIFIER_CONTROLKEY,
++      PP_INPUTEVENT_MODIFIER_ALTKEY,
++      PP_INPUTEVENT_MODIFIER_METAKEY,
++      PP_INPUTEVENT_MODIFIER_CAPSLOCKKEY,
++      PP_INPUTEVENT_MODIFIER_NUMLOCKKEY
++    };
++    static const SDLMod sdl_mods[modcnt] = {
++      KMOD_LSHIFT,
++      KMOD_LCTRL,
++      KMOD_LALT,
++      KMOD_LMETA,
++      KMOD_CAPS,
++      KMOD_NUM
++    };
++    static const SDLKey sdl_keys[modcnt] = {
++      SDLK_LSHIFT,
++      SDLK_LCTRL,
++      SDLK_LALT,
++      SDLK_LMETA,
++      SDLK_CAPSLOCK,
++      SDLK_NUMLOCK
++    };
++    static const SDLKey sdl_rkeys[modcnt] = {
++      SDLK_RSHIFT,
++      SDLK_RCTRL,
++      SDLK_RALT,
++      SDLK_RMETA,
++      SDLK_CAPSLOCK,
++      SDLK_NUMLOCK
++    };
++
+     type = dd->ppb_input_event->GetType(event);
+     modifiers = dd->ppb_input_event->GetModifiers(event);
+ 
++    // alt_down and ctrl_down correction
++    // needed when one of these keys were pressed outside of the module
++    alt_down = modifiers & PP_INPUTEVENT_MODIFIER_ALTKEY ? 1 : 0;
++    ctrl_down = modifiers & PP_INPUTEVENT_MODIFIER_CONTROLKEY ? 1 : 0;
++
+     switch (type) {
+         case PP_INPUTEVENT_TYPE_MOUSEDOWN:
+         case PP_INPUTEVENT_TYPE_MOUSEUP:
+@@ -216,13 +330,13 @@ void HandleInputEvent(_THIS, PP_Resource event) {
+             sdl_wheel_clicks_y = trunc(wheel_clicks_y);
+             button = (sdl_wheel_clicks_x > 0) ? SDL_BUTTON_X1 : SDL_BUTTON_X2;
+             for (i = 0; i < abs(sdl_wheel_clicks_x); i++) {
+-              SDL_PrivateMouseButton(SDL_MOUSEBUTTONDOWN, button, 0, 0);
+-              SDL_PrivateMouseButton(SDL_MOUSEBUTTONUP, button, 0, 0);
++              SDL_PrivateMouseButton(SDL_PRESSED, button, 0, 0);
++              SDL_PrivateMouseButton(SDL_RELEASED, button, 0, 0);
+             }
+             button = (sdl_wheel_clicks_y > 0) ? SDL_BUTTON_WHEELUP : SDL_BUTTON_WHEELDOWN;
+             for (i = 0; i < abs(sdl_wheel_clicks_y); i++) {
+-              SDL_PrivateMouseButton(SDL_MOUSEBUTTONDOWN, button, 0, 0);
+-              SDL_PrivateMouseButton(SDL_MOUSEBUTTONUP, button, 0, 0);
++              SDL_PrivateMouseButton(SDL_PRESSED, button, 0, 0);
++              SDL_PrivateMouseButton(SDL_RELEASED, button, 0, 0);
+             }
+             wheel_clicks_x -= sdl_wheel_clicks_x;
+             wheel_clicks_y -= sdl_wheel_clicks_y;
+@@ -259,7 +373,12 @@ void HandleInputEvent(_THIS, PP_Resource event) {
+             // It seems that SDL 1.3 is better in this regard.
+             keysym.scancode = dd->ppb_keyboard_input_event->GetKeyCode(event);
+             unicode_var = dd->ppb_keyboard_input_event->GetCharacterText(event);
+-            keysym.unicode = dd->ppb_var->VarToUtf8(unicode_var, &unicode_var_len)[0];
++            const Uint8 *utf8_buf = dd->ppb_var->VarToUtf8(unicode_var, &unicode_var_len);
++
++            Uint8 utf16_buf[10];
++            Utf8ToUtf16(utf8_buf, unicode_var_len, (Uint16*)&utf16_buf[0], 1);
++            keysym.unicode = *(Uint16*)&utf16_buf[0];
++
+             dd->ppb_var->Release(unicode_var);
+             keysym.sym = translateKey(keysym.scancode);
+ 
+@@ -318,6 +437,34 @@ void HandleInputEvent(_THIS, PP_Resource event) {
+               state = SDL_RELEASED;
+               last_scancode = 0;
+             }
++
++            if (SDL_NeedModUpdate) {
++              // copying keyboard modifiers from PPAPI
++              sdl_mod = KMOD_NONE;
++              for (i = 0; i < modcnt; ++i) {
++                if (sdl_keys[i] == keysym.sym) // if key is a modifier
++                  continue;                    // then do not copy it
++                if (modifiers & ppapi_mods[i]) {
++                  sdl_mod |= sdl_mods[i];
++                  SDL_SetKeyState(sdl_keys[i], SDL_PRESSED);
++                } else {
++                  SDL_SetKeyState(sdl_keys[i], SDL_RELEASED);
++                }
++              }
++              SDL_SetModState(sdl_mod);
++              SDL_NeedModUpdate = SDL_FALSE;
++            }
++
++            if (modifiers & PP_INPUTEVENT_MODIFIER_ISRIGHT) {
++              // convert left modifier keycode to the right one
++              for (i = 0; i < modcnt; ++i) {
++                if (keysym.sym == sdl_keys[i]) {
++                  keysym.sym = sdl_rkeys[i];
++                  break;
++                }
++              }
++            }
++
+             keysym.mod = KMOD_NONE;
+             SDL_TRACE("Key event: %d: %s\n", state, SDL_GetKeyName(keysym.sym));
+             SDL_PrivateKeyboard(state, &keysym);
+@@ -352,6 +499,7 @@ static void HandleEvent(_THIS, PSEvent* ps_event) {
+ 
+         /* From DidChangeFocus, contains a PP_Bool with the current focus state. */
+         case PSE_INSTANCE_DIDCHANGEFOCUS:
++            SDL_NeedModUpdate = SDL_TRUE;
+             break;
+ 
+         /* When the 3D context is lost, no resource. */
